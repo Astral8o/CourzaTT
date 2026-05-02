@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-brand-cream: #F9F8F3;
+  --color-brand-ink: #0A0A0A;
+  --color-brand-border: #E8E7E0;
+  --color-brand-accent-purple: #D7C4FF;
+  --color-brand-accent-blue: #C4D7FF;
+  --color-brand-accent-green: #B7C99A;
+  --color-brand-accent-yellow: #FFF2C4;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-ink font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
