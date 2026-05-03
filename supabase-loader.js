@@ -46,8 +46,14 @@
       ]);
       if (!cRes.ok || !iRes.ok) throw new Error('HTTP ' + cRes.status);
       const [courses, institutions] = await Promise.all([cRes.json(), iRes.json()]);
+      // Preserve website URLs from static data.js (always correct source of truth)
+      const staticById = (window.CourzaData?.COURSES || []).reduce((m, c) => { m[c.id] = c; return m; }, {});
       window.CourzaData = Object.assign({}, window.CourzaData, {
-        COURSES:      courses.map(toCourse),
+        COURSES: courses.map(r => {
+          const c = toCourse(r);
+          if (staticById[c.id]?.website) c.website = staticById[c.id].website;
+          return c;
+        }),
         INSTITUTIONS: institutions.map(toInstitution),
       });
     } catch (err) {
