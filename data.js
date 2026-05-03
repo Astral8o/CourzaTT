@@ -154,22 +154,6 @@ const INSTITUTIONS = [
 
 const COURSES = [
   {
-    "id": "c001",
-    "title": "Introduction to Java Programming",
-    "institutionId": "cts",
-    "institutionName": "CTS College",
-    "summary": "Learn Java fundamentals including syntax, data types, control structures, and object-oriented programming",
-    "type": "Short Course",
-    "category": "Technology & Digital",
-    "cost": "$1,000.00",
-    "startDate": "11 Jun 2026",
-    "deadline": "4 Jun 2026",
-    "delivery": "Online",
-    "location": "Online",
-    "website": "https://www.ctscollege.com/certifications/it-certifications/introduction-java-programming",
-    "featured": true
-  },
-  {
     "id": "c002",
     "title": "Certified Associate in Project Management (CAPM)",
     "institutionId": "cts",
@@ -2036,7 +2020,6 @@ const BLOG_POSTS = [
     date: 'May 2026',
     readTime: '2 min',
     courses: [
-      { name: 'Introduction to Java Programming', note: 'Coding fundamentals and application building' },
       { name: 'Introduction to Web Design', note: 'How websites look and function' },
       { name: 'Database Design Fundamentals', note: 'Structure and manage data' },
       { name: 'Computer Literacy', note: 'Everyday digital skills' },
