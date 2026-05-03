@@ -395,6 +395,9 @@ const ListInstitution = () => {
             <h1 className="display-1 serif" style={{ marginBottom: 28 }}>
               List your <em className="display-italic"><span className="hl">institution</span></em>.
             </h1>
+            <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 32 }}>
+              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="List your institution" style={{ width: '100%', display: 'block' }}/>
+            </div>
             <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 40 }}>
               Join the growing directory of T&amp;T institutions on CourzaTT. Reach learners who are actively searching for accredited programmes, professional workshops, and training opportunities.
             </p>

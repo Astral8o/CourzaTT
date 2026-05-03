@@ -45,26 +45,11 @@
         fetch(URL + '/courza_institutions?select=*&order=id', { headers: HDR }),
       ]);
       if (!cRes.ok || !iRes.ok) throw new Error('HTTP ' + cRes.status);
-      const [courses, institutions] = await Promise.all([cRes.json(), iRes.json()]);
-      // Merge Supabase data over static data — websites are preserved from data.js
-      // because toCourse/toInstitution deliberately exclude the website field.
-      const staticCoursesByTitle = (window.CourzaData?.COURSES || []).reduce((m, c) => { m[c.title] = c; return m; }, {});
+      const [, institutions] = await Promise.all([cRes.json(), iRes.json()]);
+      // COURSES: data.js is the sole source of truth — Supabase course data has
+      // quality issues (duplicates, wrong categories) so we don't use it.
       const staticInstById = (window.CourzaData?.INSTITUTIONS || []).reduce((m, i) => { m[i.id] = i; return m; }, {});
       window.CourzaData = Object.assign({}, window.CourzaData, {
-        COURSES: courses.map(r => {
-          const c = toCourse(r);
-          const staticC = staticCoursesByTitle[c.title];
-          if (staticC) {
-            // Always use data.js for structural fields — Supabase only provides live cost/date updates
-            c.id             = staticC.id;
-            c.website        = staticC.website;
-            c.category       = staticC.category;
-            c.institutionId  = staticC.institutionId;
-            c.institutionName = staticC.institutionName;
-            c.featured       = staticC.featured;
-          }
-          return c;
-        }),
         INSTITUTIONS: institutions.map(r => {
           const c = toInstitution(r);
           const staticI = staticInstById[c.id];
