@@ -653,5 +653,143 @@ const ListInstitution = () => {
   );
 };
 
+// ─────────────────────────────────────────────────────────────────
+// Contact Page
+// ─────────────────────────────────────────────────────────────────
+const ContactPage = ({ setPage }) => {
+  const [submitted, setSubmitted] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [error, setError] = React.useState(false);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(false);
+    try {
+      const data = new FormData(e.target);
+      data.append('_subject', `CourzaTT contact: ${e.target.subject.value}`);
+      const res = await fetch('https://formspree.io/f/mvzlzjje', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) setSubmitted(true);
+      else setError(true);
+    } catch {
+      setError(true);
+    }
+    setSubmitting(false);
+  };
+
+  return (
+    <div className="page-enter">
+
+      {/* PAGE HEADER */}
+      <section style={{ paddingTop: 64, paddingBottom: 48, borderBottom: '1px solid var(--rule)', textAlign: 'center' }}>
+        <div className="container" style={{ maxWidth: 600 }}>
+          <div className="eyebrow-num" data-num="N° 05" style={{ marginBottom: 20 }}>Get in touch</div>
+          <h1 className="display-2 serif" style={{ marginBottom: 16 }}>
+            How can we <em className="display-italic"><span className="hl">help</span></em>?
+          </h1>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)' }}>
+            Questions about a course, a listing, or the platform — we're here.
+          </p>
+        </div>
+      </section>
+
+      {/* FORM + CONTACT INFO */}
+      <section style={{ paddingTop: 64, paddingBottom: 80 }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 64, alignItems: 'start' }}>
+
+          {/* LEFT — contact info */}
+          <div style={{ position: 'sticky', top: 100 }}>
+            <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 24 }}>Contact details</div>
+
+            {[
+              { icon: 'mail', label: 'Email', value: 'support@courza.tt.com', href: 'mailto:support@courza.tt.com' },
+              { icon: 'map-pin', label: 'Location', value: 'Port of Spain, Trinidad & Tobago', href: null },
+              { icon: 'clock', label: 'Response time', value: 'Within 2–3 business days', href: null },
+            ].map(({ icon, label, value, href }) => (
+              <div key={label} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--rule)' }}>
+                <div style={{ width: 40, height: 40, borderRadius: 10, border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ink-2)' }}>
+                  <Icon name={icon} size={17}/>
+                </div>
+                <div>
+                  <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+                  {href
+                    ? <a href={href} style={{ fontSize: 15, fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 3, textDecorationColor: 'var(--rule-strong)' }}>{value}</a>
+                    : <div style={{ fontSize: 15, fontWeight: 500 }}>{value}</div>
+                  }
+                </div>
+              </div>
+            ))}
+
+            <div className="card" style={{ marginTop: 32, padding: 28, background: 'var(--paper-2)' }}>
+              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 12 }}>Looking to list?</div>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 16 }}>If you're an institution wanting to list your courses, use the dedicated listing page.</p>
+              <button onClick={() => setPage('list')} className="btn btn-ghost btn-sm">
+                List your institution <Icon name="arrow-right" size={13}/>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT — form */}
+          {!submitted ? (
+            <form onSubmit={submit} className="card" style={{ padding: 48, boxShadow: '0 24px 64px -20px rgba(14,26,23,0.14)', borderColor: 'var(--rule-strong)' }}>
+              <div style={{ marginBottom: 32, paddingBottom: 24, borderBottom: '1px solid var(--rule)' }}>
+                <div className="eyebrow" style={{ marginBottom: 8 }}>Send a message</div>
+                <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Fill in the form and we'll get back to you as soon as possible.</p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+                <div>
+                  <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Your name</label>
+                  <input name="name" type="text" required placeholder="e.g. Jordan Smith" className="input"/>
+                </div>
+                <div>
+                  <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Email address</label>
+                  <input name="email" type="email" required placeholder="you@example.com" className="input"/>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 24 }}>
+                <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Subject</label>
+                <select name="subject" required className="input" style={{ cursor: 'pointer' }}>
+                  <option value="">Select a topic…</option>
+                  <option value="General inquiry">General inquiry</option>
+                  <option value="Course listing help">Course listing help</option>
+                  <option value="Technical issue">Technical issue</option>
+                  <option value="Partnership & advertising">Partnership &amp; advertising</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: 36 }}>
+                <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Message</label>
+                <textarea name="message" required rows={5} placeholder="Tell us how we can help…" className="input" style={{ resize: 'none' }}/>
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }} disabled={submitting}>
+                {submitting ? 'Sending…' : <><span>Send message</span> <Icon name="send" size={15}/></>}
+              </button>
+              {error && <p className="mono muted text-center" style={{ fontSize: 11, marginTop: 12, color: 'var(--red, #c0392b)' }}>Something went wrong — please try again.</p>}
+            </form>
+          ) : (
+            <div className="card text-center" style={{ padding: 72, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ width: 72, height: 72, borderRadius: '50%', border: '1px solid var(--emerald)', background: 'rgba(31,95,74,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, color: 'var(--emerald)' }}>
+                <Icon name="check" size={32}/>
+              </div>
+              <h2 className="display-3 serif" style={{ marginBottom: 16 }}>Message sent</h2>
+              <p className="muted" style={{ maxWidth: 320, marginBottom: 32, lineHeight: 1.6 }}>Thanks for reaching out. Our team will get back to you within 2–3 business days.</p>
+              <button onClick={() => setPage('home')} className="btn btn-ghost">Back to home →</button>
+            </div>
+          )}
+
+        </div>
+      </section>
+    </div>
+  );
+};
+
 window.CourzaPages = window.CourzaPages || {};
-Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution });
+Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage });

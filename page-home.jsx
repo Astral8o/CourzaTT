@@ -108,7 +108,7 @@ const Footer = ({ setPage }) => {
             <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Support</div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
               <li><button style={{ fontSize: 15 }}>FAQs</button></li>
-              <li><button style={{ fontSize: 15 }}>Contact</button></li>
+              <li><button onClick={() => setPage('contact')} style={{ fontSize: 15 }}>Contact</button></li>
               <li><button style={{ fontSize: 15 }}>Privacy</button></li>
             </ul>
           </div>
@@ -462,7 +462,7 @@ const Home = ({ setPage }) => {
               </div>
               <div className="card mt-8" style={{ background: 'var(--paper-2)', padding: 24 }}>
                 <p className="serif" style={{ fontSize: 18, lineHeight: 1.4, marginBottom: 16 }}>Still stuck? Our team is on hand to help you find your path.</p>
-                <button className="btn btn-amber btn-sm">Contact support <Icon name="arrow-right" size={13}/></button>
+                <button className="btn btn-amber btn-sm" onClick={() => setPage('contact')}>Contact support <Icon name="arrow-right" size={13}/></button>
               </div>
             </div>
             <div>

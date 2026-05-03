@@ -16,15 +16,15 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-<script src="data.js?v=4"></script>
-<script type="text/babel" src="components.jsx?v=4"></script>
-<script type="text/babel" src="page-home.jsx?v=4"></script>
-<script type="text/babel" src="page-others.jsx?v=4"></script>
-<script type="text/babel" src="tweaks-panel.jsx?v=4"></script>
+<script src="data.js?v=5"></script>
+<script type="text/babel" src="components.jsx?v=5"></script>
+<script type="text/babel" src="page-home.jsx?v=5"></script>
+<script type="text/babel" src="page-others.jsx?v=5"></script>
+<script type="text/babel" src="tweaks-panel.jsx?v=5"></script>
 <script type="text/babel">
 const { useState, useEffect } = React;
 const { Nav, Footer, Home } = window.CourzaPages;
-const { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution } = window.CourzaPages;
+const { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage } = window.CourzaPages;
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakSelect, TweakColor, TweakToggle } = window;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -79,7 +79,8 @@ function App() {
   else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density}/>;
   else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
-  else if (page === 'list') pageEl = <ListInstitution/>;
+  else if (page === 'list') pageEl = <ListInstitution setPage={setPage}/>;
+  else if (page === 'contact') pageEl = <ContactPage setPage={setPage}/>;
   else if (page.startsWith('course:')) pageEl = <CourseDetail courseId={page.slice(7)} setPage={setPage}/>;
   else if (page.startsWith('institution:')) pageEl = <InstitutionDetail instId={page.slice(12)} setPage={setPage}/>;
   else pageEl = <Home setPage={setPage}/>;
