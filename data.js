@@ -1814,7 +1814,7 @@ const COURSES = [
     "deadline": "Open",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://shel.edu.tt",
+    "website": "https://shel.edu.tt/administrative-office-procedures/",
     "featured": false
   },
   {
@@ -1830,7 +1830,7 @@ const COURSES = [
     "deadline": "Open",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://shel.edu.tt",
+    "website": "https://shel.edu.tt/building-and-resilience-development/",
     "featured": false
   },
   {
