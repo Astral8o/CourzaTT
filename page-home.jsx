@@ -346,12 +346,22 @@ const Home = ({ setPage }) => {
               const p = BLOG_POSTS[0];
               return (
                 <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
-                  <div style={{ height: 4, background: 'var(--amber)', flexShrink: 0 }}/>
-                  <div style={{ padding: 40, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                      <span className="chip" style={{ fontSize: 11 }}>{p.topic}</span>
-                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.12em' }}>{p.readTime} read</span>
+                  {/* Cover image */}
+                  <div style={{ position: 'relative', height: 260, overflow: 'hidden', flexShrink: 0 }}>
+                    <img
+                      src="https://i.ibb.co/n20Vsxm/Courza-Reading-guideimage1.png"
+                      alt="Course guides"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                    />
+                    {/* Gradient fade into card */}
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.18) 100%)' }}/>
+                    {/* Topic chip */}
+                    <div style={{ position: 'absolute', bottom: 16, left: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 600, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999 }}>{p.topic}</span>
+                      <span style={{ background: 'rgba(0,0,0,0.45)', color: 'var(--paper)', fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', padding: '5px 10px', borderRadius: 999 }}>{p.readTime} read</span>
                     </div>
+                  </div>
+                  <div style={{ padding: 40, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                     <h3 className="course-title" style={{ fontSize: 28, lineHeight: 1.15, marginBottom: 16 }}>{p.title}</h3>
                     <p style={{ fontSize: 16, color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: 32 }}>{p.excerpt}</p>
                     <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 24 }}>
