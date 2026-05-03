@@ -93,7 +93,7 @@ const Footer = ({ setPage }) => {
             <div className="flex items-center gap-3 mt-8">
               <a href="https://www.instagram.com/courzatt?igsh=cjB4bjg4NTY4cnc5" target="_blank" rel="noopener noreferrer" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="instagram" size={15}/></a>
               <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="linkedin" size={15}/></a>
-              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="twitter" size={15}/></a>
+              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="youtube" size={15}/></a>
             </div>
           </div>
           <div>
