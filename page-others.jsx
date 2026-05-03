@@ -511,6 +511,119 @@ const ListInstitution = () => {
 
         </div>
       </section>
+
+      {/* PROMOTE SECTION */}
+      <section style={{ borderTop: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
+        <div className="container">
+          <SectionHeader num="N° 05" eyebrow="Grow your reach" title={<>Promote your courses <em className="display-italic">on CourzaTT</em>.</>} sub="Reach people already looking for courses. We promote across the platform and beyond."/>
+
+          <div style={{ display: 'flex', gap: 12, marginBottom: 64, flexWrap: 'wrap' }}>
+            {['Homepage', 'Newsletter', 'Social media'].map(ch => (
+              <div key={ch} className="card" style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--amber)', display: 'inline-block', flexShrink: 0 }}/>
+                <span style={{ fontSize: 14, fontWeight: 500 }}>{ch}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start', marginBottom: 80 }}>
+
+            {/* Free listing */}
+            <div className="card" style={{ padding: 40, height: '100%' }}>
+              <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Free listing</div>
+              <div className="serif" style={{ fontSize: 28, fontWeight: 500, marginBottom: 16 }}>TTD 0</div>
+              <p className="muted" style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 24 }}>List your courses at no cost. They appear in search and category pages.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {['Appears in search results', 'Listed in category pages', 'Institution profile page'].map(f => (
+                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Icon name="check" size={14} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
+                    <span style={{ fontSize: 14 }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Paid promotion */}
+            <div>
+              <div style={{ marginBottom: 20 }}>
+                <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Paid promotion</div>
+                <p style={{ fontSize: 15, color: 'var(--ink-2)' }}>Increase visibility with Homepage features, Newsletter placements, Social posts, and Featured badges. Starting from <strong>TTD 200 per week</strong>.</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+                {[
+                  {
+                    name: 'Starter', price: 'TTD 300',
+                    features: ['Homepage feature, 7 days', '1 newsletter mention'],
+                  },
+                  {
+                    name: 'Growth', price: 'TTD 700',
+                    features: ['Homepage feature, 7 days', 'Newsletter feature', '2 social posts'],
+                    highlight: true,
+                  },
+                  {
+                    name: 'Premium', price: 'TTD 1,200',
+                    features: ['Homepage feature, 14 days', 'Newsletter top placement', '4 social posts', 'Featured badge'],
+                  },
+                ].map(pkg => (
+                  <div key={pkg.name} className="card" style={{
+                    padding: 28,
+                    background: pkg.highlight ? 'var(--ink)' : 'var(--card)',
+                    color: pkg.highlight ? 'var(--paper)' : 'var(--ink)',
+                    borderColor: pkg.highlight ? 'var(--ink)' : 'var(--rule)',
+                    display: 'flex', flexDirection: 'column'
+                  }}>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 10 }}>{pkg.name}</div>
+                    <div className="serif" style={{ fontSize: 26, fontWeight: 500, marginBottom: 20 }}>{pkg.price}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexGrow: 1 }}>
+                      {pkg.features.map(f => (
+                        <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                          <Icon name="check" size={13} style={{ color: pkg.highlight ? 'var(--amber)' : 'var(--emerald)', flexShrink: 0, marginTop: 2 }}/>
+                          <span style={{ fontSize: 13, lineHeight: 1.4, opacity: 0.85 }}>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <a href="mailto:support@courza.tt.com" className={`btn ${pkg.highlight ? 'btn-amber' : 'btn-ghost'} btn-sm full`} style={{ justifyContent: 'center', marginTop: 24, textDecoration: 'none' }}>
+                      Get started
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Why list + CTA */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, paddingTop: 48, borderTop: '1px solid var(--rule)' }}>
+            <div>
+              <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with CourzaTT</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {['Targeted local audience', 'One place for discovery', 'Multi-channel exposure', 'Listings are always free'].map((b, i) => (
+                  <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                    <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', minWidth: 28 }}>{String(i+1).padStart(2,'0')}</span>
+                    <span style={{ fontSize: 16, fontWeight: 500 }}>{b}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="card" style={{ padding: 48, background: 'var(--emerald)', color: 'var(--paper)', borderColor: 'var(--emerald)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 16 }}>Get started</div>
+                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 16 }}>Submit your institution and course details.</h3>
+                <p style={{ fontSize: 15, opacity: 0.75, lineHeight: 1.6, marginBottom: 32 }}>Or contact us directly to promote your courses.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn btn-amber" style={{ justifyContent: 'center', textDecoration: 'none' }}>
+                  List your institution <Icon name="arrow-right" size={14}/>
+                </a>
+                <a href="mailto:support@courza.tt.com" className="btn btn-ghost" style={{ justifyContent: 'center', textDecoration: 'none', color: 'var(--paper)', borderColor: 'rgba(244,239,227,0.3)' }}>
+                  Contact us <Icon name="mail" size={14}/>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   );
 };

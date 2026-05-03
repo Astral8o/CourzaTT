@@ -280,9 +280,19 @@ const FAQItem = ({ q, idx, isOpen, onToggle }) => (
         <Icon name={isOpen ? 'minus' : 'plus'} size={16}/>
       </div>
     </button>
-    <div style={{ overflow: 'hidden', maxHeight: isOpen ? 400 : 0, transition: 'max-height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), padding 0.3s' }}>
+    <div style={{ overflow: 'hidden', maxHeight: isOpen ? 600 : 0, transition: 'max-height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), padding 0.3s' }}>
       <div style={{ padding: '0 0 32px 60px', maxWidth: 720 }}>
         <p className="muted" style={{ fontSize: 16.5, lineHeight: 1.65 }}>{q.answer}</p>
+        {q.bullets && (
+          <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {q.bullets.map((b, i) => (
+              <li key={i} className="muted" style={{ fontSize: 15.5, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                <span style={{ color: 'var(--amber)', marginTop: 6, flexShrink: 0 }}>—</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   </div>

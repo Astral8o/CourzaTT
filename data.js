@@ -2091,9 +2091,11 @@ const FAQS = [
   {
     title: 'For institutions',
     questions: [
-      { question: 'How can I list my courses?', answer: 'Click "List your institution" in the menu and complete the form. We\'ll review and add you to the directory.' },
-      { question: 'Is there a fee to list?', answer: 'Basic listings are free. We also offer Premium placements for featured visibility.' },
-      { question: 'How often can I update my listings?', answer: 'You can request updates anytime through your institution dashboard.' },
+      { question: 'How does CourzaTT make money?', answer: 'We charge for promotion. Institutions can pay to feature their courses on:', bullets: ['Homepage', 'Newsletter', 'Social media'] },
+      { question: 'Do paid features affect rankings?', answer: 'No. All courses can be listed for free. Sponsored placements are clearly labelled and do not affect search results.' },
+      { question: 'What is a sponsored listing?', answer: 'A paid placement that increases your visibility across the platform. This can include:', bullets: ['Homepage placement', 'Category priority', 'Featured badge'] },
+      { question: 'Do you take a commission from course sales?', answer: 'No. We do not take a cut from course fees or enrolments.' },
+      { question: 'Why offer paid placements?', answer: 'To keep the platform free for learners. This supports:', bullets: ['Course discovery across Trinidad and Tobago', 'Ongoing platform updates'] },
     ]
   }
 ];
