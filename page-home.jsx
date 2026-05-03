@@ -286,7 +286,7 @@ const Home = ({ setPage }) => {
         <div className="container">
           <SectionHeader num="N° 02" eyebrow="Browse by field" title={<>Explore <em className="display-italic"><span className="hl">top categories</span></em>.</>} sub={`${CATEGORIES.length} disciplines, mapped to T&T's evolving labour market — from sustainable agriculture to data science.`}/>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--gap-grid)' }}>
-            {categoryShowcase.map((c, i) => (
+            {categoryShowcase.slice(0, 4).map((c) => (
               <button key={c.name} onClick={() => setPage(`discover:${c.name}`)} className="card card-hover" style={{
                 textAlign: 'left',
                 background: c.tone === 'ink' ? 'var(--ink)' : c.tone === 'amber' ? 'var(--amber)' : c.tone === 'emerald' ? 'var(--emerald)' : 'var(--card)',
@@ -303,6 +303,11 @@ const Home = ({ setPage }) => {
                 </div>
               </button>
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <button onClick={() => setPage('discover')} className="btn btn-ghost">
+              View all {categoryShowcase.length} categories <Icon name="arrow-up-right" size={14}/>
+            </button>
           </div>
         </div>
       </section>

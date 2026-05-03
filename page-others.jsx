@@ -10,10 +10,23 @@ const Discover = ({ setPage, density, initialCat }) => {
   const [cat, setCat] = React.useState(initialCat || null);
   const [type, setType] = React.useState(null);
   const [delivery, setDelivery] = React.useState(null);
+  const [sort, setSort] = React.useState('relevant');
   const [view, setView] = React.useState(density === 'compact' ? 'list' : 'wide');
   const [limit, setLimit] = React.useState(12);
 
   const types = Array.from(new Set(COURSES.map(c => c.type)));
+
+  const parseCost = (cost) => {
+    if (!cost) return Infinity;
+    const n = parseFloat(cost.replace(/[^0-9.]/g, ''));
+    return isNaN(n) ? Infinity : n;
+  };
+
+  const parseDate = (dateStr) => {
+    if (!dateStr) return Infinity;
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? Infinity : d.getTime();
+  };
 
   const filtered = COURSES.filter(c => {
     const q = search.toLowerCase();
@@ -24,7 +37,13 @@ const Discover = ({ setPage, density, initialCat }) => {
       && (!delivery || c.delivery === delivery);
   });
 
-  const displayed = filtered.slice(0, limit);
+  const sorted = sort === 'price'
+    ? [...filtered].sort((a, b) => parseCost(a.cost) - parseCost(b.cost))
+    : sort === 'date'
+    ? [...filtered].sort((a, b) => parseDate(a.startDate) - parseDate(b.startDate))
+    : filtered;
+
+  const displayed = sorted.slice(0, limit);
   const hasFilter = search || cat || type || delivery;
   const clear = () => { setSearch(''); setCat(null); setType(null); setDelivery(null); setLimit(12); };
 
@@ -119,10 +138,10 @@ const Discover = ({ setPage, density, initialCat }) => {
                     </button>
                   ))}
                 </div>
-                <select className="mono" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--ink)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 0', cursor: 'pointer' }}>
-                  <option>Most relevant</option>
-                  <option>Price: low to high</option>
-                  <option>Upcoming start</option>
+                <select value={sort} onChange={e => { setSort(e.target.value); setLimit(12); }} className="mono" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--ink)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 0', cursor: 'pointer' }}>
+                  <option value="relevant">Most relevant</option>
+                  <option value="price">Price: low to high</option>
+                  <option value="date">Upcoming start</option>
                 </select>
               </div>
             </div>
