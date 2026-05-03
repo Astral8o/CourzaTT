@@ -436,9 +436,15 @@ const ListInstitution = () => {
           <h1 className="display-2 serif" style={{ marginBottom: 16 }}>
             List your <em className="display-italic"><span className="hl">institution</span></em>.
           </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)' }}>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
             Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes.
           </p>
+          <button
+            onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })}
+            className="btn btn-ghost"
+          >
+            See promotion options <Icon name="arrow-down" size={14}/>
+          </button>
         </div>
       </section>
 
@@ -532,7 +538,7 @@ const ListInstitution = () => {
       </section>
 
       {/* PROMOTE SECTION */}
-      <section style={{ borderTop: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
+      <section id="promote-section" style={{ borderTop: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
         <div className="container">
           <SectionHeader num="N° 05" eyebrow="Grow your reach" title={<>Promote your courses <em className="display-italic">on CourzaTT</em>.</>} sub="Reach people already looking for courses. We promote across the platform and beyond."/>
 
