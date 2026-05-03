@@ -388,48 +388,35 @@ const ListInstitution = () => {
 
   return (
     <div className="page-enter">
-      <section style={{ paddingTop: 60, paddingBottom: 80 }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 72, alignItems: 'start' }}>
 
-          {/* LEFT — context, illustration, benefits */}
-          <div>
-            <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 24 }}>For institutions</div>
-            <h1 className="display-2 serif" style={{ marginBottom: 20 }}>
-              List your <em className="display-italic"><span className="hl">institution</span></em>.
-            </h1>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
-              Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes across Trinidad &amp; Tobago.
-            </p>
+      {/* PAGE HEADER — centered, concise */}
+      <section style={{ paddingTop: 64, paddingBottom: 48, borderBottom: '1px solid var(--rule)', textAlign: 'center' }}>
+        <div className="container" style={{ maxWidth: 640 }}>
+          <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 20 }}>For institutions</div>
+          <h1 className="display-2 serif" style={{ marginBottom: 16 }}>
+            List your <em className="display-italic"><span className="hl">institution</span></em>.
+          </h1>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)' }}>
+            Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes.
+          </p>
+        </div>
+      </section>
 
-            {/* Illustration — accent size, not hero */}
-            <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 32, maxWidth: 340 }}>
-              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
-            </div>
+      {/* MAIN — form left (focal point), context right */}
+      <section style={{ paddingTop: 64, paddingBottom: 80 }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {[
-                ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
-                ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
-                ['03', 'Direct traffic to your own website', 'We index — you enrol.'],
-                ['04', 'Verified trust badge for your profile', 'A signal of accreditation that builds confidence.']
-              ].map(([n, t, sub]) => (
-                <div key={n} style={{ display: 'grid', gridTemplateColumns: '36px 1fr', gap: 14, padding: '16px 0', borderBottom: '1px solid var(--rule)' }}>
-                  <span className="mono" style={{ fontSize: 11, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
-                  <div>
-                    <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 2 }}>{t}</div>
-                    <div className="muted" style={{ fontSize: 13 }}>{sub}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* RIGHT — form is the main event */}
+          {/* LEFT — form, the main event */}
           {!submitted ? (
-            <form onSubmit={submit} className="card" style={{ padding: 44, position: 'sticky', top: 100, boxShadow: '0 20px 60px -16px rgba(14,26,23,0.14)', borderColor: 'var(--rule-strong)' }}>
-              <div className="flex items-center justify-between mb-8">
-                <div className="eyebrow">Application form</div>
-                <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em' }}>Form_v1.0</div>
+            <form onSubmit={submit} className="card" style={{
+              padding: 48,
+              boxShadow: '0 24px 64px -20px rgba(14,26,23,0.18)',
+              borderColor: 'var(--rule-strong)',
+              background: 'var(--paper)',
+            }}>
+              <div style={{ marginBottom: 32, paddingBottom: 24, borderBottom: '1px solid var(--rule)' }}>
+                <div className="eyebrow" style={{ marginBottom: 8 }}>Application form</div>
+                <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Fill in your details and our team will be in touch within 2–3 business days.</p>
               </div>
 
               {[
@@ -452,7 +439,7 @@ const ListInstitution = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: 32 }}>
+              <div style={{ marginBottom: 36 }}>
                 <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Brief description</label>
                 <textarea required rows={4} placeholder="Tell learners about your institution…" className="input" style={{ resize: 'none' }}/>
               </div>
@@ -474,6 +461,32 @@ const ListInstitution = () => {
               <button onClick={() => setSubmitted(false)} className="btn btn-ghost">Submit another →</button>
             </div>
           )}
+
+          {/* RIGHT — context: image + benefits */}
+          <div style={{ position: 'sticky', top: 100 }}>
+            <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 36, boxShadow: '0 8px 24px -8px rgba(14,26,23,0.10)' }}>
+              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
+            </div>
+
+            <div style={{ marginBottom: 8 }} className="mono muted">
+              <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with us</span>
+            </div>
+            {[
+              ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
+              ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
+              ['03', 'Direct traffic to your own website', 'We index — you enrol.'],
+              ['04', 'Verified trust badge for your profile', 'A signal of accreditation that builds confidence.']
+            ].map(([n, t, sub]) => (
+              <div key={n} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 12, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
+                <div>
+                  <div className="serif" style={{ fontSize: 16, fontWeight: 500, marginBottom: 2 }}>{t}</div>
+                  <div className="muted" style={{ fontSize: 12 }}>{sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
     </div>
