@@ -2091,6 +2091,7 @@ const FAQS = [
   {
     title: 'For institutions',
     questions: [
+      { question: 'How do I list my institution?', answer: 'Go to the "List Your Institution" page, fill in the form with your institution name, contact details, type, and a brief description, then click Submit. Our team will review and add you to the directory within 2–3 business days.' },
       { question: 'How does CourzaTT make money?', answer: 'We charge for promotion. Institutions can pay to feature their courses on:', bullets: ['Homepage', 'Newsletter', 'Social media'] },
       { question: 'Do paid features affect rankings?', answer: 'No. All courses can be listed for free. Sponsored placements are clearly labelled and do not affect search results.' },
       { question: 'What is a sponsored listing?', answer: 'A paid placement that increases your visibility across the platform. This can include:', bullets: ['Homepage placement', 'Category priority', 'Featured badge'] },

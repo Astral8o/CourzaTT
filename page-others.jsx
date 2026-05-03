@@ -566,7 +566,7 @@ const ListInstitution = () => {
             <div>
               <div style={{ marginBottom: 20 }}>
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Paid promotion</div>
-                <p style={{ fontSize: 15, color: 'var(--ink-2)' }}>Increase visibility with Homepage features, Newsletter placements, Social posts, and Featured badges. Starting from <strong>TTD 200 per week</strong>.</p>
+                <p style={{ fontSize: 15, color: 'var(--ink-2)' }}>Increase visibility with Homepage features, Newsletter placements, Social posts, and Featured badges. Starting from <strong>TTD 300 per week</strong>.</p>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
                 {[
