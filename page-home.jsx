@@ -123,12 +123,15 @@ const Home = ({ setPage }) => {
 
   const trendingTags = ['CompTIA Security+', 'Project Management', 'AI Literacy', 'Solar Power', 'Pastry Arts', 'Public Speaking'];
 
-  const categoryShowcase = [
-    { name: 'Business & Entrepreneurship', count: 23, icon: 'briefcase', tone: 'emerald' },
-    { name: 'Technology & Digital', count: 17, icon: 'cpu', tone: 'ink' },
-    { name: 'Hospitality & Culinary', count: 16, icon: 'chef-hat', tone: 'amber' },
-    { name: 'Personal Development', count: 12, icon: 'sparkles', tone: 'emerald' },
-  ];
+  const catIcons = { 'Business & Entrepreneurship': 'briefcase', 'Technology & Digital': 'cpu', 'Hospitality & Culinary': 'chef-hat', 'Personal Development': 'sparkles' };
+  const catTones = { 'Business & Entrepreneurship': 'emerald', 'Technology & Digital': 'ink', 'Hospitality & Culinary': 'amber', 'Personal Development': 'emerald' };
+  const catNames = ['Business & Entrepreneurship', 'Technology & Digital', 'Hospitality & Culinary', 'Personal Development'];
+  const categoryShowcase = catNames.map(name => ({
+    name,
+    count: COURSES.filter(c => c.category === name).length,
+    icon: catIcons[name],
+    tone: catTones[name],
+  }));
 
   return (
     <div className="page-enter">
@@ -234,9 +237,6 @@ const Home = ({ setPage }) => {
                 </div>
               </button>
             ))}
-          </div>
-          <div className="text-center mt-12">
-            <button className="btn btn-ghost btn-lg" onClick={() => setPage('discover')}>View all 14 categories <Icon name="arrow-right" size={14}/></button>
           </div>
         </div>
       </section>
