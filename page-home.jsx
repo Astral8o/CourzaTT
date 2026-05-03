@@ -144,7 +144,7 @@ const Footer = ({ setPage }) => {
 // Home Page
 // ─────────────────────────────────────────────────────────────────
 const Home = ({ setPage }) => {
-  const { COURSES, FAQS, BLOG_POSTS } = window.CourzaData;
+  const { COURSES, CATEGORIES, FAQS, BLOG_POSTS } = window.CourzaData;
   const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
@@ -153,15 +153,51 @@ const Home = ({ setPage }) => {
 
   const trendingTags = ['CompTIA Security+', 'Project Management', 'AI Literacy', 'Solar Power', 'Pastry Arts', 'Public Speaking'];
 
-  const catIcons = { 'Business & Entrepreneurship': 'briefcase', 'Technology & Digital': 'cpu', 'Hospitality & Culinary': 'chef-hat', 'Personal Development': 'sparkles' };
-  const catTones = { 'Business & Entrepreneurship': 'emerald', 'Technology & Digital': 'ink', 'Hospitality & Culinary': 'amber', 'Personal Development': 'emerald' };
-  const catNames = ['Business & Entrepreneurship', 'Technology & Digital', 'Hospitality & Culinary', 'Personal Development'];
-  const categoryShowcase = catNames.map(name => ({
-    name,
-    count: COURSES.filter(c => c.category === name).length,
-    icon: catIcons[name],
-    tone: catTones[name],
-  }));
+  const catIcons = {
+    'Business & Entrepreneurship': 'briefcase',
+    'Technology & Digital': 'cpu',
+    'Hospitality & Culinary': 'chef-hat',
+    'Personal Development': 'sparkles',
+    'Creative Arts & Design': 'palette',
+    'Technical Trades': 'wrench',
+    'Professional Development': 'star',
+    'Business': 'building',
+    'Health & Medical': 'heart',
+    'Finance & Accounting': 'sliders',
+    'Law & Governance': 'bookmark',
+    'Agriculture & Environment': 'leaf',
+    'Communication & Media': 'globe',
+    'Soft Skills': 'compass',
+    'Technology': 'filter',
+    'Engineering & Construction': 'map-pin',
+  };
+  const catTones = {
+    'Business & Entrepreneurship': 'emerald',
+    'Technology & Digital': 'ink',
+    'Hospitality & Culinary': 'amber',
+    'Personal Development': 'emerald',
+    'Creative Arts & Design': 'amber',
+    'Technical Trades': '',
+    'Professional Development': '',
+    'Business': 'ink',
+    'Health & Medical': '',
+    'Finance & Accounting': 'emerald',
+    'Law & Governance': '',
+    'Agriculture & Environment': 'emerald',
+    'Communication & Media': '',
+    'Soft Skills': 'amber',
+    'Technology': '',
+    'Engineering & Construction': '',
+  };
+  const categoryShowcase = CATEGORIES.map(c => {
+    const name = typeof c === 'string' ? c : c.name;
+    return {
+      name,
+      count: COURSES.filter(x => x.category === name).length,
+      icon: catIcons[name] || 'book',
+      tone: catTones[name] || '',
+    };
+  });
 
   return (
     <div className="page-enter">
@@ -248,15 +284,15 @@ const Home = ({ setPage }) => {
       {/* CATEGORIES */}
       <section>
         <div className="container">
-          <SectionHeader num="N° 02" eyebrow="Browse by field" title={<>Explore <em className="display-italic"><span className="hl">top categories</span></em>.</>} sub="Sixteen disciplines, mapped to T&T's evolving labour market — from sustainable agriculture to data science."/>
+          <SectionHeader num="N° 02" eyebrow="Browse by field" title={<>Explore <em className="display-italic"><span className="hl">top categories</span></em>.</>} sub={`${CATEGORIES.length} disciplines, mapped to T&T's evolving labour market — from sustainable agriculture to data science.`}/>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--gap-grid)' }}>
             {categoryShowcase.map((c, i) => (
-              <button key={c.name} onClick={() => setPage('discover')} className="card card-hover" style={{
+              <button key={c.name} onClick={() => setPage(`discover:${c.name}`)} className="card card-hover" style={{
                 textAlign: 'left',
-                background: c.tone === 'ink' ? 'var(--ink)' : c.tone === 'amber' ? 'var(--amber)' : c.tone === 'emerald' && i % 3 === 0 ? 'var(--emerald)' : 'var(--card)',
-                color: c.tone === 'ink' || (c.tone === 'emerald' && i % 3 === 0) ? 'var(--paper)' : 'var(--ink)',
-                borderColor: c.tone === 'ink' ? 'var(--ink)' : c.tone === 'amber' ? 'var(--amber-2)' : 'var(--rule)',
-                minHeight: 220, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'
+                background: c.tone === 'ink' ? 'var(--ink)' : c.tone === 'amber' ? 'var(--amber)' : c.tone === 'emerald' ? 'var(--emerald)' : 'var(--card)',
+                color: c.tone === 'ink' || c.tone === 'emerald' ? 'var(--paper)' : 'var(--ink)',
+                borderColor: c.tone === 'ink' ? 'var(--ink)' : c.tone === 'amber' ? 'var(--amber-2)' : c.tone === 'emerald' ? 'var(--emerald)' : 'var(--rule)',
+                minHeight: 180, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'
               }}>
                 <div style={{ width: 44, height: 44, borderRadius: 10, border: '1px solid currentColor', opacity: 0.7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon name={c.icon} size={20}/>

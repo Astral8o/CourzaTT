@@ -4,10 +4,10 @@ const { Icon, Logo, SectionHeader, CourseCard, InstitutionCard } = CourzaUI;
 // ─────────────────────────────────────────────────────────────────
 // Discover Page
 // ─────────────────────────────────────────────────────────────────
-const Discover = ({ setPage, density }) => {
+const Discover = ({ setPage, density, initialCat }) => {
   const { COURSES, CATEGORIES } = window.CourzaData;
   const [search, setSearch] = React.useState('');
-  const [cat, setCat] = React.useState(null);
+  const [cat, setCat] = React.useState(initialCat || null);
   const [type, setType] = React.useState(null);
   const [delivery, setDelivery] = React.useState(null);
   const [view, setView] = React.useState(density === 'compact' ? 'list' : 'wide');

@@ -72,10 +72,12 @@ function App() {
   let pageEl;
   const activeNav = page.startsWith('course:') ? 'discover'
                   : page.startsWith('institution:') ? 'institutions'
+                  : page.startsWith('discover:') ? 'discover'
                   : page;
 
   if (page === 'home') pageEl = <Home setPage={setPage}/>;
   else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density}/>;
+  else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
   else if (page === 'list') pageEl = <ListInstitution/>;
   else if (page.startsWith('course:')) pageEl = <CourseDetail courseId={page.slice(7)} setPage={setPage}/>;
