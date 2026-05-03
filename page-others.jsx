@@ -399,7 +399,7 @@ const InstitutionDetail = ({ instId, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 // List Your Institution
 // ─────────────────────────────────────────────────────────────────
-const ListInstitution = () => {
+const ListInstitution = ({ setPage }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [type, setType] = React.useState(null);
@@ -619,9 +619,9 @@ const ListInstitution = () => {
                         </div>
                       ))}
                     </div>
-                    <a href="mailto:support@courza.tt.com" className={`btn ${pkg.highlight ? 'btn-amber' : 'btn-ghost'} btn-sm full`} style={{ justifyContent: 'center', marginTop: 24, textDecoration: 'none' }}>
+                    <button onClick={() => setPage(`contact:partnership:${pkg.name} package enquiry`)} className={`btn ${pkg.highlight ? 'btn-amber' : 'btn-ghost'} btn-sm full`} style={{ justifyContent: 'center', marginTop: 24 }}>
                       Get started
-                    </a>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -668,7 +668,7 @@ const ListInstitution = () => {
 // ─────────────────────────────────────────────────────────────────
 // Contact Page
 // ─────────────────────────────────────────────────────────────────
-const ContactPage = ({ setPage }) => {
+const ContactPage = ({ setPage, initialSubject, initialNote }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -766,7 +766,7 @@ const ContactPage = ({ setPage }) => {
 
               <div style={{ marginBottom: 24 }}>
                 <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Subject</label>
-                <select name="subject" required className="input" style={{ cursor: 'pointer' }}>
+                <select name="subject" required className="input" style={{ cursor: 'pointer' }} defaultValue={initialSubject || ''}>
                   <option value="">Select a topic…</option>
                   <option value="General inquiry">General inquiry</option>
                   <option value="Course listing help">Course listing help</option>
@@ -778,7 +778,7 @@ const ContactPage = ({ setPage }) => {
 
               <div style={{ marginBottom: 36 }}>
                 <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Message</label>
-                <textarea name="message" required rows={5} placeholder="Tell us how we can help…" className="input" style={{ resize: 'none' }}/>
+                <textarea name="message" required rows={5} placeholder="Tell us how we can help…" className="input" style={{ resize: 'none' }} defaultValue={initialNote || ''}/>
               </div>
 
               <button type="submit" className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }} disabled={submitting}>

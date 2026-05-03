@@ -80,7 +80,11 @@ function App() {
   else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
   else if (page === 'list') pageEl = <ListInstitution setPage={setPage}/>;
-  else if (page === 'contact') pageEl = <ContactPage setPage={setPage}/>;
+  else if (page === 'contact' || page.startsWith('contact:')) {
+    const parts = page.split(':');
+    const subjectMap = { 'partnership': 'Partnership & advertising' };
+    pageEl = <ContactPage setPage={setPage} initialSubject={subjectMap[parts[1]] || parts[1] || ''} initialNote={parts[2] ? `I'm interested in the ${parts[2]}.` : ''}/>;
+  }
   else if (page.startsWith('course:')) pageEl = <CourseDetail courseId={page.slice(7)} setPage={setPage}/>;
   else if (page.startsWith('institution:')) pageEl = <InstitutionDetail instId={page.slice(12)} setPage={setPage}/>;
   else pageEl = <Home setPage={setPage}/>;
