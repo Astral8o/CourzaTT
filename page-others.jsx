@@ -197,7 +197,7 @@ const Institutions = ({ setPage }) => {
         <div className="container">
           <div className="eyebrow-num" data-num="N° 03" style={{ marginBottom: 24 }}>Institutional network</div>
           <h1 className="display-1 serif" style={{ marginBottom: 24 }}>
-            Our Caribbean <em className="display-italic"><span className="hl hl-emerald">partners</span></em>.
+            Our Caribbean <em className="display-italic"><span className="hl hl-emerald">institutions</span></em>.
           </h1>
           <p className="muted" style={{ fontSize: 20, maxWidth: 720, marginBottom: 40 }}>
             We bridge the gap between ambitious learners and the Caribbean's most prestigious universities, technical schools, and government training centres.

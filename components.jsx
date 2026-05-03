@@ -251,7 +251,7 @@ const InstitutionCard = ({ inst, onClick }) => (
       </div>
       <span className="tag">{inst.type}</span>
     </div>
-    <h3 className="serif" style={{ fontSize: 24, lineHeight: 1.15, fontWeight: 500, marginBottom: 12 }}>{inst.name}</h3>
+    <h3 className="course-title" style={{ fontSize: 24, lineHeight: 1.15, marginBottom: 12 }}>{inst.name}</h3>
     <p className="muted" style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 24, flexGrow: 1 }}>{inst.summary}</p>
     <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>
