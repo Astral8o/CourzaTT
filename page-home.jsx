@@ -221,7 +221,7 @@ const Home = ({ setPage }) => {
                   placeholder="Search courses, skills, or institutions…"
                   style={{ flexGrow: 1, background: 'transparent', border: 'none', outline: 'none', padding: '14px 12px', fontSize: 15 }}
                 />
-                <button className="btn btn-primary" onClick={() => setPage('discover')} style={{ padding: '12px 24px' }}>
+                <button className="btn btn-amber" onClick={() => setPage('discover')} style={{ padding: '12px 24px' }}>
                   Search <Icon name="arrow-right" size={14}/>
                 </button>
               </div>
@@ -314,7 +314,7 @@ const Home = ({ setPage }) => {
             ))}
           </div>
           <div className="text-center mt-10">
-            <button onClick={() => setPage('discover')} className="btn btn-ghost">
+            <button onClick={() => setPage('discover')} className="btn btn-amber">
               View all {categoryShowcase.length} categories <Icon name="arrow-up-right" size={14}/>
             </button>
           </div>
@@ -329,7 +329,7 @@ const Home = ({ setPage }) => {
               <div className="eyebrow-num" data-num="N° 03" style={{ marginBottom: 24 }}>This week's picks</div>
               <h2 className="display-2 serif">Trending <em className="display-italic"><span className="hl">courses</span></em>.</h2>
             </div>
-            <button className="btn btn-ghost" onClick={() => setPage('discover')}>All courses <Icon name="arrow-up-right" size={14}/></button>
+            <button className="btn btn-amber" onClick={() => setPage('discover')}>All courses <Icon name="arrow-up-right" size={14}/></button>
           </div>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
             {featured.map(c => <CourseCard key={c.id} course={c} onClick={() => setPage(`course:${c.id}`)}/>)}
