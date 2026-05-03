@@ -6,7 +6,7 @@
 <title>CourzaTT — Discover programmes across Trinidad &amp; Tobago</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* CourzaTT — editorial atlas aesthetic */
 
@@ -72,6 +72,11 @@ body::before {
 .mono {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   letter-spacing: 0.04em;
+}
+.course-title {
+  font-family: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h1, h2, h3, h4 { margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; letter-spacing: -0.015em; }
@@ -2752,7 +2757,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
             <span className="tag tag-emerald">{course.type}</span>
             <span className="mono" style={{ fontSize: 10, color: 'var(--muted)', letterSpacing: '0.1em' }}>{course.institutionName}</span>
           </div>
-          <h3 className="serif" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 500 }}>{course.title}</h3>
+          <h3 className="course-title" style={{ fontSize: 18, lineHeight: 1.2 }}>{course.title}</h3>
         </div>
         <div style={{ textAlign: 'right' }}>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>Cost</div>
@@ -2771,7 +2776,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
             <span className="tag tag-emerald">{course.type}</span>
             <span className="tag">{course.category}</span>
           </div>
-          <h3 className="serif" style={{ fontSize: 28, lineHeight: 1.15, fontWeight: 500, marginBottom: 12 }}>{course.title}</h3>
+          <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.15, marginBottom: 12 }}>{course.title}</h3>
           <p className="muted" style={{ fontSize: 15, marginBottom: 20, maxWidth: 640 }}>{course.summary}</p>
           <div className="flex items-center gap-6 mb-5" style={{ flexWrap: 'wrap' }}>
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}><Icon name="building" size={12} style={{ display: 'inline', marginRight: 6, marginBottom: -2 }}/>{course.institutionName}</span>
@@ -2804,7 +2809,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         {course.featured && <span className="tag tag-amber"><Icon name="star" size={10} /> Featured</span>}
       </div>
       <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>{course.institutionName}</div>
-      <h3 className="serif" style={{ fontSize: 26, lineHeight: 1.15, fontWeight: 500, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
+      <h3 className="course-title" style={{ fontSize: 24, lineHeight: 1.15, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
       <p className="muted" style={{ fontSize: 14.5, marginBottom: 24, lineHeight: 1.55, flexGrow: 1 }}>{course.summary}</p>
 
       <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
@@ -3002,6 +3007,7 @@ const Footer = ({ setPage }) => (
 // ─────────────────────────────────────────────────────────────────
 const Home = ({ setPage }) => {
   const { COURSES, FAQS, BLOG_POSTS } = window.CourzaData;
+  const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
   const [searchQ, setSearchQ] = React.useState('');
@@ -3163,13 +3169,19 @@ const Home = ({ setPage }) => {
                   <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginBottom: p.footer ? 12 : 0 }}>
                     <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Courses to explore</div>
                     <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                      {p.courses.map((c, ci) => (
-                        <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
-                          <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
-                          <span style={{ fontWeight: 500 }}>{c.name}</span>
-                          {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
-                        </li>
-                      ))}
+                      {p.courses.map((c, ci) => {
+                        const match = courseByTitle[c.name.toLowerCase()];
+                        return (
+                          <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
+                            <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
+                            {match
+                              ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3, transition: 'color 0.15s' }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
+                              : <span style={{ fontWeight: 500 }}>{c.name}</span>
+                            }
+                            {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                   {p.footer && <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6, marginTop: 4, fontStyle: 'italic' }}>{p.footer}</p>}

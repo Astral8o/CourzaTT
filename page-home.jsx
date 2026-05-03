@@ -115,6 +115,7 @@ const Footer = ({ setPage }) => (
 // ─────────────────────────────────────────────────────────────────
 const Home = ({ setPage }) => {
   const { COURSES, FAQS, BLOG_POSTS } = window.CourzaData;
+  const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
   const [searchQ, setSearchQ] = React.useState('');
@@ -276,13 +277,19 @@ const Home = ({ setPage }) => {
                   <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginBottom: p.footer ? 12 : 0 }}>
                     <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Courses to explore</div>
                     <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                      {p.courses.map((c, ci) => (
-                        <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
-                          <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
-                          <span style={{ fontWeight: 500 }}>{c.name}</span>
-                          {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
-                        </li>
-                      ))}
+                      {p.courses.map((c, ci) => {
+                        const match = courseByTitle[c.name.toLowerCase()];
+                        return (
+                          <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
+                            <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
+                            {match
+                              ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3, transition: 'color 0.15s' }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
+                              : <span style={{ fontWeight: 500 }}>{c.name}</span>
+                            }
+                            {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                   {p.footer && <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6, marginTop: 4, fontStyle: 'italic' }}>{p.footer}</p>}

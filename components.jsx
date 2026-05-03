@@ -159,7 +159,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
             <span className="tag tag-emerald">{course.type}</span>
             <span className="mono" style={{ fontSize: 10, color: 'var(--muted)', letterSpacing: '0.1em' }}>{course.institutionName}</span>
           </div>
-          <h3 className="serif" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 500 }}>{course.title}</h3>
+          <h3 className="course-title" style={{ fontSize: 18, lineHeight: 1.2 }}>{course.title}</h3>
         </div>
         <div style={{ textAlign: 'right' }}>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>Cost</div>
@@ -178,7 +178,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
             <span className="tag tag-emerald">{course.type}</span>
             <span className="tag">{course.category}</span>
           </div>
-          <h3 className="serif" style={{ fontSize: 28, lineHeight: 1.15, fontWeight: 500, marginBottom: 12 }}>{course.title}</h3>
+          <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.15, marginBottom: 12 }}>{course.title}</h3>
           <p className="muted" style={{ fontSize: 15, marginBottom: 20, maxWidth: 640 }}>{course.summary}</p>
           <div className="flex items-center gap-6 mb-5" style={{ flexWrap: 'wrap' }}>
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}><Icon name="building" size={12} style={{ display: 'inline', marginRight: 6, marginBottom: -2 }}/>{course.institutionName}</span>
@@ -211,7 +211,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         {course.featured && <span className="tag tag-amber"><Icon name="star" size={10} /> Featured</span>}
       </div>
       <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>{course.institutionName}</div>
-      <h3 className="serif" style={{ fontSize: 26, lineHeight: 1.15, fontWeight: 500, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
+      <h3 className="course-title" style={{ fontSize: 24, lineHeight: 1.15, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
       <p className="muted" style={{ fontSize: 14.5, marginBottom: 24, lineHeight: 1.55, flexGrow: 1 }}>{course.summary}</p>
 
       <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
