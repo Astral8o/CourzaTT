@@ -388,18 +388,48 @@ const ListInstitution = () => {
 
   return (
     <div className="page-enter">
-      <section style={{ paddingTop: 60, paddingBottom: 80 }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+      {/* HERO — text left, illustration right (mirrors homepage pattern) */}
+      <section style={{ paddingTop: 60, paddingBottom: 72, borderBottom: '1px solid var(--rule)' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
+          <div>
             <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 24 }}>For institutions</div>
             <h1 className="display-1 serif" style={{ marginBottom: 28 }}>
               List your <em className="display-italic"><span className="hl">institution</span></em>.
             </h1>
-            <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 40 }}>
+            <p style={{ fontSize: 20, lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: 520 }}>
               Join the growing directory of T&amp;T institutions on CourzaTT. Reach learners who are actively searching for accredited programmes, professional workshops, and training opportunities.
             </p>
+          </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 40 }}>
+          {/* Illustration — same framing as homepage hero photo */}
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              borderRadius: 16, overflow: 'hidden',
+              border: '1px solid var(--ink)',
+              boxShadow: '0 24px 56px -16px rgba(14,26,23,0.22)',
+            }}>
+              <img
+                src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png"
+                alt="Join CourzaTT as an institution"
+                style={{ width: '100%', display: 'block' }}
+              />
+            </div>
+            {/* Floating stat badge — mirrors homepage */}
+            <div className="card" style={{ position: 'absolute', bottom: -20, left: -24, padding: '16px 20px', background: 'var(--paper)', border: '1px solid var(--ink)', boxShadow: '0 12px 32px -8px rgba(14,26,23,0.16)', minWidth: 180 }}>
+              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Institutions listed</div>
+              <div className="serif" style={{ fontSize: 36, fontWeight: 500, lineHeight: 1 }}>9</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFITS + FORM */}
+      <section style={{ paddingTop: 80, paddingBottom: 80 }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
+          <div>
+            <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with us</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
               {[
                 ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
                 ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
@@ -415,14 +445,10 @@ const ListInstitution = () => {
                 </div>
               ))}
             </div>
-
-            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid var(--rule)', marginTop: 'auto' }}>
-              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT as an institution" style={{ width: '100%', display: 'block' }}/>
-            </div>
           </div>
 
           {!submitted ? (
-            <form onSubmit={submit} className="card" style={{ padding: 40 }}>
+            <form onSubmit={submit} className="card" style={{ padding: 40, alignSelf: 'start' }}>
               <div className="flex items-center justify-between mb-8">
                 <div className="eyebrow">Application form</div>
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em' }}>Form_v1.0</div>
