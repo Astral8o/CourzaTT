@@ -2028,9 +2028,62 @@ const COURSES = [
 ];
 
 const BLOG_POSTS = [
-  { id: 'b1', title: 'How to choose between Public, Private, and Technical institutions in T&T', excerpt: 'A practical breakdown of the difference between UWI, UTT, MIC and private colleges — and how to pick the right path for your goals.', date: 'May 2026', category: 'Guidance' },
-  { id: 'b2', title: 'GATE funding 2026: what\'s covered, what\'s not', excerpt: 'The Government Assistance for Tuition Expenses programme rules have changed. Here\'s what every prospective student needs to know.', date: 'April 2026', category: 'Funding' },
-  { id: 'b3', title: 'Short courses vs. workshops: when each makes sense', excerpt: 'Both are quick, both build skills — but they\'re built for different outcomes. Here\'s how to choose.', date: 'March 2026', category: 'Guidance' },
+  {
+    id: 'b1',
+    title: 'Explore Tech Pathways',
+    excerpt: 'Curious about tech? These courses cover coding, design, data, and security. Browse what stands out.',
+    topic: 'Technology & Digital',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Introduction to Java Programming', note: 'Coding fundamentals and application building' },
+      { name: 'Introduction to Web Design', note: 'How websites look and function' },
+      { name: 'Database Design Fundamentals', note: 'Structure and manage data' },
+      { name: 'Computer Literacy', note: 'Everyday digital skills' },
+      { name: 'Microsoft Word', note: 'Core productivity skills' },
+      { name: 'CCNA', note: 'Networking and infrastructure' },
+      { name: 'CompTIA Security+', note: 'Cybersecurity basics' },
+      { name: 'Enhancing Business Productivity with AI', note: 'Practical AI tools for work' },
+    ],
+  },
+  {
+    id: 'b2',
+    title: 'Discover Creative and Practical Skills',
+    excerpt: 'Hands-on courses you can try at your own pace. Some are creative, some are technical, all are practical.',
+    topic: 'Creative & Trades',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Balloon Decoration', note: '' },
+      { name: 'Candle Making', note: '' },
+      { name: 'Soap Making', note: '' },
+      { name: 'Cooking', note: '' },
+      { name: 'Paper Flower Crafting', note: '' },
+      { name: 'Cookie Decorating', note: '' },
+      { name: 'Interior Decorating', note: '' },
+      { name: 'Smartphone & Tablet Repairs', note: '' },
+    ],
+    footer: 'Each one opens a different kind of skill, from creative work to repair-based services.',
+  },
+  {
+    id: 'b3',
+    title: 'Browse Business and Career Skills',
+    excerpt: 'Courses focused on management, communication, and building ideas into income.',
+    topic: 'Business & Career',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Fundamentals of Project Management', note: '' },
+      { name: 'Certified Associate in Project Management (CAPM)', note: '' },
+      { name: 'Event Management', note: '' },
+      { name: 'Mastering Sales & Marketing', note: '' },
+      { name: 'Introduction to Financial Management', note: '' },
+      { name: 'Human Resource Management', note: '' },
+      { name: 'Conflict Resolution and Negotiation Skills', note: '' },
+      { name: 'Spanish Conversation for Beginners', note: '' },
+    ],
+    footer: 'Explore options that support leadership, planning, and growth.',
+  },
 ];
 
 const FAQS = [

@@ -2047,9 +2047,62 @@ const COURSES = [
 ];
 
 const BLOG_POSTS = [
-  { id: 'b1', title: 'How to choose between Public, Private, and Technical institutions in T&T', excerpt: 'A practical breakdown of the difference between UWI, UTT, MIC and private colleges — and how to pick the right path for your goals.', date: 'May 2026', category: 'Guidance' },
-  { id: 'b2', title: 'GATE funding 2026: what\'s covered, what\'s not', excerpt: 'The Government Assistance for Tuition Expenses programme rules have changed. Here\'s what every prospective student needs to know.', date: 'April 2026', category: 'Funding' },
-  { id: 'b3', title: 'Short courses vs. workshops: when each makes sense', excerpt: 'Both are quick, both build skills — but they\'re built for different outcomes. Here\'s how to choose.', date: 'March 2026', category: 'Guidance' },
+  {
+    id: 'b1',
+    title: 'Explore Tech Pathways',
+    excerpt: 'Curious about tech? These courses cover coding, design, data, and security. Browse what stands out.',
+    topic: 'Technology & Digital',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Introduction to Java Programming', note: 'Coding fundamentals and application building' },
+      { name: 'Introduction to Web Design', note: 'How websites look and function' },
+      { name: 'Database Design Fundamentals', note: 'Structure and manage data' },
+      { name: 'Computer Literacy', note: 'Everyday digital skills' },
+      { name: 'Microsoft Word', note: 'Core productivity skills' },
+      { name: 'CCNA', note: 'Networking and infrastructure' },
+      { name: 'CompTIA Security+', note: 'Cybersecurity basics' },
+      { name: 'Enhancing Business Productivity with AI', note: 'Practical AI tools for work' },
+    ],
+  },
+  {
+    id: 'b2',
+    title: 'Discover Creative and Practical Skills',
+    excerpt: 'Hands-on courses you can try at your own pace. Some are creative, some are technical, all are practical.',
+    topic: 'Creative & Trades',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Balloon Decoration', note: '' },
+      { name: 'Candle Making', note: '' },
+      { name: 'Soap Making', note: '' },
+      { name: 'Cooking', note: '' },
+      { name: 'Paper Flower Crafting', note: '' },
+      { name: 'Cookie Decorating', note: '' },
+      { name: 'Interior Decorating', note: '' },
+      { name: 'Smartphone & Tablet Repairs', note: '' },
+    ],
+    footer: 'Each one opens a different kind of skill, from creative work to repair-based services.',
+  },
+  {
+    id: 'b3',
+    title: 'Browse Business and Career Skills',
+    excerpt: 'Courses focused on management, communication, and building ideas into income.',
+    topic: 'Business & Career',
+    date: 'May 2026',
+    readTime: '2 min',
+    courses: [
+      { name: 'Fundamentals of Project Management', note: '' },
+      { name: 'Certified Associate in Project Management (CAPM)', note: '' },
+      { name: 'Event Management', note: '' },
+      { name: 'Mastering Sales & Marketing', note: '' },
+      { name: 'Introduction to Financial Management', note: '' },
+      { name: 'Human Resource Management', note: '' },
+      { name: 'Conflict Resolution and Negotiation Skills', note: '' },
+      { name: 'Spanish Conversation for Beginners', note: '' },
+    ],
+    footer: 'Explore options that support leadership, planning, and growth.',
+  },
 ];
 
 const FAQS = [
@@ -2702,17 +2755,35 @@ const Home = ({ setPage }) => {
         <div className="container">
           <SectionHeader num="N° 04" eyebrow="Field notes" title={<>Course <em className="display-italic">guides &amp; reading</em>.</>} sub="Practical reading for learners weighing their next move."/>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
-            {BLOG_POSTS.map((p, i) => (
-              <article key={p.id} className="card card-hover" style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ aspectRatio: '4/3', borderRadius: 8, background: ['var(--paper-2)', 'var(--ink)', 'var(--emerald)'][i], marginBottom: 24, position: 'relative', overflow: 'hidden', border: '1px solid var(--rule)' }}>
-                  <span className="mono" style={{ position: 'absolute', top: 16, left: 16, fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: i === 0 ? 'var(--ink)' : 'var(--paper)' }}>{p.topic}</span>
-                  <div className="serif" style={{ position: 'absolute', bottom: -10, right: 16, fontSize: 110, fontWeight: 400, color: i === 0 ? 'rgba(14,26,23,0.08)' : 'rgba(244,239,227,0.15)', lineHeight: 1, fontStyle: 'italic' }}>0{i+1}</div>
-                </div>
-                <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase' }}>{p.date} · {p.readTime}</div>
-                <h3 className="serif" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.25, marginBottom: 16 }}>{p.title}</h3>
-                <a href="#" style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 500, color: 'var(--emerald)' }}>Read article <Icon name="arrow-up-right" size={14}/></a>
-              </article>
-            ))}
+            {BLOG_POSTS.map((p, i) => {
+              const bgColors = ['var(--paper-2)', 'var(--ink)', 'var(--emerald)'];
+              const textLight = i !== 0;
+              return (
+                <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ borderRadius: 8, background: bgColors[i], marginBottom: 20, padding: '20px 20px 16px', position: 'relative', overflow: 'hidden', border: '1px solid var(--rule)' }}>
+                    <span className="mono" style={{ display: 'block', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: textLight ? 'rgba(244,239,227,0.6)' : 'var(--muted)', marginBottom: 8 }}>{p.topic}</span>
+                    <div className="serif" style={{ position: 'absolute', bottom: -14, right: 12, fontSize: 100, fontWeight: 400, color: textLight ? 'rgba(244,239,227,0.1)' : 'rgba(14,26,23,0.07)', lineHeight: 1, fontStyle: 'italic', pointerEvents: 'none' }}>0{i+1}</div>
+                  </div>
+                  <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase' }}>{p.date}</div>
+                  <h3 className="serif" style={{ fontSize: 20, fontWeight: 500, lineHeight: 1.25, marginBottom: 10 }}>{p.title}</h3>
+                  <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.6, marginBottom: 16 }}>{p.excerpt}</p>
+                  <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginBottom: p.footer ? 12 : 0 }}>
+                    <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Courses to explore</div>
+                    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                      {p.courses.map((c, ci) => (
+                        <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
+                          <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
+                          <span style={{ fontWeight: 500 }}>{c.name}</span>
+                          {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {p.footer && <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6, marginTop: 4, fontStyle: 'italic' }}>{p.footer}</p>}
+                  <button className="btn btn-ghost" style={{ marginTop: 'auto', paddingTop: 16, alignSelf: 'flex-start', fontSize: 13 }} onClick={() => setPage('discover')}>Browse all <Icon name="arrow-up-right" size={13}/></button>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
