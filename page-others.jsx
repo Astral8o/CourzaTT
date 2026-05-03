@@ -554,18 +554,30 @@ const ListInstitution = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start', marginBottom: 80 }}>
 
             {/* Free listing */}
-            <div className="card" style={{ padding: 40, height: '100%' }}>
-              <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Free listing</div>
-              <div className="serif" style={{ fontSize: 28, fontWeight: 500, marginBottom: 16 }}>TTD 0</div>
-              <p className="muted" style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 24 }}>List your courses at no cost. They appear in search and category pages.</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="card" style={{
+              padding: 40, height: '100%',
+              background: 'var(--emerald)',
+              color: 'var(--paper)',
+              borderColor: 'var(--emerald)',
+              boxShadow: '0 20px 48px -16px rgba(31,95,74,0.35)',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.7 }}>Free listing</div>
+                <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Always free</span>
+              </div>
+              <div className="serif" style={{ fontSize: 40, fontWeight: 500, marginBottom: 8, lineHeight: 1 }}>TTD 0</div>
+              <p style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 28, opacity: 0.8 }}>List your courses at no cost. They appear in search and category pages from day one.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
                 {['Appears in search results', 'Listed in category pages', 'Institution profile page'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <Icon name="check" size={14} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
-                    <span style={{ fontSize: 14 }}>{f}</span>
+                    <Icon name="check-circle" size={16} style={{ color: 'var(--amber)', flexShrink: 0 }}/>
+                    <span style={{ fontSize: 14, fontWeight: 500 }}>{f}</span>
                   </div>
                 ))}
               </div>
+              <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn btn-amber full" style={{ justifyContent: 'center', textDecoration: 'none' }}>
+                Get listed free <Icon name="arrow-right" size={14}/>
+              </a>
             </div>
 
             {/* Paid promotion */}
