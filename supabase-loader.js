@@ -21,7 +21,7 @@
       deadline:        r.deadline,
       delivery:        r.delivery,
       location:        r.location,
-      website:         r.website,
+      // website intentionally omitted — data.js is the authoritative source
       featured:        r.featured,
     };
   }
@@ -32,7 +32,7 @@
       name:        r.name,
       summary:     r.summary,
       type:        r.type,
-      website:     r.website,
+      // website intentionally omitted — data.js is the authoritative source
       location:    r.location,
       courseCount: r.course_count,
     };
@@ -46,15 +46,23 @@
       ]);
       if (!cRes.ok || !iRes.ok) throw new Error('HTTP ' + cRes.status);
       const [courses, institutions] = await Promise.all([cRes.json(), iRes.json()]);
-      // Preserve website URLs from static data.js (always correct source of truth)
-      const staticById = (window.CourzaData?.COURSES || []).reduce((m, c) => { m[c.id] = c; return m; }, {});
+      // Merge Supabase data over static data — websites are preserved from data.js
+      // because toCourse/toInstitution deliberately exclude the website field.
+      const staticCoursesByTitle = (window.CourzaData?.COURSES || []).reduce((m, c) => { m[c.title] = c; return m; }, {});
+      const staticInstById = (window.CourzaData?.INSTITUTIONS || []).reduce((m, i) => { m[i.id] = i; return m; }, {});
       window.CourzaData = Object.assign({}, window.CourzaData, {
         COURSES: courses.map(r => {
           const c = toCourse(r);
-          if (staticById[c.id]?.website) c.website = staticById[c.id].website;
+          const staticC = staticCoursesByTitle[c.title];
+          if (staticC) { c.id = staticC.id; c.website = staticC.website; }
           return c;
         }),
-        INSTITUTIONS: institutions.map(toInstitution),
+        INSTITUTIONS: institutions.map(r => {
+          const c = toInstitution(r);
+          const staticI = staticInstById[c.id];
+          if (staticI) c.website = staticI.website;
+          return c;
+        }),
       });
     } catch (err) {
       console.warn('[CourzaTT] Supabase unavailable — using static data.', err.message);
