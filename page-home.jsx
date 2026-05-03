@@ -231,6 +231,14 @@ const Home = ({ setPage }) => {
                   <button key={t} className="chip" onClick={() => setPage('discover')}>{t}</button>
                 ))}
               </div>
+              <div className="rise rise-4 mt-6">
+                <button
+                  onClick={() => document.getElementById('faq').scrollIntoView({ behavior: 'smooth' })}
+                  className="btn btn-ghost btn-sm"
+                >
+                  Learn more <Icon name="arrow-down" size={13}/>
+                </button>
+              </div>
             </div>
 
             <div style={{ position: 'relative', height: 560 }}>
