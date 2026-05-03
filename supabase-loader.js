@@ -7,25 +7,6 @@
   const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2dmZjbGt0amNnaHF4YXVvaGxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDkyNDksImV4cCI6MjA4OTYyNTI0OX0.NzmpYGJyAMw9_ucjp_nSJocBcN91Oj2hwQhC7zHGdR8';
   const HDR  = { apikey: KEY, Authorization: 'Bearer ' + KEY };
 
-  function toCourse(r) {
-    return {
-      id:              r.id,
-      title:           r.title,
-      institutionId:   r.institution_id,
-      institutionName: r.institution_name,
-      summary:         r.summary,
-      type:            r.type,
-      category:        r.category,
-      cost:            r.cost,
-      startDate:       r.start_date,
-      deadline:        r.deadline,
-      delivery:        r.delivery,
-      location:        r.location,
-      // website intentionally omitted — data.js is the authoritative source
-      featured:        r.featured,
-    };
-  }
-
   function toInstitution(r) {
     return {
       id:          r.id,
@@ -40,12 +21,9 @@
 
   window.CourzaDataReady = (async function load() {
     try {
-      const [cRes, iRes] = await Promise.all([
-        fetch(URL + '/courza_courses?select=*&order=id', { headers: HDR }),
-        fetch(URL + '/courza_institutions?select=*&order=id', { headers: HDR }),
-      ]);
-      if (!cRes.ok || !iRes.ok) throw new Error('HTTP ' + cRes.status);
-      const [, institutions] = await Promise.all([cRes.json(), iRes.json()]);
+      const iRes = await fetch(URL + '/courza_institutions?select=*&order=id', { headers: HDR });
+      if (!iRes.ok) throw new Error('HTTP ' + iRes.status);
+      const institutions = await iRes.json();
       // COURSES: data.js is the sole source of truth — Supabase course data has
       // quality issues (duplicates, wrong categories) so we don't use it.
       const staticInstById = (window.CourzaData?.INSTITUTIONS || []).reduce((m, i) => { m[i.id] = i; return m; }, {});

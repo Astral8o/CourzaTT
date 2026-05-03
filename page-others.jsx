@@ -390,19 +390,16 @@ const ListInstitution = () => {
     <div className="page-enter">
       <section style={{ paddingTop: 60, paddingBottom: 80 }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 24 }}>For institutions</div>
             <h1 className="display-1 serif" style={{ marginBottom: 28 }}>
               List your <em className="display-italic"><span className="hl">institution</span></em>.
             </h1>
-            <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 32 }}>
-              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="List your institution" style={{ width: '100%', display: 'block' }}/>
-            </div>
             <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 40 }}>
               Join the growing directory of T&amp;T institutions on CourzaTT. Reach learners who are actively searching for accredited programmes, professional workshops, and training opportunities.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 40 }}>
               {[
                 ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
                 ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
@@ -417,6 +414,10 @@ const ListInstitution = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid var(--rule)', marginTop: 'auto' }}>
+              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT as an institution" style={{ width: '100%', display: 'block' }}/>
             </div>
           </div>
 
