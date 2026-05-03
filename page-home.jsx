@@ -107,9 +107,9 @@ const Footer = ({ setPage }) => {
           <div>
             <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Support</div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li><button style={{ fontSize: 15 }}>FAQs</button></li>
+              <li><button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }), 120); }} style={{ fontSize: 15 }}>FAQs</button></li>
               <li><button onClick={() => setPage('contact')} style={{ fontSize: 15 }}>Contact</button></li>
-              <li><button style={{ fontSize: 15 }}>Privacy</button></li>
+              <li><button onClick={() => setPage('contact')} style={{ fontSize: 15 }}>Privacy</button></li>
             </ul>
           </div>
           <div>
