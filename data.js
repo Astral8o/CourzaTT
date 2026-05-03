@@ -166,7 +166,7 @@ const COURSES = [
     "deadline": "4 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/introduction-java-programming",
     "featured": true
   },
   {
@@ -182,7 +182,7 @@ const COURSES = [
     "deadline": "4 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/certified-associate-project-management",
     "featured": false
   },
   {
@@ -198,7 +198,7 @@ const COURSES = [
     "deadline": "4 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23097",
     "featured": false
   },
   {
@@ -214,7 +214,7 @@ const COURSES = [
     "deadline": "21 August 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/introduction-web-design",
     "featured": false
   },
   {
@@ -230,7 +230,7 @@ const COURSES = [
     "deadline": "7 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/microsoft-word",
     "featured": false
   },
   {
@@ -246,7 +246,7 @@ const COURSES = [
     "deadline": "8 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23309",
     "featured": false
   },
   {
@@ -262,7 +262,7 @@ const COURSES = [
     "deadline": "8 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/fundamentals-project-management",
     "featured": false
   },
   {
@@ -278,7 +278,7 @@ const COURSES = [
     "deadline": "10 Aug 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/comptia-security-plus",
     "featured": true
   },
   {
@@ -294,7 +294,7 @@ const COURSES = [
     "deadline": "12 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/database-design-fundamentals",
     "featured": false
   },
   {
@@ -310,7 +310,7 @@ const COURSES = [
     "deadline": "12 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/computer-literacy",
     "featured": false
   },
   {
@@ -326,7 +326,7 @@ const COURSES = [
     "deadline": "26 May 2026 - Level 1",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/business-certifications/enhancing-business-productivity-ai",
     "featured": false
   },
   {
@@ -342,7 +342,7 @@ const COURSES = [
     "deadline": "16 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/ccna",
     "featured": false
   },
   {
@@ -358,7 +358,7 @@ const COURSES = [
     "deadline": "16 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/computer-literacy",
     "featured": false
   },
   {
@@ -374,7 +374,7 @@ const COURSES = [
     "deadline": "20 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/canva-essentials",
     "featured": false
   },
   {
@@ -390,7 +390,7 @@ const COURSES = [
     "deadline": "21 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/it-certifications/adobe-photoshop-and-illustrator",
     "featured": true
   },
   {
@@ -398,7 +398,7 @@ const COURSES = [
     "title": "Balloon Decoration",
     "institutionId": "cts",
     "institutionName": "CTS College",
-    "summary": "Create balloon décor including arches, columns, clusters, and event designs",
+    "summary": "Create balloon d\u00e9cor including arches, columns, clusters, and event designs",
     "type": "Workshop",
     "category": "Creative Arts & Design",
     "cost": "$500.00",
@@ -406,7 +406,7 @@ const COURSES = [
     "deadline": "1 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/balloon-decoration",
     "featured": false
   },
   {
@@ -422,7 +422,7 @@ const COURSES = [
     "deadline": "2 week before 1st class",
     "delivery": "Hybrid",
     "location": "Hybrid",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-air-conditioning",
     "featured": false
   },
   {
@@ -438,7 +438,7 @@ const COURSES = [
     "deadline": "3 week before 1st class",
     "delivery": "Hybrid",
     "location": "Hybrid",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-auto-air-conditioning",
     "featured": false
   },
   {
@@ -454,7 +454,7 @@ const COURSES = [
     "deadline": "4 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-plumbing",
     "featured": false
   },
   {
@@ -470,7 +470,7 @@ const COURSES = [
     "deadline": "5 week before 1st class",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/smart-phone-and-tablet-repairs",
     "featured": false
   },
   {
@@ -486,7 +486,7 @@ const COURSES = [
     "deadline": "6 week before 1st class",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/business-certifications/event-management",
     "featured": false
   },
   {
@@ -494,7 +494,7 @@ const COURSES = [
     "title": "Mastering Interior Decorating",
     "institutionId": "cts",
     "institutionName": "CTS College",
-    "summary": "Learn interior styling including space planning, colour use, and home décor design",
+    "summary": "Learn interior styling including space planning, colour use, and home d\u00e9cor design",
     "type": "Short Course",
     "category": "Creative Arts & Design",
     "cost": "$1,200.00",
@@ -502,7 +502,7 @@ const COURSES = [
     "deadline": "7 week before 1st class",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/mastering-interior-decorating",
     "featured": false
   },
   {
@@ -518,7 +518,7 @@ const COURSES = [
     "deadline": "8 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/introduction-solar-power-systems",
     "featured": false
   },
   {
@@ -534,7 +534,7 @@ const COURSES = [
     "deadline": "9 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/paper-flower-crafting",
     "featured": false
   },
   {
@@ -550,7 +550,7 @@ const COURSES = [
     "deadline": "10 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/candle-making",
     "featured": false
   },
   {
@@ -566,7 +566,7 @@ const COURSES = [
     "deadline": "11 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/cookie-decorating",
     "featured": false
   },
   {
@@ -582,7 +582,7 @@ const COURSES = [
     "deadline": "12 week before 1st class",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/soap-making",
     "featured": false
   },
   {
@@ -614,7 +614,7 @@ const COURSES = [
     "deadline": "6 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/introduction-financial-management",
     "featured": false
   },
   {
@@ -630,7 +630,7 @@ const COURSES = [
     "deadline": "10 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/mastering-sales-marketing",
     "featured": false
   },
   {
@@ -646,7 +646,7 @@ const COURSES = [
     "deadline": "26 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://mailchi.mp/ctscollege/conflict-resolution-negotiation-skills",
     "featured": false
   },
   {
@@ -678,7 +678,7 @@ const COURSES = [
     "deadline": "20 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23604",
     "featured": false
   },
   {
@@ -694,7 +694,7 @@ const COURSES = [
     "deadline": "22 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://mailchi.mp/ctscollege/fundamentals-law",
     "featured": false
   },
   {
@@ -710,7 +710,7 @@ const COURSES = [
     "deadline": "07 Apr 2026",
     "delivery": "Online",
     "location": "Onine",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/human-resource-management",
     "featured": false
   },
   {
@@ -726,7 +726,7 @@ const COURSES = [
     "deadline": "30 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://mailchi.mp/ctscollege/investigative-interviewing-report-writing",
     "featured": false
   },
   {
@@ -742,7 +742,7 @@ const COURSES = [
     "deadline": "19 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23467",
     "featured": false
   },
   {
@@ -758,7 +758,7 @@ const COURSES = [
     "deadline": "28 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/business-certifications/spanish-conversation-for-beginners",
     "featured": false
   },
   {
@@ -774,7 +774,7 @@ const COURSES = [
     "deadline": "30 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/do-it-yourself/cooking",
     "featured": false
   },
   {
@@ -790,7 +790,7 @@ const COURSES = [
     "deadline": "17 Apr 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/22947",
     "featured": false
   },
   {
@@ -806,7 +806,7 @@ const COURSES = [
     "deadline": "6 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/22593",
     "featured": false
   },
   {
@@ -822,7 +822,7 @@ const COURSES = [
     "deadline": "17 Jun 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/phlebotomy-technician",
     "featured": false
   },
   {
@@ -838,7 +838,7 @@ const COURSES = [
     "deadline": "16 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23600",
     "featured": false
   },
   {
@@ -854,7 +854,7 @@ const COURSES = [
     "deadline": "11 May 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://www.ctscollege.com",
+    "website": "https://www.ctscollege.com/news/course-schedule/23495",
     "featured": false
   },
   {
@@ -870,7 +870,7 @@ const COURSES = [
     "deadline": "Apr 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://mic.co.tt",
+    "website": "https://www.mic.co.tt/short-courses/",
     "featured": true
   },
   {
@@ -881,12 +881,12 @@ const COURSES = [
     "summary": "Learn advanced AI use for automation, workflow design, and business integration",
     "type": "Short Course",
     "category": "Technology & Digital",
-    "cost": "$1,399 (Cohort 1) / $1,500 (Cohorts 2–10)",
+    "cost": "$1,399 (Cohort 1) / $1,500 (Cohorts 2\u201310)",
     "startDate": "16 May 2026",
     "deadline": "Apr 2026",
     "delivery": "Hybrid",
     "location": "Hybrid",
-    "website": "https://mic.co.tt",
+    "website": "https://www.mic.co.tt/short-courses/",
     "featured": false
   },
   {
@@ -902,7 +902,7 @@ const COURSES = [
     "deadline": "4 May 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://mic.co.tt",
+    "website": "https://www.mic.co.tt/short-courses/",
     "featured": false
   },
   {
@@ -918,7 +918,7 @@ const COURSES = [
     "deadline": "Apr 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://mic.co.tt",
+    "website": "https://www.mic.co.tt/short-courses/",
     "featured": false
   },
   {
@@ -1371,10 +1371,10 @@ const COURSES = [
   },
   {
     "id": "c077",
-    "title": "Mastering the Art of Ponche de Crème",
+    "title": "Mastering the Art of Ponche de Cr\u00e8me",
     "institutionId": "thti",
     "institutionName": "Trinidad and Tobago Hospitality and Tourism Institute (THTI)",
-    "summary": "Learn preparation and presentation of traditional Ponche de Crème",
+    "summary": "Learn preparation and presentation of traditional Ponche de Cr\u00e8me",
     "type": "Workshop",
     "category": "Hospitality & Culinary",
     "cost": "$795.00",
@@ -1478,7 +1478,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1494,7 +1494,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1510,7 +1510,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1526,7 +1526,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1542,7 +1542,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1558,7 +1558,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1574,7 +1574,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1590,7 +1590,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1606,7 +1606,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1622,7 +1622,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1638,7 +1638,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1654,7 +1654,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://www.usc.edu.tt",
+    "website": "https://usc.edu.tt/academics/professional-development-institute/",
     "featured": false
   },
   {
@@ -1670,7 +1670,7 @@ const COURSES = [
     "deadline": "May 12, 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://utt.edu.tt",
+    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=156",
     "featured": true
   },
   {
@@ -1686,7 +1686,7 @@ const COURSES = [
     "deadline": "May 4, 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://utt.edu.tt",
+    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=146989",
     "featured": false
   },
   {
@@ -1702,7 +1702,7 @@ const COURSES = [
     "deadline": "May 5, 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://utt.edu.tt",
+    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=1517",
     "featured": false
   },
   {
@@ -1718,7 +1718,7 @@ const COURSES = [
     "deadline": "May 19, 2026",
     "delivery": "In-person",
     "location": "In-person",
-    "website": "https://utt.edu.tt",
+    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=144067",
     "featured": false
   },
   {
@@ -1734,7 +1734,7 @@ const COURSES = [
     "deadline": "May 18, 2026",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://utt.edu.tt",
+    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=178767",
     "featured": false
   },
   {
@@ -1750,7 +1750,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "Contact Provider",
     "location": "Contact Provider",
-    "website": "https://lokjackgsb.edu.tt",
+    "website": "https://lokjackgsb.edu.tt/short-courses/train-the-trainer/",
     "featured": true
   },
   {
@@ -1782,7 +1782,7 @@ const COURSES = [
     "deadline": "Register 1 week before start",
     "delivery": "Contact Provider",
     "location": "Contact Provider",
-    "website": "https://lokjackgsb.edu.tt",
+    "website": "https://lokjackgsb.edu.tt/short-courses/advanced-ms-excel/",
     "featured": false
   },
   {
@@ -1798,7 +1798,7 @@ const COURSES = [
     "deadline": "Open",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://shel.edu.tt",
+    "website": "https://shel.edu.tt/administrative-support/",
     "featured": false
   },
   {
@@ -1830,7 +1830,7 @@ const COURSES = [
     "deadline": "Open",
     "delivery": "Online",
     "location": "Online",
-    "website": "https://shel.edu.tt/building-and-resilience-development/",
+    "website": "https://shel.edu.tt/trust-building-and-resilience-development/",
     "featured": false
   },
   {
