@@ -331,43 +331,91 @@ const Home = ({ setPage }) => {
       {/* GUIDES */}
       <section>
         <div className="container">
-          <SectionHeader num="N° 04" eyebrow="Field notes" title={<>Course <em className="display-italic">guides &amp; reading</em>.</>} sub="Practical reading for learners weighing their next move."/>
-          <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
-            {BLOG_POSTS.map((p, i) => {
-              const bgColors = ['var(--paper-2)', 'var(--ink)', 'var(--emerald)'];
-              const textLight = i !== 0;
+          <div className="flex items-end justify-between mb-12" style={{ flexWrap: 'wrap', gap: 24 }}>
+            <div>
+              <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 24 }}>Field notes</div>
+              <h2 className="display-2 serif">Course <em className="display-italic">guides &amp; reading</em>.</h2>
+            </div>
+            <p className="muted" style={{ fontSize: 16, maxWidth: 360, lineHeight: 1.6 }}>Practical reading for learners weighing their next move.</p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--gap-grid)', alignItems: 'start' }}>
+
+            {/* FEATURED — first post */}
+            {(() => {
+              const p = BLOG_POSTS[0];
               return (
-                <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ borderRadius: 8, background: bgColors[i], marginBottom: 20, padding: '20px 20px 16px', position: 'relative', overflow: 'hidden', border: '1px solid var(--rule)' }}>
-                    <span className="mono" style={{ display: 'block', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: textLight ? 'rgba(244,239,227,0.6)' : 'var(--muted)', marginBottom: 8 }}>{p.topic}</span>
-                    <div className="serif" style={{ position: 'absolute', bottom: -14, right: 12, fontSize: 100, fontWeight: 400, color: textLight ? 'rgba(244,239,227,0.1)' : 'rgba(14,26,23,0.07)', lineHeight: 1, fontStyle: 'italic', pointerEvents: 'none' }}>0{i+1}</div>
+                <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
+                  <div style={{ height: 4, background: 'var(--amber)', flexShrink: 0 }}/>
+                  <div style={{ padding: 40, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                      <span className="chip" style={{ fontSize: 11 }}>{p.topic}</span>
+                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.12em' }}>{p.readTime} read</span>
+                    </div>
+                    <h3 className="course-title" style={{ fontSize: 28, lineHeight: 1.15, marginBottom: 16 }}>{p.title}</h3>
+                    <p style={{ fontSize: 16, color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: 32 }}>{p.excerpt}</p>
+                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 24 }}>
+                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 14 }}>Featured courses</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {p.courses.slice(0, 3).map((c, ci) => {
+                          const match = courseByTitle[c.name.toLowerCase()];
+                          return (
+                            <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
+                              {match
+                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 15, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
+                                : <span style={{ fontSize: 15, fontWeight: 500 }}>{c.name}</span>
+                              }
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 28, alignSelf: 'flex-start' }} onClick={() => setPage('discover')}>
+                      Explore all <Icon name="arrow-up-right" size={13}/>
+                    </button>
                   </div>
-                  <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase' }}>{p.date}</div>
-                  <h3 className="serif" style={{ fontSize: 20, fontWeight: 500, lineHeight: 1.25, marginBottom: 10 }}>{p.title}</h3>
-                  <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.6, marginBottom: 16 }}>{p.excerpt}</p>
-                  <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginBottom: p.footer ? 12 : 0 }}>
-                    <div className="mono muted mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Courses to explore</div>
-                    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                      {p.courses.map((c, ci) => {
-                        const match = courseByTitle[c.name.toLowerCase()];
-                        return (
-                          <li key={ci} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 13 }}>
-                            <span style={{ color: 'var(--emerald)', fontSize: 10, flexShrink: 0 }}>◆</span>
-                            {match
-                              ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3, transition: 'color 0.15s' }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
-                              : <span style={{ fontWeight: 500 }}>{c.name}</span>
-                            }
-                            {c.note && <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {c.note}</span>}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                  {p.footer && <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6, marginTop: 4, fontStyle: 'italic' }}>{p.footer}</p>}
-                  <button className="btn btn-ghost" style={{ marginTop: 'auto', paddingTop: 16, alignSelf: 'flex-start', fontSize: 13 }} onClick={() => setPage('discover')}>Browse all <Icon name="arrow-up-right" size={13}/></button>
                 </article>
               );
-            })}
+            })()}
+
+            {/* SIDE — posts 2 & 3 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gap-grid)' }}>
+              {BLOG_POSTS.slice(1).map((p, i) => (
+                <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
+                  <div style={{ height: 3, background: i === 0 ? 'var(--emerald)' : 'var(--ink)', flexShrink: 0 }}/>
+                  <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                      <span className="chip" style={{ fontSize: 10 }}>{p.topic}</span>
+                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.12em' }}>{p.readTime} read</span>
+                    </div>
+                    <h3 className="course-title" style={{ fontSize: 20, lineHeight: 1.2, marginBottom: 10 }}>{p.title}</h3>
+                    <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.65, marginBottom: 20 }}>{p.excerpt}</p>
+                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 16 }}>
+                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10 }}>Featured courses</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {p.courses.slice(0, 2).map((c, ci) => {
+                          const match = courseByTitle[c.name.toLowerCase()];
+                          return (
+                            <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span style={{ width: 4, height: 4, borderRadius: '50%', background: i === 0 ? 'var(--emerald)' : 'var(--ink)', flexShrink: 0 }}/>
+                              {match
+                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 14, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
+                                : <span style={{ fontSize: 14, fontWeight: 500 }}>{c.name}</span>
+                              }
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 20, alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('discover')}>
+                      Explore all <Icon name="arrow-up-right" size={12}/>
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
