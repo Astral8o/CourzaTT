@@ -61,54 +61,80 @@ const Nav = ({ activePage, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 // Footer
 // ─────────────────────────────────────────────────────────────────
-const Footer = ({ setPage }) => (
-  <footer style={{ borderTop: '1px solid var(--ink)', background: 'var(--paper-2)', marginTop: 80 }}>
-    <div className="container" style={{ padding: '80px 32px 32px' }}>
-      <div className="grid" style={{ gridTemplateColumns: '2fr 1fr 1fr 1.4fr', gap: 64, marginBottom: 80 }}>
-        <div>
-          <Logo size="lg" onClick={() => setPage('home')}/>
-          <p className="muted" style={{ marginTop: 24, maxWidth: 360, fontSize: 16, lineHeight: 1.6 }}>
-            The hub for discovering your next milestone. Bridging the gap between learners and institutions across Trinidad &amp; Tobago.
-          </p>
-          <div className="flex items-center gap-3 mt-8">
-            <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="instagram" size={15}/></a>
-            <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="linkedin" size={15}/></a>
-            <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="twitter" size={15}/></a>
+const Footer = ({ setPage }) => {
+  const [nlState, setNlState] = React.useState('idle');
+
+  const submitNewsletter = async (e) => {
+    e.preventDefault();
+    setNlState('submitting');
+    const data = new FormData(e.target);
+    data.append('_subject', 'New newsletter signup — CourzaTT');
+    const res = await fetch('https://formspree.io/f/mvzlzjje', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' },
+    });
+    setNlState(res.ok ? 'done' : 'error');
+  };
+
+  return (
+    <footer style={{ borderTop: '1px solid var(--ink)', background: 'var(--paper-2)', marginTop: 80 }}>
+      <div className="container" style={{ padding: '80px 32px 32px' }}>
+        <div className="grid" style={{ gridTemplateColumns: '2fr 1fr 1fr 1.4fr', gap: 64, marginBottom: 80 }}>
+          <div>
+            <Logo size="lg" onClick={() => setPage('home')}/>
+            <p className="muted" style={{ marginTop: 24, maxWidth: 360, fontSize: 16, lineHeight: 1.6 }}>
+              The hub for discovering your next milestone. Bridging the gap between learners and institutions across Trinidad &amp; Tobago.
+            </p>
+            <div className="flex items-center gap-3 mt-8">
+              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="instagram" size={15}/></a>
+              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="linkedin" size={15}/></a>
+              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="twitter" size={15}/></a>
+            </div>
+          </div>
+          <div>
+            <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Directory</div>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <li><button onClick={() => setPage('discover')} style={{ fontSize: 15 }}>Courses</button></li>
+              <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
+              <li><button onClick={() => setPage('list')} style={{ fontSize: 15 }}>Partner with us</button></li>
+            </ul>
+          </div>
+          <div>
+            <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Support</div>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <li><button style={{ fontSize: 15 }}>FAQs</button></li>
+              <li><button style={{ fontSize: 15 }}>Contact</button></li>
+              <li><button style={{ fontSize: 15 }}>Privacy</button></li>
+            </ul>
+          </div>
+          <div>
+            <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Newsletter</div>
+            <p className="muted" style={{ fontSize: 14, marginBottom: 16 }}>Get the latest course guides and institutional updates.</p>
+            {nlState === 'done' ? (
+              <p className="mono" style={{ fontSize: 13, color: 'var(--emerald)', letterSpacing: '0.05em' }}>You're in — we'll be in touch.</p>
+            ) : (
+              <>
+                <form onSubmit={submitNewsletter} style={{ display: 'flex', gap: 8, background: 'var(--card)', border: '1px solid var(--rule)', borderRadius: 999, padding: 6 }}>
+                  <input name="email" type="email" required className="input" placeholder="you@example.com" style={{ border: 'none', background: 'transparent', padding: '8px 14px', fontSize: 14 }}/>
+                  <button type="submit" className="btn btn-primary btn-sm" disabled={nlState === 'submitting'}>
+                    {nlState === 'submitting' ? '…' : 'Join'}
+                  </button>
+                </form>
+                {nlState === 'error' && <p className="mono muted" style={{ fontSize: 11, marginTop: 8 }}>Something went wrong — try again.</p>}
+              </>
+            )}
           </div>
         </div>
-        <div>
-          <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Directory</div>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <li><button onClick={() => setPage('discover')} style={{ fontSize: 15 }}>Courses</button></li>
-            <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
-            <li><button onClick={() => setPage('list')} style={{ fontSize: 15 }}>Partner with us</button></li>
-          </ul>
-        </div>
-        <div>
-          <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Support</div>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <li><button style={{ fontSize: 15 }}>FAQs</button></li>
-            <li><button style={{ fontSize: 15 }}>Contact</button></li>
-            <li><button style={{ fontSize: 15 }}>Privacy</button></li>
-          </ul>
-        </div>
-        <div>
-          <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Newsletter</div>
-          <p className="muted" style={{ fontSize: 14, marginBottom: 16 }}>Get the latest course guides and institutional updates.</p>
-          <div style={{ display: 'flex', gap: 8, background: 'var(--card)', border: '1px solid var(--rule)', borderRadius: 999, padding: 6 }}>
-            <input className="input" placeholder="you@example.com" style={{ border: 'none', background: 'transparent', padding: '8px 14px', fontSize: 14 }}/>
-            <button className="btn btn-primary btn-sm">Join</button>
-          </div>
+        <div className="hairline mb-6"/>
+        <div className="flex items-center justify-between" style={{ fontSize: 13, color: 'var(--muted)' }}>
+          <p>© 2026 CourzaTT Trinidad &amp; Tobago. All rights reserved.</p>
+          <p className="mono" style={{ fontSize: 11, letterSpacing: '0.12em' }}>v1.0 — Port of Spain</p>
         </div>
       </div>
-      <div className="hairline mb-6"/>
-      <div className="flex items-center justify-between" style={{ fontSize: 13, color: 'var(--muted)' }}>
-        <p>© 2026 CourzaTT Trinidad &amp; Tobago. All rights reserved.</p>
-        <p className="mono" style={{ fontSize: 11, letterSpacing: '0.12em' }}>v1.0 — Port of Spain</p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 // ─────────────────────────────────────────────────────────────────
 // Home Page

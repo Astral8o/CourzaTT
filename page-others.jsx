@@ -382,9 +382,26 @@ const InstitutionDetail = ({ instId, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 const ListInstitution = () => {
   const [submitted, setSubmitted] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
   const [type, setType] = React.useState(null);
+  const [error, setError] = React.useState(false);
 
-  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const submit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(false);
+    const data = new FormData(e.target);
+    data.append('_subject', 'New institution listing enquiry — CourzaTT');
+    if (type) data.set('institution_type', type);
+    const res = await fetch('https://formspree.io/f/mvzlzjje', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' },
+    });
+    if (res.ok) setSubmitted(true);
+    else setError(true);
+    setSubmitting(false);
+  };
 
   return (
     <div className="page-enter">
@@ -420,13 +437,13 @@ const ListInstitution = () => {
               </div>
 
               {[
-                { label: 'Institution name', placeholder: 'e.g. UWI Global Campus', type: 'text' },
-                { label: 'Contact email', placeholder: 'e.g. admin@institution.edu.tt', type: 'email' },
-                { label: 'Contact number', placeholder: '+1 (868) 000-0000', type: 'tel' }
+                { label: 'Institution name', name: 'institution_name', placeholder: 'e.g. UWI Global Campus', type: 'text' },
+                { label: 'Contact email', name: 'email', placeholder: 'e.g. admin@institution.edu.tt', type: 'email' },
+                { label: 'Contact number', name: 'phone', placeholder: '+1 (868) 000-0000', type: 'tel' }
               ].map(f => (
                 <div key={f.label} style={{ marginBottom: 24 }}>
                   <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>{f.label}</label>
-                  <input type={f.type} required placeholder={f.placeholder} className="input"/>
+                  <input type={f.type} name={f.name} required placeholder={f.placeholder} className="input"/>
                 </div>
               ))}
 
@@ -441,12 +458,13 @@ const ListInstitution = () => {
 
               <div style={{ marginBottom: 36 }}>
                 <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Brief description</label>
-                <textarea required rows={4} placeholder="Tell learners about your institution…" className="input" style={{ resize: 'none' }}/>
+                <textarea name="message" required rows={4} placeholder="Tell learners about your institution…" className="input" style={{ resize: 'none' }}/>
               </div>
 
-              <button type="submit" className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }}>
-                Submit enquiry <Icon name="send" size={15}/>
+              <button type="submit" className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }} disabled={submitting}>
+                {submitting ? 'Sending…' : <><span>Submit enquiry</span> <Icon name="send" size={15}/></>}
               </button>
+              {error && <p className="mono muted text-center" style={{ fontSize: 11, marginTop: 12, color: 'var(--red, #c0392b)' }}>Something went wrong — please try again.</p>}
               <p className="mono muted text-center" style={{ fontSize: 10, letterSpacing: '0.1em', marginTop: 16, lineHeight: 1.5 }}>
                 By submitting, you agree to our Terms of Service for Institutions and our Privacy Policy.
               </p>
