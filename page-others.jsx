@@ -390,16 +390,20 @@ const ListInstitution = () => {
     e.preventDefault();
     setSubmitting(true);
     setError(false);
-    const data = new FormData(e.target);
-    data.append('_subject', 'New institution listing enquiry — CourzaTT');
-    if (type) data.set('institution_type', type);
-    const res = await fetch('https://formspree.io/f/mvzlzjje', {
-      method: 'POST',
-      body: data,
-      headers: { Accept: 'application/json' },
-    });
-    if (res.ok) setSubmitted(true);
-    else setError(true);
+    try {
+      const data = new FormData(e.target);
+      data.append('_subject', 'New institution listing enquiry — CourzaTT');
+      if (type) data.set('institution_type', type);
+      const res = await fetch('https://formspree.io/f/mvzlzjje', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) setSubmitted(true);
+      else setError(true);
+    } catch {
+      setError(true);
+    }
     setSubmitting(false);
   };
 

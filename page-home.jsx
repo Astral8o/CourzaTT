@@ -67,14 +67,18 @@ const Footer = ({ setPage }) => {
   const submitNewsletter = async (e) => {
     e.preventDefault();
     setNlState('submitting');
-    const data = new FormData(e.target);
-    data.append('_subject', 'New newsletter signup — CourzaTT');
-    const res = await fetch('https://formspree.io/f/mvzlzjje', {
-      method: 'POST',
-      body: data,
-      headers: { Accept: 'application/json' },
-    });
-    setNlState(res.ok ? 'done' : 'error');
+    try {
+      const data = new FormData(e.target);
+      data.append('_subject', 'New newsletter signup — CourzaTT');
+      const res = await fetch('https://formspree.io/f/mvzlzjje', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      setNlState(res.ok ? 'done' : 'error');
+    } catch {
+      setNlState('error');
+    }
   };
 
   return (
