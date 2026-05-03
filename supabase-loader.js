@@ -54,7 +54,15 @@
         COURSES: courses.map(r => {
           const c = toCourse(r);
           const staticC = staticCoursesByTitle[c.title];
-          if (staticC) { c.id = staticC.id; c.website = staticC.website; }
+          if (staticC) {
+            // Always use data.js for structural fields — Supabase only provides live cost/date updates
+            c.id             = staticC.id;
+            c.website        = staticC.website;
+            c.category       = staticC.category;
+            c.institutionId  = staticC.institutionId;
+            c.institutionName = staticC.institutionName;
+            c.featured       = staticC.featured;
+          }
           return c;
         }),
         INSTITUTIONS: institutions.map(r => {
