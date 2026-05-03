@@ -388,67 +388,45 @@ const ListInstitution = () => {
 
   return (
     <div className="page-enter">
+      <section style={{ paddingTop: 60, paddingBottom: 80 }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 72, alignItems: 'start' }}>
 
-      {/* HERO — text left, illustration right (mirrors homepage pattern) */}
-      <section style={{ paddingTop: 60, paddingBottom: 72, borderBottom: '1px solid var(--rule)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
+          {/* LEFT — context, illustration, benefits */}
           <div>
             <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 24 }}>For institutions</div>
-            <h1 className="display-1 serif" style={{ marginBottom: 28 }}>
+            <h1 className="display-2 serif" style={{ marginBottom: 20 }}>
               List your <em className="display-italic"><span className="hl">institution</span></em>.
             </h1>
-            <p style={{ fontSize: 20, lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: 520 }}>
-              Join the growing directory of T&amp;T institutions on CourzaTT. Reach learners who are actively searching for accredited programmes, professional workshops, and training opportunities.
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
+              Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes across Trinidad &amp; Tobago.
             </p>
-          </div>
 
-          {/* Illustration — same framing as homepage hero photo */}
-          <div style={{ position: 'relative' }}>
-            <div style={{
-              borderRadius: 16, overflow: 'hidden',
-              border: '1px solid var(--ink)',
-              boxShadow: '0 24px 56px -16px rgba(14,26,23,0.22)',
-            }}>
-              <img
-                src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png"
-                alt="Join CourzaTT as an institution"
-                style={{ width: '100%', display: 'block' }}
-              />
+            {/* Illustration — accent size, not hero */}
+            <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 32, maxWidth: 340 }}>
+              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
             </div>
-            {/* Floating stat badge — mirrors homepage */}
-            <div className="card" style={{ position: 'absolute', bottom: -20, left: -24, padding: '16px 20px', background: 'var(--paper)', border: '1px solid var(--ink)', boxShadow: '0 12px 32px -8px rgba(14,26,23,0.16)', minWidth: 180 }}>
-              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Institutions listed</div>
-              <div className="serif" style={{ fontSize: 36, fontWeight: 500, lineHeight: 1 }}>9</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* BENEFITS + FORM */}
-      <section style={{ paddingTop: 80, paddingBottom: 80 }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
-          <div>
-            <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with us</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
                 ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
                 ['03', 'Direct traffic to your own website', 'We index — you enrol.'],
                 ['04', 'Verified trust badge for your profile', 'A signal of accreditation that builds confidence.']
               ].map(([n, t, sub]) => (
-                <div key={n} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--rule)' }}>
-                  <span className="mono" style={{ fontSize: 11, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 4 }}>{n}</span>
+                <div key={n} style={{ display: 'grid', gridTemplateColumns: '36px 1fr', gap: 14, padding: '16px 0', borderBottom: '1px solid var(--rule)' }}>
+                  <span className="mono" style={{ fontSize: 11, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
                   <div>
-                    <div className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>{t}</div>
-                    <div className="muted" style={{ fontSize: 14 }}>{sub}</div>
+                    <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 2 }}>{t}</div>
+                    <div className="muted" style={{ fontSize: 13 }}>{sub}</div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* RIGHT — form is the main event */}
           {!submitted ? (
-            <form onSubmit={submit} className="card" style={{ padding: 40, alignSelf: 'start' }}>
+            <form onSubmit={submit} className="card" style={{ padding: 44, position: 'sticky', top: 100, boxShadow: '0 20px 60px -16px rgba(14,26,23,0.14)', borderColor: 'var(--rule-strong)' }}>
               <div className="flex items-center justify-between mb-8">
                 <div className="eyebrow">Application form</div>
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em' }}>Form_v1.0</div>
