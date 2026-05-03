@@ -231,12 +231,13 @@ const Home = ({ setPage }) => {
                   <button key={t} className="chip" onClick={() => setPage('discover')}>{t}</button>
                 ))}
               </div>
-              <div className="rise rise-4 mt-6">
+              <div className="rise rise-4 mt-8">
                 <button
                   onClick={() => document.getElementById('faq').scrollIntoView({ behavior: 'smooth' })}
-                  className="btn btn-ghost btn-sm"
+                  className="btn btn-amber"
+                  style={{ padding: '12px 28px' }}
                 >
-                  Learn more <Icon name="arrow-down" size={13}/>
+                  Learn more <Icon name="arrow-down" size={14}/>
                 </button>
               </div>
             </div>
