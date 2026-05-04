@@ -257,7 +257,7 @@ const Home = ({ setPage }) => {
                 Learning skills for <em className="display-italic">a <span className="ul-grow">better you</span>.</em>
               </h1>
               <p className="rise rise-3 muted" style={{ fontSize: 20, lineHeight: 1.55, maxWidth: 540, marginBottom: 40 }}>
-                One place to discover programmes from public, private, and government institutions across Trinidad &amp; Tobago.
+                The #1 all-in-one place to discover courses, training, and skills opportunities across Trinidad &amp; Tobago.
               </p>
               <div className="rise rise-3" style={{ background: 'var(--card)', border: '1px solid var(--ink)', borderRadius: 999, padding: 6, display: 'flex', alignItems: 'center', maxWidth: 580, gap: 4 }}>
                 <Icon name="search" size={18} style={{ marginLeft: 18, color: 'var(--muted)' }}/>
