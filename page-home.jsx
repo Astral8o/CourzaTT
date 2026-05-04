@@ -445,7 +445,7 @@ const Home = ({ setPage }) => {
               );
             })()}
 
-            {/* SIDE — posts 2 & 3 */}
+            {/* SIDE — posts 2 & 3 + Online Guides card */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gap-grid)' }}>
               {BLOG_POSTS.slice(1).map((p, i) => (
                 <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
@@ -474,12 +474,39 @@ const Home = ({ setPage }) => {
                         })}
                       </div>
                     </div>
-                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 20, alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('discover')}>
+                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 20, alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('guides')}>
                       Explore all <Icon name="arrow-up-right" size={12}/>
                     </button>
                   </div>
                 </article>
               ))}
+
+              {/* Online Guides promo card */}
+              <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden', background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)' }}>
+                <div style={{ height: 3, background: 'var(--amber)', flexShrink: 0 }}/>
+                <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                    <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 600, fontFamily: 'var(--font-mono, JetBrains Mono, monospace)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Online Guides</span>
+                    <span className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', opacity: 0.5 }}>9 certifications</span>
+                  </div>
+                  <h3 className="course-title" style={{ fontSize: 20, lineHeight: 1.2, marginBottom: 10 }}>Global Skills. T&T Ambition.</h3>
+                  <p style={{ fontSize: 14, color: 'rgba(244,239,227,0.7)', lineHeight: 1.65, marginBottom: 20 }}>Nine globally recognised certifications — most of them free — to complement your local qualifications and open doors beyond the island.</p>
+                  <div style={{ borderTop: '1px solid rgba(244,239,227,0.15)', paddingTop: 16, marginBottom: 20 }}>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: 10 }}>Includes free courses from</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {['Google Digital Garage', 'HubSpot Academy', 'Meta Blueprint'].map((platform, i) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
+                          <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.85 }}>{platform}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <button className="btn btn-amber btn-sm" style={{ alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('guides')}>
+                    Browse online guides <Icon name="arrow-up-right" size={12}/>
+                  </button>
+                </div>
+              </article>
             </div>
 
           </div>
