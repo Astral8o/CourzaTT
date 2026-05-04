@@ -398,6 +398,7 @@ section.tight { padding: 60px 0; }
 
   /* Guides — stack */
   .guides-grid { grid-template-columns: 1fr !important; }
+  .guides-bottom-grid { grid-template-columns: 1fr !important; }
 
   /* Category cards — 2 col on mobile */
   .category-grid { grid-template-columns: repeat(2, 1fr) !important; }

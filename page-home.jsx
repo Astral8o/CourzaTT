@@ -395,32 +395,30 @@ const Home = ({ setPage }) => {
             <p className="muted" style={{ fontSize: 16, maxWidth: 360, lineHeight: 1.6 }}>Practical reading for learners weighing their next move.</p>
           </div>
 
-          <div className="guides-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--gap-grid)', alignItems: 'start' }}>
+          {/* Row 1: Featured article + Online Guides — co-features of equal weight */}
+          <div className="guides-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--gap-grid)', alignItems: 'stretch', marginBottom: 'var(--gap-grid)' }}>
 
             {/* FEATURED — first post */}
             {(() => {
               const p = BLOG_POSTS[0];
               return (
                 <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
-                  {/* Cover image */}
-                  <div style={{ position: 'relative', height: 260, overflow: 'hidden', flexShrink: 0 }}>
+                  <div style={{ position: 'relative', height: 280, overflow: 'hidden', flexShrink: 0 }}>
                     <img
-                      src="https://i.ibb.co/n20Vsxm/Courza-Reading-guideimage1.png"
-                      alt="A student reading course materials"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                      src="https://i.ibb.co/jvcCcRDg/Courza-Blogsectioniamge1.png"
+                      alt="Course guides and reading"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     />
-                    {/* Gradient fade into card */}
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.18) 100%)' }}/>
-                    {/* Topic chip */}
-                    <div style={{ position: 'absolute', bottom: 16, left: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 600, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999 }}>{p.topic}</span>
-                      <span style={{ background: 'rgba(0,0,0,0.45)', color: 'var(--paper)', fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', padding: '5px 10px', borderRadius: 999 }}>{p.readTime} read</span>
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 35%, rgba(14,26,23,0.55) 100%)' }}/>
+                    <div style={{ position: 'absolute', bottom: 18, left: 24, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999 }}>{p.topic}</span>
+                      <span style={{ background: 'rgba(0,0,0,0.5)', color: 'var(--paper)', fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', padding: '5px 10px', borderRadius: 999 }}>{p.readTime} read</span>
                     </div>
                   </div>
-                  <div style={{ padding: 40, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <h3 className="course-title" style={{ fontSize: 28, lineHeight: 1.15, marginBottom: 16 }}>{p.title}</h3>
-                    <p style={{ fontSize: 16, color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: 32 }}>{p.excerpt}</p>
-                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 24 }}>
+                  <div style={{ padding: '36px 40px 40px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.18, marginBottom: 14 }}>{p.title}</h3>
+                    <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: 28 }}>{p.excerpt}</p>
+                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 22, marginTop: 'auto' }}>
                       <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 14 }}>Featured courses</div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                         {p.courses.slice(0, 3).map((c, ci) => {
@@ -429,43 +427,6 @@ const Home = ({ setPage }) => {
                             <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                               <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
                               {match
-                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 15, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
-                                : <span style={{ fontSize: 15, fontWeight: 500 }}>{c.name}</span>
-                              }
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 28, alignSelf: 'flex-start' }} onClick={() => setPage('guides')}>
-                      Explore all <Icon name="arrow-up-right" size={13}/>
-                    </button>
-                  </div>
-                </article>
-              );
-            })()}
-
-            {/* SIDE — posts 2 & 3 + Online Guides card */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gap-grid)' }}>
-              {BLOG_POSTS.slice(1).map((p, i) => (
-                <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
-                  <div style={{ height: 3, background: i === 0 ? 'var(--emerald)' : 'var(--ink)', flexShrink: 0 }}/>
-                  <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                      <span className="chip" style={{ fontSize: 10 }}>{p.topic}</span>
-                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.12em' }}>{p.readTime} read</span>
-                    </div>
-                    <h3 className="course-title" style={{ fontSize: 20, lineHeight: 1.2, marginBottom: 10 }}>{p.title}</h3>
-                    <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.65, marginBottom: 20 }}>{p.excerpt}</p>
-                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 16 }}>
-                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10 }}>Featured courses</div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        {p.courses.slice(0, 2).map((c, ci) => {
-                          const match = courseByTitle[c.name.toLowerCase()];
-                          return (
-                            <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                              <span style={{ width: 4, height: 4, borderRadius: '50%', background: i === 0 ? 'var(--emerald)' : 'var(--ink)', flexShrink: 0 }}/>
-                              {match
                                 ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 14, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
                                 : <span style={{ fontSize: 14, fontWeight: 500 }}>{c.name}</span>
                               }
@@ -473,43 +434,90 @@ const Home = ({ setPage }) => {
                           );
                         })}
                       </div>
+                      <button className="btn btn-ghost btn-sm" style={{ marginTop: 24, alignSelf: 'flex-start' }} onClick={() => setPage('guides')}>
+                        Explore all <Icon name="arrow-up-right" size={13}/>
+                      </button>
                     </div>
-                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 20, alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('guides')}>
-                      Explore all <Icon name="arrow-up-right" size={12}/>
-                    </button>
                   </div>
                 </article>
-              ))}
+              );
+            })()}
 
-              {/* Online Guides promo card */}
-              <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden', background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)' }}>
-                <div style={{ height: 3, background: 'var(--amber)', flexShrink: 0 }}/>
-                <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                    <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 600, fontFamily: 'var(--font-mono, JetBrains Mono, monospace)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Online Guides</span>
-                    <span className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', opacity: 0.5 }}>9 certifications</span>
+            {/* ONLINE GUIDES — co-feature, right column, full height */}
+            <article className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden', background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)' }}>
+              {/* Amber top accent bar */}
+              <div style={{ height: 4, background: 'var(--amber)', flexShrink: 0 }}/>
+              <div style={{ padding: '36px 36px 40px', display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative', overflow: 'hidden' }}>
+                {/* Ghost typographic number — editorial texture */}
+                <div aria-hidden="true" style={{ position: 'absolute', top: -10, right: 20, fontSize: 160, fontFamily: 'var(--font-serif)', fontWeight: 400, lineHeight: 1, color: 'rgba(244,239,227,0.05)', letterSpacing: '-0.04em', pointerEvents: 'none', userSelect: 'none' }}>9</div>
+                {/* Badge row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28, position: 'relative' }}>
+                  <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.15em', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999 }}>Online Guides</span>
+                  <span className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', opacity: 0.4 }}>Global · Free &amp; Paid</span>
+                </div>
+                {/* Headline */}
+                <h3 className="course-title" style={{ fontSize: 30, lineHeight: 1.12, marginBottom: 18, position: 'relative' }}>Global Skills.<br/>T&T Ambition.</h3>
+                <p style={{ fontSize: 15, color: 'rgba(244,239,227,0.62)', lineHeight: 1.7, marginBottom: 32, position: 'relative' }}>Nine globally recognised certifications — most of them free — to complement your local qualifications and open doors well beyond the island.</p>
+                {/* Divider + platform list */}
+                <div style={{ borderTop: '1px solid rgba(244,239,227,0.1)', paddingTop: 24, marginTop: 'auto', position: 'relative' }}>
+                  <div className="mono" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.38, marginBottom: 16 }}>Includes free certifications from</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+                    {['Google Digital Garage', 'HubSpot Academy', 'Meta Blueprint'].map((platform, pi) => (
+                      <div key={pi} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
+                        <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.82 }}>{platform}</span>
+                      </div>
+                    ))}
                   </div>
-                  <h3 className="course-title" style={{ fontSize: 20, lineHeight: 1.2, marginBottom: 10 }}>Global Skills. T&T Ambition.</h3>
-                  <p style={{ fontSize: 14, color: 'rgba(244,239,227,0.7)', lineHeight: 1.65, marginBottom: 20 }}>Nine globally recognised certifications — most of them free — to complement your local qualifications and open doors beyond the island.</p>
-                  <div style={{ borderTop: '1px solid rgba(244,239,227,0.15)', paddingTop: 16, marginBottom: 20 }}>
-                    <div className="mono" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: 10 }}>Includes free courses from</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                      {['Google Digital Garage', 'HubSpot Academy', 'Meta Blueprint'].map((platform, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
-                          <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.85 }}>{platform}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <button className="btn btn-amber btn-sm" style={{ alignSelf: 'flex-start', fontSize: 12 }} onClick={() => setPage('guides')}>
-                    Browse online guides <Icon name="arrow-up-right" size={12}/>
+                  <button className="btn btn-amber" style={{ fontSize: 13 }} onClick={() => setPage('guides')}>
+                    Browse online guides <Icon name="arrow-up-right" size={13}/>
                   </button>
                 </div>
-              </article>
-            </div>
-
+              </div>
+            </article>
           </div>
+
+          {/* Row 2: Supporting articles — compact horizontal strips */}
+          <div className="guides-bottom-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--gap-grid)' }}>
+            {BLOG_POSTS.slice(1).map((p, i) => {
+              const accent = i === 0 ? 'var(--emerald)' : 'var(--ink)';
+              return (
+                <article key={p.id} className="card" style={{ display: 'flex', flexDirection: 'row', padding: 0, overflow: 'hidden', alignItems: 'stretch' }}>
+                  {/* Left accent stripe */}
+                  <div style={{ width: 4, background: accent, flexShrink: 0 }}/>
+                  <div style={{ padding: '26px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                      <span className="chip" style={{ fontSize: 10 }}>{p.topic}</span>
+                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.12em' }}>{p.readTime} read</span>
+                    </div>
+                    <h3 className="course-title" style={{ fontSize: 18, lineHeight: 1.22, marginBottom: 10 }}>{p.title}</h3>
+                    <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.65, marginBottom: 18 }}>{p.excerpt}</p>
+                    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginTop: 'auto' }}>
+                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10 }}>Featured courses</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+                        {p.courses.slice(0, 2).map((c, ci) => {
+                          const match = courseByTitle[c.name.toLowerCase()];
+                          return (
+                            <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span style={{ width: 4, height: 4, borderRadius: '50%', background: accent, flexShrink: 0 }}/>
+                              {match
+                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 13, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
+                                : <span style={{ fontSize: 13, fontWeight: 500 }}>{c.name}</span>
+                              }
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <button className="btn btn-ghost btn-sm" style={{ fontSize: 12 }} onClick={() => setPage('guides')}>
+                        Explore all <Icon name="arrow-up-right" size={12}/>
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
         </div>
       </section>
 
