@@ -130,7 +130,7 @@ const INSTITUTIONS = [
     "type": "Public",
     "website": "https://utt.edu.tt",
     "location": "Multiple campuses",
-    "courseCount": 5
+    "courseCount": 6
   },
   {
     "id": "alj",
@@ -855,7 +855,7 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.mic.co.tt/short-courses/",
-    "featured": true
+    "featured": false
   },
   {
     "id": "c046",
@@ -2008,6 +2008,22 @@ const COURSES = [
     "location": "Online",
     "website": "https://shel.edu.tt/personal-branding/",
     "featured": false
+  },
+  {
+    "id": "c118",
+    "title": "Applied AI for Professionals",
+    "institutionId": "utt",
+    "institutionName": "University of Trinidad and Tobago (UTT)",
+    "summary": "A practical introduction to artificial intelligence and machine learning concepts, tools, and real-world applications — designed for working professionals across all industries.",
+    "type": "Short Course",
+    "category": "Technology & Digital",
+    "cost": "$1,500.00",
+    "startDate": "09 Jun 2026",
+    "deadline": "26 May 2026",
+    "delivery": "Hybrid",
+    "location": "Multiple campuses",
+    "website": "https://utt.edu.tt",
+    "featured": true
   }
 ];
 
