@@ -103,7 +103,7 @@ const INSTITUTIONS = [
     "type": "Public",
     "website": "https://www.thti.edu.tt",
     "location": "Chaguaramas",
-    "courseCount": 15
+    "courseCount": 16
   },
   {
     "id": "roytec",
@@ -112,7 +112,7 @@ const INSTITUTIONS = [
     "type": "Public",
     "website": "https://www.roytec.edu",
     "location": "Port of Spain",
-    "courseCount": 2
+    "courseCount": 1
   },
   {
     "id": "usc",
@@ -1402,22 +1402,6 @@ const COURSES = [
     "featured": false
   },
   {
-    "id": "c081",
-    "title": "Broadcasting & Communication Essentials",
-    "institutionId": "roytec",
-    "institutionName": "UWI-ROYTEC",
-    "summary": "Learn media communication and broadcasting fundamentals",
-    "type": "Short Course",
-    "category": "Communication & Media",
-    "cost": "$1,450.00",
-    "startDate": "2 May 2026",
-    "deadline": "25 Apr 2026",
-    "delivery": "In-person",
-    "location": "In-person",
-    "website": "https://www.roytec.edu/corporate-training/schedule",
-    "featured": true
-  },
-  {
     "id": "c082",
     "title": "Applied AI for Professional and Personal Use (Level 2)",
     "institutionId": "roytec",
@@ -2007,6 +1991,22 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Multiple campuses",
     "website": "https://utt.edu.tt",
+    "featured": true
+  },
+  {
+    "id": "c120",
+    "title": "Food Preparation",
+    "institutionId": "thti",
+    "institutionName": "Trinidad and Tobago Hospitality and Tourism Institute (THTI)",
+    "summary": "Learn cooking techniques, food safety, and kitchen operations",
+    "type": "Short Course",
+    "category": "Hospitality & Culinary",
+    "cost": "$2,195.00",
+    "startDate": "19 May 2026",
+    "deadline": "12 May 2026",
+    "delivery": "In-person",
+    "location": "In-person",
+    "website": "https://www.thti.edu.tt",
     "featured": true
   },
   {
