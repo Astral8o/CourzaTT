@@ -245,6 +245,10 @@ section.tight { padding: 60px 0; }
 .hl {
   position: relative;
   display: inline-block;
+  font-family: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .hl::after {
   content: '';
@@ -279,6 +283,10 @@ section.tight { padding: 60px 0; }
 .ul-grow {
   display: inline-block;
   position: relative;
+  font-family: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .ul-grow::after {
   content: '';
