@@ -4,9 +4,9 @@ const { Icon, Logo, SectionHeader, CourseCard, InstitutionCard } = CourzaUI;
 // ─────────────────────────────────────────────────────────────────
 // Discover Page
 // ─────────────────────────────────────────────────────────────────
-const Discover = ({ setPage, density, initialCat }) => {
+const Discover = ({ setPage, density, initialCat, initialSearch }) => {
   const { COURSES, CATEGORIES } = window.CourzaData;
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState(initialSearch || '');
   const [cat, setCat] = React.useState(initialCat || null);
   const [type, setType] = React.useState(null);
   const [delivery, setDelivery] = React.useState(null);
@@ -56,7 +56,7 @@ const Discover = ({ setPage, density, initialCat }) => {
             Discover <em className="display-italic"><span className="hl">programmes</span></em>.
           </h1>
           <p className="muted" style={{ fontSize: 20, maxWidth: 640, marginBottom: 40 }}>
-            Find the right path among {COURSES.length} accredited options from leading institutions across Trinidad &amp; Tobago.
+            Find the right path among {COURSES.length} programmes from leading institutions across Trinidad &amp; Tobago.
           </p>
 
           {/* Search */}
@@ -73,9 +73,9 @@ const Discover = ({ setPage, density, initialCat }) => {
       </section>
 
       <section className="tight" style={{ borderTop: '1px solid var(--rule)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="container discover-layout" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 64, alignItems: 'start' }}>
           {/* Sidebar Filters */}
-          <aside style={{ position: 'sticky', top: 100 }}>
+          <aside className="discover-sidebar" style={{ position: 'sticky', top: 100 }}>
             <div className="flex items-center justify-between mb-6">
               <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--ink)' }}>Refine</div>
               {hasFilter && <button onClick={clear} className="mono" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--rust)' }}>Reset all</button>}
@@ -252,7 +252,7 @@ const CourseDetail = ({ courseId, setPage }) => {
           <button onClick={() => setPage('discover')} className="mono muted mb-8" style={{ fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
             ← Back to discover
           </button>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64 }}>
+          <div className="course-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64 }}>
             <div>
               <div className="flex items-center gap-2 mb-6" style={{ flexWrap: 'wrap' }}>
                 <span className="tag tag-emerald">{course.type}</span>
@@ -264,9 +264,7 @@ const CourseDetail = ({ courseId, setPage }) => {
                 {course.summary} Designed for learners ready to take the next step in their professional journey.
               </p>
               <div className="flex items-center gap-3 mb-8">
-                <button className="btn btn-primary btn-lg">Visit institution website <Icon name="external" size={14}/></button>
-                <button className="btn btn-ghost"><Icon name="bookmark" size={15}/> Save</button>
-                <button className="btn btn-ghost"><Icon name="share" size={15}/> Share</button>
+                <a href={getCourseURL(course)} target="_blank" rel="noreferrer" className="btn btn-primary btn-lg">Visit institution website <Icon name="external" size={14}/></a>
               </div>
 
               <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 32, marginTop: 32 }}>
@@ -290,31 +288,14 @@ const CourseDetail = ({ courseId, setPage }) => {
                 </div>
               </div>
 
-              <div style={{ marginTop: 48 }}>
-                <div className="eyebrow mb-6">What you'll cover</div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  {[
-                    'Foundational concepts grounded in Caribbean industry context.',
-                    'Hands-on projects designed alongside leading regional employers.',
-                    'A capstone aligned with your professional interests.',
-                    'Mentorship from accredited faculty and industry practitioners.'
-                  ].map((t, i) => (
-                    <li key={i} className="flex items-start gap-4" style={{ paddingBottom: 16, borderBottom: '1px solid var(--rule)' }}>
-                      <span className="mono" style={{ fontSize: 11, color: 'var(--amber-2)', minWidth: 24, paddingTop: 4 }}>0{i+1}</span>
-                      <span style={{ fontSize: 17, lineHeight: 1.5 }}>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
 
-            <aside style={{ position: 'sticky', top: 100, alignSelf: 'start' }}>
+            <aside className="course-detail-aside" style={{ position: 'sticky', top: 100, alignSelf: 'start' }}>
               <div className="card" style={{ background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)' }}>
                 <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 12 }}>Cost</div>
                 <div className="serif" style={{ fontSize: 44, fontWeight: 500, lineHeight: 1, marginBottom: 8 }}>{course.cost}</div>
                 <p style={{ fontSize: 13, opacity: 0.7, marginBottom: 24 }}>Final fees confirmed by the institution at enrolment.</p>
-                <button className="btn btn-amber full" style={{ justifyContent: 'center' }}>Apply via institution <Icon name="external" size={14}/></button>
-                <button className="btn full mt-4" style={{ justifyContent: 'center', border: '1px solid var(--paper)', color: 'var(--paper)' }}>Save to wishlist</button>
+                <a href={getCourseURL(course)} target="_blank" rel="noreferrer" className="btn btn-amber full" style={{ justifyContent: 'center', textDecoration: 'none' }}>Apply via institution <Icon name="external" size={14}/></a>
               </div>
 
               {inst && (
@@ -364,14 +345,13 @@ const InstitutionDetail = ({ instId, setPage }) => {
       <section style={{ paddingTop: 40, paddingBottom: 60 }}>
         <div className="container">
           <button onClick={() => setPage('institutions')} className="mono muted mb-8" style={{ fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase' }}>← Back to institutions</button>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 64, alignItems: 'end', borderBottom: '1px solid var(--rule)', paddingBottom: 48 }}>
+          <div className="inst-header-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 64, alignItems: 'end', borderBottom: '1px solid var(--rule)', paddingBottom: 48 }}>
             <div>
               <div className="flex items-center gap-3 mb-6"><span className="tag tag-emerald">{inst.type}</span><span className="tag">Accredited</span></div>
               <h1 className="display-1 serif" style={{ marginBottom: 24 }}>{inst.name}</h1>
               <p style={{ fontSize: 20, lineHeight: 1.5, color: 'var(--ink-2)', maxWidth: 720, marginBottom: 24 }}>{inst.summary}</p>
               <div className="flex items-center gap-3">
                 <a href={inst.website} target="_blank" rel="noreferrer" className="btn btn-primary">Visit website <Icon name="external" size={14}/></a>
-                <button className="btn btn-ghost"><Icon name="bookmark" size={15}/> Follow</button>
               </div>
             </div>
             <div className="grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
@@ -450,7 +430,7 @@ const ListInstitution = ({ setPage }) => {
 
       {/* MAIN — form left (focal point), context right */}
       <section style={{ paddingTop: 64, paddingBottom: 80 }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="container list-form-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
 
           {/* LEFT — form, the main event */}
           {!submitted ? (
@@ -495,7 +475,7 @@ const ListInstitution = ({ setPage }) => {
               </button>
               {error && <p className="mono muted text-center" style={{ fontSize: 11, marginTop: 12, color: 'var(--red, #c0392b)' }}>Something went wrong — please try again.</p>}
               <p className="mono muted text-center" style={{ fontSize: 10, letterSpacing: '0.1em', marginTop: 16, lineHeight: 1.5 }}>
-                By submitting, you agree to our Terms of Service for Institutions and our Privacy Policy.
+                Your details will only be used to process your listing enquiry.
               </p>
             </form>
           ) : (
@@ -510,7 +490,7 @@ const ListInstitution = ({ setPage }) => {
           )}
 
           {/* RIGHT — context: image + benefits */}
-          <div style={{ position: 'sticky', top: 100 }}>
+          <div className="list-sticky-aside" style={{ position: 'sticky', top: 100 }}>
             <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 36, boxShadow: '0 8px 24px -8px rgba(14,26,23,0.10)' }}>
               <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
             </div>
@@ -551,7 +531,7 @@ const ListInstitution = ({ setPage }) => {
             ))}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start', marginBottom: 80 }}>
+          <div className="promote-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start', marginBottom: 80 }}>
 
             {/* Free listing */}
             <div className="card" style={{
@@ -586,7 +566,7 @@ const ListInstitution = ({ setPage }) => {
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Paid promotion</div>
                 <p style={{ fontSize: 15, color: 'var(--ink-2)' }}>Increase visibility with Homepage features, Newsletter placements, Social posts, and Featured badges. Starting from <strong>TTD 300 per week</strong>.</p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+              <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
                 {[
                   {
                     name: 'Starter', price: 'TTD 300',
@@ -651,7 +631,7 @@ const ListInstitution = ({ setPage }) => {
                 <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn btn-amber" style={{ justifyContent: 'center', textDecoration: 'none' }}>
                   List your institution <Icon name="arrow-right" size={14}/>
                 </a>
-                <a href="mailto:support@courza.tt.com" className="btn btn-ghost" style={{ justifyContent: 'center', textDecoration: 'none', color: 'var(--paper)', borderColor: 'rgba(244,239,227,0.3)' }}>
+                <a href="mailto:support@courza.tt" className="btn btn-ghost" style={{ justifyContent: 'center', textDecoration: 'none', color: 'var(--paper)', borderColor: 'rgba(244,239,227,0.3)' }}>
                   Contact us <Icon name="mail" size={14}/>
                 </a>
               </div>
@@ -718,7 +698,7 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
             <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 24 }}>Contact details</div>
 
             {[
-              { icon: 'mail', label: 'Email', value: 'support@courza.tt.com', href: 'mailto:support@courza.tt.com' },
+              { icon: 'mail', label: 'Email', value: 'support@courza.tt', href: 'mailto:support@courza.tt' },
               { icon: 'map-pin', label: 'Location', value: 'Port of Spain, Trinidad & Tobago', href: null },
               { icon: 'clock', label: 'Response time', value: 'Within 2–3 business days', href: null },
             ].map(({ icon, label, value, href }) => (
@@ -803,5 +783,56 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
   );
 };
 
+// ─────────────────────────────────────────────────────────────────
+// Privacy Policy Page
+// ─────────────────────────────────────────────────────────────────
+const PrivacyPage = ({ setPage }) => (
+  <div className="page-enter">
+    <section style={{ paddingTop: 64, paddingBottom: 48, borderBottom: '1px solid var(--rule)', textAlign: 'center' }}>
+      <div className="container" style={{ maxWidth: 640 }}>
+        <div className="eyebrow-num" data-num="N° 06" style={{ marginBottom: 20 }}>Legal</div>
+        <h1 className="display-2 serif" style={{ marginBottom: 16 }}>Privacy <em className="display-italic">Policy</em>.</h1>
+        <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)' }}>Last updated: May 2026</p>
+      </div>
+    </section>
+    <section style={{ paddingTop: 64, paddingBottom: 80 }}>
+      <div className="container" style={{ maxWidth: 720 }}>
+        {[
+          {
+            title: 'What we collect',
+            body: 'When you sign up for our newsletter, submit an institution listing enquiry, or contact us, we collect the information you provide — typically your name, email address, and any message content. We do not collect data passively beyond standard web server logs.'
+          },
+          {
+            title: 'How we use it',
+            body: 'We use your information solely to respond to your enquiry, process your listing, or send you the newsletter you signed up for. We do not sell, rent, or share your personal data with third parties for marketing purposes.'
+          },
+          {
+            title: 'Third-party services',
+            body: 'Form submissions are processed via Formspree. Email delivery may be handled by a third-party provider. These services operate under their own privacy policies and are used only to fulfil the purpose for which you submitted your information.'
+          },
+          {
+            title: 'Data retention',
+            body: 'We retain your information for as long as necessary to fulfil the purpose it was collected for. You may request deletion of your data at any time by contacting us.'
+          },
+          {
+            title: 'Your rights',
+            body: 'Under Trinidad & Tobago\'s Data Protection Act, you have the right to access, correct, or request deletion of personal data we hold about you. To exercise these rights, contact us at support@courza.tt.'
+          },
+          {
+            title: 'Contact',
+            body: 'Questions about this policy? Reach us at support@courza.tt or through the Contact page.'
+          }
+        ].map(({ title, body }) => (
+          <div key={title} style={{ paddingBottom: 40, marginBottom: 40, borderBottom: '1px solid var(--rule)' }}>
+            <h2 className="serif" style={{ fontSize: 28, fontWeight: 500, marginBottom: 16 }}>{title}</h2>
+            <p style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--ink-2)' }}>{body}</p>
+          </div>
+        ))}
+        <button onClick={() => setPage('home')} className="btn btn-ghost">← Back to home</button>
+      </div>
+    </section>
+  </div>
+);
+
 window.CourzaPages = window.CourzaPages || {};
-Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage });
+Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage, PrivacyPage });

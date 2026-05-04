@@ -693,7 +693,7 @@ const COURSES = [
     "startDate": "18 May 2026",
     "deadline": "07 Apr 2026",
     "delivery": "Online",
-    "location": "Onine",
+    "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/human-resource-management",
     "featured": false
   },

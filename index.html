@@ -4,6 +4,16 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>CourzaTT — Discover programmes across Trinidad &amp; Tobago</title>
+<meta name="description" content="The hub for discovering accredited courses and programmes from public, private, and government institutions across Trinidad &amp; Tobago."/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="CourzaTT — Discover programmes across Trinidad &amp; Tobago"/>
+<meta property="og:description" content="The hub for discovering accredited courses and programmes from public, private, and government institutions across Trinidad &amp; Tobago."/>
+<meta property="og:image" content="https://i.ibb.co/VWKrpJ69/Courzaheroimage1.png"/>
+<meta property="og:url" content="https://courza.tt"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CourzaTT — Discover programmes across Trinidad &amp; Tobago"/>
+<meta name="twitter:description" content="The hub for discovering accredited courses and programmes from public, private, and government institutions across Trinidad &amp; Tobago."/>
+<meta name="twitter:image" content="https://i.ibb.co/VWKrpJ69/Courzaheroimage1.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
@@ -24,7 +34,7 @@
 <script type="text/babel">
 const { useState, useEffect } = React;
 const { Nav, Footer, Home } = window.CourzaPages;
-const { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage } = window.CourzaPages;
+const { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage, PrivacyPage } = window.CourzaPages;
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakSelect, TweakColor, TweakToggle } = window;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -77,6 +87,7 @@ function App() {
 
   if (page === 'home') pageEl = <Home setPage={setPage}/>;
   else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density}/>;
+  else if (page.startsWith('discover:search:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialSearch={page.slice(16)}/>;
   else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
   else if (page === 'list') pageEl = <ListInstitution setPage={setPage}/>;
@@ -85,38 +96,16 @@ function App() {
     const subjectMap = { 'partnership': 'Partnership & advertising' };
     pageEl = <ContactPage setPage={setPage} initialSubject={subjectMap[parts[1]] || parts[1] || ''} initialNote={parts[2] ? `I'm interested in the ${parts[2]}.` : ''}/>;
   }
+  else if (page === 'privacy') pageEl = <PrivacyPage setPage={setPage}/>;
   else if (page.startsWith('course:')) pageEl = <CourseDetail courseId={page.slice(7)} setPage={setPage}/>;
   else if (page.startsWith('institution:')) pageEl = <InstitutionDetail instId={page.slice(12)} setPage={setPage}/>;
   else pageEl = <Home setPage={setPage}/>;
 
   return (
-    <div data-screen-label={page}>
+    <div>
       <Nav activePage={activeNav} setPage={setPage}/>
       <main key={page}>{pageEl}</main>
       <Footer setPage={setPage}/>
-      <TweaksPanel title="CourzaTT Tweaks">
-        <TweakSection title="Density">
-          <TweakRadio
-            value={tweaks.density}
-            onChange={(v) => setTweak('density', v)}
-            options={[
-              { value: 'compact', label: 'Compact' },
-              { value: 'cozy', label: 'Cozy' },
-              { value: 'comfortable', label: 'Comfortable' },
-              { value: 'spacious', label: 'Spacious' }
-            ]}
-          />
-        </TweakSection>
-        <TweakSection title="Accent (spark)">
-          <TweakColor value={tweaks.accent} onChange={(v) => setTweak('accent', v)} swatches={['#E8A33D', '#D4FF5E', '#E84D3D', '#3DA0E8', '#FFD93D']}/>
-        </TweakSection>
-        <TweakSection title="Primary (emerald)">
-          <TweakColor value={tweaks.primary} onChange={(v) => setTweak('primary', v)} swatches={['#1F5F4A', '#0E1A17', '#3D5A80', '#7C3F58', '#2D4F2D']}/>
-        </TweakSection>
-        <TweakSection title="Atmosphere">
-          <TweakToggle label="Paper grain" value={tweaks.showGrain} onChange={(v) => setTweak('showGrain', v)}/>
-        </TweakSection>
-      </TweaksPanel>
     </div>
   );
 }

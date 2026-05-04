@@ -6,11 +6,20 @@ const { Icon, Logo, CompassRose, SectionHeader, CourseCard, InstitutionCard, FAQ
 // ─────────────────────────────────────────────────────────────────
 const Nav = ({ activePage, setPage }) => {
   const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const navigate = (id) => { setMenuOpen(false); setPage(id); };
 
   const links = [
     { id: 'home', label: 'Home' },
@@ -20,41 +29,76 @@ const Nav = ({ activePage, setPage }) => {
   ];
 
   return (
-    <nav style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'rgba(244,239,227,0.92)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(10px)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
-      transition: 'all 0.3s'
-    }}>
-      <div className="container flex items-center justify-between" style={{ padding: '20px 32px' }}>
-        <Logo size="md" onClick={() => setPage('home')} />
-        <div className="flex items-center gap-8 hide-mobile">
+    <>
+      <nav style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: scrolled ? 'rgba(244,239,227,0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(10px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
+        transition: 'all 0.3s'
+      }}>
+        <div className="container flex items-center justify-between" style={{ padding: '20px 32px' }}>
+          <Logo size="md" onClick={() => navigate('home')} />
+          <div className="flex items-center gap-8 hide-mobile">
+            {links.map(l => (
+              <button key={l.id} onClick={() => navigate(l.id)} style={{
+                fontSize: 14, fontWeight: 500, color: 'var(--ink)',
+                opacity: activePage === l.id ? 1 : 0.55,
+                position: 'relative', padding: '4px 0',
+                transition: 'opacity 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = activePage === l.id ? 1 : 0.55}
+              >
+                {l.label}
+                {activePage === l.id && <span style={{ position: 'absolute', bottom: -6, left: '50%', transform: 'translateX(-50%)', width: 4, height: 4, borderRadius: '50%', background: 'var(--amber)' }}/>}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="btn btn-ghost btn-sm hide-mobile" onClick={() => navigate('discover')}>
+              <Icon name="search" size={14}/> Search
+            </button>
+            <button className="btn btn-primary btn-sm hide-mobile" onClick={() => navigate('list')}>
+              List institution <Icon name="arrow-up-right" size={14}/>
+            </button>
+            <button className="show-mobile" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', alignItems: 'center', justifyContent: 'center' }}>
+              <Icon name={menuOpen ? 'x' : 'menu'} size={18}/>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile drawer */}
+      <div className={`mobile-drawer ${menuOpen ? 'open' : ''}`}>
+        <div className="flex items-center justify-between" style={{ padding: '20px 20px', borderBottom: '1px solid var(--rule)' }}>
+          <Logo size="md" onClick={() => navigate('home')}/>
+          <button onClick={() => setMenuOpen(false)} style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Icon name="x" size={18}/>
+          </button>
+        </div>
+        <div style={{ flex: 1, padding: '32px 20px', display: 'flex', flexDirection: 'column', gap: 4 }}>
           {links.map(l => (
-            <button key={l.id} onClick={() => setPage(l.id)} style={{
-              fontSize: 14, fontWeight: 500, color: 'var(--ink)',
-              opacity: activePage === l.id ? 1 : 0.55,
-              position: 'relative', padding: '4px 0',
-              transition: 'opacity 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = activePage === l.id ? 1 : 0.55}
-            >
+            <button key={l.id} onClick={() => navigate(l.id)} style={{
+              textAlign: 'left', padding: '18px 16px', borderRadius: 10,
+              fontSize: 22, fontFamily: 'var(--font-serif, Newsreader, Georgia, serif)', fontWeight: 400,
+              background: activePage === l.id ? 'var(--paper-2)' : 'transparent',
+              color: activePage === l.id ? 'var(--emerald)' : 'var(--ink)',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              borderBottom: '1px solid var(--rule)'
+            }}>
               {l.label}
-              {activePage === l.id && <span style={{ position: 'absolute', bottom: -6, left: '50%', transform: 'translateX(-50%)', width: 4, height: 4, borderRadius: '50%', background: 'var(--amber)' }}/>}
+              {activePage === l.id && <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--amber)' }}/>}
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-3">
-          <button className="btn btn-ghost btn-sm hide-mobile" onClick={() => setPage('discover')}>
-            <Icon name="search" size={14}/> Search
-          </button>
-          <button className="btn btn-primary btn-sm" onClick={() => setPage('list')}>
-            List institution <Icon name="arrow-up-right" size={14}/>
+        <div style={{ padding: '24px 20px', borderTop: '1px solid var(--rule)' }}>
+          <button className="btn btn-primary full" style={{ justifyContent: 'center' }} onClick={() => navigate('list')}>
+            List your institution <Icon name="arrow-up-right" size={14}/>
           </button>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
@@ -84,7 +128,7 @@ const Footer = ({ setPage }) => {
   return (
     <footer style={{ borderTop: '1px solid var(--ink)', background: 'var(--paper-2)', marginTop: 80 }}>
       <div className="container" style={{ padding: '80px 32px 32px' }}>
-        <div className="grid" style={{ gridTemplateColumns: '2fr 1fr 1fr 1.4fr', gap: 64, marginBottom: 80 }}>
+        <div className="grid footer-grid" style={{ gridTemplateColumns: '2fr 1fr 1fr 1.4fr', gap: 64, marginBottom: 80 }}>
           <div>
             <Logo size="lg" onClick={() => setPage('home')}/>
             <p className="muted" style={{ marginTop: 24, maxWidth: 360, fontSize: 16, lineHeight: 1.6 }}>
@@ -109,7 +153,7 @@ const Footer = ({ setPage }) => {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
               <li><button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }), 120); }} style={{ fontSize: 15 }}>FAQs</button></li>
               <li><button onClick={() => setPage('contact')} style={{ fontSize: 15 }}>Contact</button></li>
-              <li><button onClick={() => setPage('contact')} style={{ fontSize: 15 }}>Privacy</button></li>
+              <li><button onClick={() => setPage('privacy')} style={{ fontSize: 15 }}>Privacy</button></li>
             </ul>
           </div>
           <div>
@@ -204,7 +248,7 @@ const Home = ({ setPage }) => {
       {/* HERO */}
       <section style={{ paddingTop: 60, paddingBottom: 80, position: 'relative', overflow: 'hidden' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
             <div>
               <div className="eyebrow-num rise rise-1" data-num="N° 01" style={{ marginBottom: 32 }}>An almanac of learning · Trinidad &amp; Tobago</div>
               <h1 className="display-1 serif rise rise-2" style={{ marginBottom: 32 }}>
@@ -218,17 +262,18 @@ const Home = ({ setPage }) => {
                 <input
                   value={searchQ}
                   onChange={e => setSearchQ(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && setPage(searchQ.trim() ? `discover:search:${searchQ.trim()}` : 'discover')}
                   placeholder="Search courses, skills, or institutions…"
                   style={{ flexGrow: 1, background: 'transparent', border: 'none', outline: 'none', padding: '14px 12px', fontSize: 15 }}
                 />
-                <button className="btn btn-amber" onClick={() => setPage('discover')} style={{ padding: '12px 24px' }}>
+                <button className="btn btn-amber" onClick={() => setPage(searchQ.trim() ? `discover:search:${searchQ.trim()}` : 'discover')} style={{ padding: '12px 24px' }}>
                   Search <Icon name="arrow-right" size={14}/>
                 </button>
               </div>
               <div className="rise rise-4 flex items-center gap-3 mt-8" style={{ flexWrap: 'wrap' }}>
                 <span className="mono muted" style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginRight: 4 }}>Trending →</span>
                 {trendingTags.map(t => (
-                  <button key={t} className="chip" onClick={() => setPage('discover')}>{t}</button>
+                  <button key={t} className="chip" onClick={() => setPage(`discover:search:${t}`)}>{t}</button>
                 ))}
               </div>
               <div className="rise rise-4 mt-8">
@@ -242,7 +287,7 @@ const Home = ({ setPage }) => {
               </div>
             </div>
 
-            <div style={{ position: 'relative', height: 560 }}>
+            <div className="hero-visual" style={{ position: 'relative', height: 560 }}>
               {/* Decorative compass */}
               <div style={{ position: 'absolute', top: -20, right: -40, opacity: 0.5, pointerEvents: 'none' }}>
                 <CompassRose size={320}/>
@@ -260,9 +305,9 @@ const Home = ({ setPage }) => {
               <div className="rise rise-3 card" style={{ position: 'absolute', bottom: 0, left: 0, padding: 22, background: 'var(--paper)', border: '1px solid var(--ink)', minWidth: 220, boxShadow: '0 16px 40px -12px rgba(14,26,23,0.18)' }}>
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 8 }}>Programmes indexed</div>
                 <div className="flex items-end gap-3">
-                  <div className="serif" style={{ fontSize: 48, fontWeight: 500, lineHeight: 1 }}>163</div>
+                  <div className="serif" style={{ fontSize: 48, fontWeight: 500, lineHeight: 1 }}>{COURSES.length}</div>
                   <div style={{ paddingBottom: 6 }}>
-                    <div className="mono" style={{ fontSize: 11, color: 'var(--emerald)' }}>+12 this week</div>
+                    <div className="mono" style={{ fontSize: 11, color: 'var(--emerald)' }}>{CATEGORIES.length} categories</div>
                   </div>
                 </div>
               </div>
@@ -294,7 +339,7 @@ const Home = ({ setPage }) => {
       <section>
         <div className="container">
           <SectionHeader num="N° 02" eyebrow="Browse by field" title={<>Explore <em className="display-italic"><span className="hl">top categories</span></em>.</>} sub={`${CATEGORIES.length} disciplines, mapped to T&T's evolving labour market — from sustainable agriculture to data science.`}/>
-          <div className="grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--gap-grid)' }}>
+          <div className="grid category-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--gap-grid)' }}>
             {categoryShowcase.slice(0, 4).map((c) => (
               <button key={c.name} onClick={() => setPage(`discover:${c.name}`)} className="card card-hover" style={{
                 textAlign: 'left',
@@ -348,7 +393,7 @@ const Home = ({ setPage }) => {
             <p className="muted" style={{ fontSize: 16, maxWidth: 360, lineHeight: 1.6 }}>Practical reading for learners weighing their next move.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--gap-grid)', alignItems: 'start' }}>
+          <div className="guides-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--gap-grid)', alignItems: 'start' }}>
 
             {/* FEATURED — first post */}
             {(() => {
@@ -359,7 +404,7 @@ const Home = ({ setPage }) => {
                   <div style={{ position: 'relative', height: 260, overflow: 'hidden', flexShrink: 0 }}>
                     <img
                       src="https://i.ibb.co/n20Vsxm/Courza-Reading-guideimage1.png"
-                      alt="Course guides"
+                      alt="A student reading course materials"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
                     />
                     {/* Gradient fade into card */}
@@ -443,7 +488,7 @@ const Home = ({ setPage }) => {
       <section id="faq" style={{ borderTop: '1px solid var(--rule)' }}>
         <div className="container">
           <SectionHeader num="N° 05" eyebrow="Common questions" title={<>Got <em className="display-italic">questions</em>?</>} sub="Everything you need to know about navigating your learning journey with CourzaTT."/>
-          <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 80 }}>
+          <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 80 }}>
             <div>
               <div className="mono muted mb-4" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Topics</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>

@@ -235,6 +235,10 @@ section.tight { padding: 60px 0; }
   gap: 64px;
   width: max-content;
 }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .rotate-slow { animation: none; }
+}
 
 /* Highlight underline (hand-drawn-ish) */
 .hl {
@@ -350,6 +354,67 @@ section.tight { padding: 60px 0; }
   .hide-mobile { display: none !important; }
   .container, .container-narrow { padding: 0 20px; }
   section { padding: 64px 0; }
+
+  /* Hero — stack columns */
+  .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .hero-visual { display: none !important; }
+
+  /* Discover sidebar+results — stack */
+  .discover-layout { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .discover-sidebar { position: static !important; }
+
+  /* Institution detail header — stack */
+  .inst-header-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* List institution — stack form + image */
+  .list-form-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .list-sticky-aside { position: static !important; }
+
+  /* Promote section — stack pricing */
+  .promote-grid { grid-template-columns: 1fr !important; }
+  .pricing-grid { grid-template-columns: 1fr !important; }
+
+  /* Footer — stack columns */
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+
+  /* Course detail — stack */
+  .course-detail-grid { grid-template-columns: 1fr !important; }
+  .course-detail-aside { position: static !important; }
+
+  /* FAQ — stack */
+  .faq-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* Guides — stack */
+  .guides-grid { grid-template-columns: 1fr !important; }
+
+  /* Category cards — 2 col on mobile */
+  .category-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Course cards grid — single col */
+  .cards-grid-2 { grid-template-columns: 1fr !important; }
+
+  /* Institutions grid — 1 col */
+  .institutions-grid { grid-template-columns: 1fr !important; }
+}
+
+.show-mobile { display: none !important; }
+@media (max-width: 900px) {
+  .show-mobile { display: flex !important; }
+}
+
+/* Mobile nav drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mobile-drawer.open {
+  transform: translateX(0);
 }
 
 /* Inline icon adjustments */
