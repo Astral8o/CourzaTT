@@ -37,7 +37,7 @@ const Nav = ({ activePage, setPage }) => {
         borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
         transition: 'all 0.3s'
       }}>
-        <div className="container flex items-center justify-between" style={{ padding: '20px 32px' }}>
+        <div className="container nav-inner flex items-center justify-between" style={{ padding: '20px 32px' }}>
           <Logo size="md" onClick={() => navigate('home')} />
           <div className="flex items-center gap-8 hide-mobile">
             {links.map(l => (
@@ -377,7 +377,7 @@ const Home = ({ setPage }) => {
             </div>
             <button className="btn btn-amber" onClick={() => setPage('discover')}>All courses <Icon name="arrow-up-right" size={14}/></button>
           </div>
-          <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
+          <div className="grid cards-grid-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
             {featured.map(c => <CourseCard key={c.id} course={c} onClick={() => setPage(`course:${c.id}`)}/>)}
           </div>
         </div>

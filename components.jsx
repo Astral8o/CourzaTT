@@ -172,7 +172,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
 
   if (isWide) {
     return (
-      <div className="card" style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: 32, alignItems: 'stretch', textAlign: 'left', width: '100%' }}>
+      <div className="card course-card-wide" style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: 32, alignItems: 'stretch', textAlign: 'left', width: '100%' }}>
         <div>
           <div className="flex items-center gap-2 mb-4">
             <span className="tag tag-emerald">{course.type}</span>
@@ -187,7 +187,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
           </div>
           <VisitCTA url={url}/>
         </div>
-        <div style={{ borderLeft: '1px solid var(--rule)', paddingLeft: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="course-card-wide-sidebar" style={{ borderLeft: '1px solid var(--rule)', paddingLeft: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Begins</div>
             <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 16 }}>{course.startDate}</div>

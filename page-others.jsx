@@ -219,7 +219,7 @@ const Institutions = ({ setPage }) => {
       <section className="tight" style={{ borderTop: '1px solid var(--rule)' }}>
         <div className="container">
           {filtered.length > 0 ? (
-            <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
+            <div className="grid institutions-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
               {filtered.map(i => <InstitutionCard key={i.id} inst={i} onClick={() => setPage(`institution:${i.id}`)}/>)}
             </div>
           ) : (
@@ -320,7 +320,7 @@ const CourseDetail = ({ courseId, setPage }) => {
           {related.length > 0 && (
             <div style={{ marginTop: 96, paddingTop: 48, borderTop: '1px solid var(--rule)' }}>
               <SectionHeader num="N° 04" eyebrow="Related programmes" title={<>More in <em className="display-italic">{course.category}</em>.</>}/>
-              <div className="grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
+              <div className="grid cards-grid-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
                 {related.map(c => <CourseCard key={c.id} course={c} onClick={() => setPage(`course:${c.id}`)}/>)}
               </div>
             </div>
@@ -366,7 +366,7 @@ const InstitutionDetail = ({ instId, setPage }) => {
 
           <div style={{ marginTop: 64 }}>
             <SectionHeader num="N° 02" eyebrow="Their programmes" title={<>Currently offered at <em className="display-italic">{inst.name.split(' ')[0]}</em>.</>}/>
-            <div className="grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--gap-grid)' }}>
+            <div className="grid cards-grid-2" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--gap-grid)' }}>
               {courses.map(c => <CourseCard key={c.id} course={c} onClick={() => setPage(`course:${c.id}`)}/>)}
             </div>
           </div>
