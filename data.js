@@ -148,7 +148,7 @@ const INSTITUTIONS = [
     "type": "Private",
     "website": "https://shel.edu.tt",
     "location": "Online",
-    "courseCount": 15
+    "courseCount": 16
   }
 ];
 
@@ -1274,22 +1274,6 @@ const COURSES = [
     "featured": true
   },
   {
-    "id": "c072",
-    "title": "The Art of Bread Making (Lean & Rich Bread)",
-    "institutionId": "thti",
-    "institutionName": "Trinidad and Tobago Hospitality and Tourism Institute (THTI)",
-    "summary": "Learn baking basics including muffins, sponge cakes, and quick breads",
-    "type": "Workshop",
-    "category": "Hospitality & Culinary",
-    "cost": "$695.00",
-    "startDate": "26 May 2026",
-    "deadline": "19 May 2026",
-    "delivery": "In-person",
-    "location": "In-person",
-    "website": "https://www.thti.edu.tt/product/the-art-of-bread-making-2/",
-    "featured": false
-  },
-  {
     "id": "c073",
     "title": "Housekeeping Skills",
     "institutionId": "thti",
@@ -2023,6 +2007,22 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Multiple campuses",
     "website": "https://utt.edu.tt",
+    "featured": true
+  },
+  {
+    "id": "c119",
+    "title": "Social Media Marketing",
+    "institutionId": "shel",
+    "institutionName": "School of Higher Education Limited - SHEL",
+    "summary": "Learn how to create content, manage platforms, and apply basic digital marketing strategies",
+    "type": "Short Course",
+    "category": "Communication & Media",
+    "cost": "125 USD",
+    "startDate": "Self-paced",
+    "deadline": "Open",
+    "delivery": "Online",
+    "location": "Online",
+    "website": "https://shel.edu.tt/social-media-marketing/",
     "featured": true
   }
 ];
