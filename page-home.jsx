@@ -360,7 +360,7 @@ const Home = ({ setPage }) => {
               </button>
             ))}
           </div>
-          <div className="text-center mt-10">
+          <div className="text-center" style={{ marginTop: 40 }}>
             <button onClick={() => setPage('discover')} className="btn btn-amber">
               View all {categoryShowcase.length} categories <Icon name="arrow-up-right" size={14}/>
             </button>
