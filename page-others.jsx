@@ -784,6 +784,160 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────
+// Online Guides Page
+// ─────────────────────────────────────────────────────────────────
+const OnlineGuides = ({ setPage }) => {
+  const { ONLINE_GUIDES } = window.CourzaData;
+  const [filter, setFilter] = React.useState('all');
+
+  const free = ONLINE_GUIDES.filter(g => g.free);
+  const paid = ONLINE_GUIDES.filter(g => !g.free);
+  const displayed = filter === 'free' ? free : filter === 'paid' ? paid : ONLINE_GUIDES;
+
+  const platformColors = {
+    'Coursera': 'var(--ink)',
+    'Google Digital Garage': 'var(--emerald)',
+    'HubSpot Academy': 'var(--rust)',
+    'Meta Blueprint': 'var(--ink)',
+    'Semrush Academy': 'var(--emerald)',
+  };
+
+  return (
+    <div className="page-enter">
+
+      {/* HEADER */}
+      <section style={{ paddingTop: 64, paddingBottom: 64, borderBottom: '1px solid var(--rule)' }}>
+        <div className="container">
+          <div className="eyebrow-num" data-num="N° 07" style={{ marginBottom: 24 }}>Online learning</div>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 80, alignItems: 'end' }}>
+            <div>
+              <h1 className="display-1 serif" style={{ marginBottom: 24 }}>
+                Global skills.<br/><em className="display-italic" style={{ color: 'var(--emerald)' }}>T&T ambition.</em>
+              </h1>
+              <p style={{ fontSize: 19, lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: 560 }}>
+                Nine globally recognised certifications — most of them free — handpicked to complement your local qualifications and open doors beyond the island.
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignSelf: 'end', paddingBottom: 8 }}>
+              {[
+                { num: '5', label: 'Fully free courses', color: 'var(--emerald)' },
+                { num: '4', label: 'Paid with free trial or audit access', color: 'var(--ink)' },
+                { num: '9', label: 'Certificates included', color: 'var(--amber-2)' },
+              ].map(({ num, label, color }) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 20, paddingBottom: 16, borderBottom: '1px solid var(--rule)' }}>
+                  <span className="serif" style={{ fontSize: 40, fontWeight: 500, color, lineHeight: 1, minWidth: 48 }}>{num}</span>
+                  <span style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.4 }}>{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FILTER + GRID */}
+      <section>
+        <div className="container">
+          {/* Filter tabs */}
+          <div className="flex items-center gap-3" style={{ marginBottom: 48, paddingBottom: 24, borderBottom: '1px solid var(--rule)' }}>
+            <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginRight: 8 }}>Show</span>
+            {[
+              { key: 'all', label: `All (${ONLINE_GUIDES.length})` },
+              { key: 'free', label: `Free (${free.length})` },
+              { key: 'paid', label: `Paid / Audit (${paid.length})` },
+            ].map(f => (
+              <button key={f.key} onClick={() => setFilter(f.key)} style={{
+                padding: '8px 18px', borderRadius: 999, fontSize: 13, fontWeight: 500,
+                background: filter === f.key ? 'var(--ink)' : 'var(--card)',
+                color: filter === f.key ? 'var(--paper)' : 'var(--ink-2)',
+                border: `1px solid ${filter === f.key ? 'var(--ink)' : 'var(--rule)'}`,
+                transition: 'all 0.2s',
+              }}>{f.label}</button>
+            ))}
+          </div>
+
+          {/* Cards grid */}
+          <div className="cards-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--gap-grid)' }}>
+            {displayed.map((g) => (
+              <div key={g.id} className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
+                {/* Top accent bar */}
+                <div style={{ height: 3, background: g.free ? 'var(--emerald)' : 'var(--ink)', flexShrink: 0 }}/>
+                <div style={{ padding: 32, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+
+                  {/* Header row */}
+                  <div className="flex items-center justify-between" style={{ marginBottom: 20 }}>
+                    <div className="flex items-center gap-2" style={{ flexWrap: 'wrap' }}>
+                      <span className="tag" style={{ fontSize: 10 }}>{g.skill}</span>
+                      <span className="mono" style={{ fontSize: 10, color: platformColors[g.platform] || 'var(--ink-2)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{g.platform}</span>
+                    </div>
+                    <span style={{
+                      fontSize: 10, fontFamily: 'var(--font-mono, JetBrains Mono, monospace)', fontWeight: 700,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      padding: '4px 10px', borderRadius: 999,
+                      background: g.free ? 'var(--emerald)' : 'var(--paper-2)',
+                      color: g.free ? 'var(--paper)' : 'var(--ink-2)',
+                      border: g.free ? 'none' : '1px solid var(--rule)',
+                      whiteSpace: 'nowrap',
+                    }}>{g.free ? 'Free' : g.cost}</span>
+                  </div>
+
+                  {/* Title + provider */}
+                  <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 8 }}>{g.provider}</div>
+                  <h3 className="course-title" style={{ fontSize: 22, lineHeight: 1.15, marginBottom: 16 }}>{g.title}</h3>
+
+                  {/* Pitch */}
+                  <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--ink-2)', flexGrow: 1, marginBottom: 24 }}>{g.pitch}</p>
+
+                  {/* Meta row */}
+                  <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, marginBottom: 20 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                      <div>
+                        <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
+                        <div style={{ fontSize: 13, fontWeight: 500 }}>{g.duration}</div>
+                      </div>
+                      <div>
+                        <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Access</div>
+                        <div style={{ fontSize: 13, fontWeight: 500 }}>{g.freeAccess}</div>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: 12 }}>
+                      <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Good for</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--ink-2)' }}>{g.roles}</div>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <a href={g.url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ justifyContent: 'center', textDecoration: 'none' }}>
+                    Start learning <Icon name="external" size={13}/>
+                  </a>
+                  {g.certificate && (
+                    <div className="flex items-center gap-2 justify-center" style={{ marginTop: 12 }}>
+                      <Icon name="check-circle" size={12} style={{ color: 'var(--emerald)' }}/>
+                      <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.1em' }}>Certificate included</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom note */}
+          <div className="card" style={{ marginTop: 64, padding: 40, background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)', display: 'grid', gridTemplateColumns: '1fr auto', gap: 40, alignItems: 'center' }}>
+            <div>
+              <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 12 }}>Already certified? List your institution.</div>
+              <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 8 }}>Looking for programmes right here in T&T?</h3>
+              <p style={{ fontSize: 15, opacity: 0.7, lineHeight: 1.6 }}>Browse our full directory of accredited courses from local institutions — in-person, online, and hybrid.</p>
+            </div>
+            <button onClick={() => setPage('discover')} className="btn btn-amber" style={{ whiteSpace: 'nowrap' }}>
+              Browse local courses <Icon name="arrow-right" size={14}/>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────
 // Privacy Policy Page
 // ─────────────────────────────────────────────────────────────────
 const PrivacyPage = ({ setPage }) => (
@@ -835,4 +989,4 @@ const PrivacyPage = ({ setPage }) => (
 );
 
 window.CourzaPages = window.CourzaPages || {};
-Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage, PrivacyPage });
+Object.assign(window.CourzaPages, { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage, PrivacyPage, OnlineGuides });

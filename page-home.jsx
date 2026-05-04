@@ -145,6 +145,7 @@ const Footer = ({ setPage }) => {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
               <li><button onClick={() => setPage('discover')} style={{ fontSize: 15 }}>Courses</button></li>
               <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
+              <li><button onClick={() => setPage('guides')} style={{ fontSize: 15 }}>Online guides</button></li>
               <li><button onClick={() => setPage('list')} style={{ fontSize: 15 }}>Partner with us</button></li>
             </ul>
           </div>
@@ -436,7 +437,7 @@ const Home = ({ setPage }) => {
                         })}
                       </div>
                     </div>
-                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 28, alignSelf: 'flex-start' }} onClick={() => setPage('discover')}>
+                    <button className="btn btn-ghost btn-sm" style={{ marginTop: 28, alignSelf: 'flex-start' }} onClick={() => setPage('guides')}>
                       Explore all <Icon name="arrow-up-right" size={13}/>
                     </button>
                   </div>
