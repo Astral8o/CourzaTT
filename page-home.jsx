@@ -194,7 +194,7 @@ const Home = ({ setPage }) => {
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
   const [searchQ, setSearchQ] = React.useState('');
-  const featuredIds = ['c118', 'c120', 'c119'];
+  const featuredIds = ['c118', 'c070', 'c113'];
   const featured = featuredIds.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
 
   const trendingTags = ['CompTIA Security+', 'Project Management', 'AI Literacy', 'Solar Power', 'Pastry Arts', 'Public Speaking'];
