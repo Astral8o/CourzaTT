@@ -11,12 +11,12 @@ CourzaTT is a free course discovery directory for learners in Trinidad and Tobag
 - Features Online Guides — globally recognised free and paid certifications from Google, HubSpot, Meta, Coursera, and others, curated for T&T learners
 
 ## Key pages
-- Home: https://courza.tt/
-- Discover courses: https://courza.tt/#discover
-- Browse institutions: https://courza.tt/#institutions
-- Online Guides: https://courza.tt/#guides
-- List your institution: https://courza.tt/#list
-- Contact: https://courza.tt/#contact
+- Home: https://courzatt.com/
+- Discover courses: https://courzatt.com/#discover
+- Browse institutions: https://courzatt.com/#institutions
+- Online Guides: https://courzatt.com/#guides
+- List your institution: https://courzatt.com/#list
+- Contact: https://courzatt.com/#contact
 
 ## About
-CourzaTT is based in Trinidad and Tobago. The platform is free to use for learners. Institutions can list their programmes by visiting https://courza.tt/#list or emailing support@courza.tt. Follow CourzaTT on Instagram at @courzatt.
+CourzaTT is based in Trinidad and Tobago. The platform is free to use for learners. Institutions can list their programmes by visiting https://courzatt.com/#list or emailing support@courza.tt. Follow CourzaTT on Instagram at @courzatt.

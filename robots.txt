@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://courza.tt/sitemap.xml
+Sitemap: https://courzatt.com/sitemap.xml
