@@ -55,12 +55,23 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 function App() {
-  const [page, setPage] = useState('home');
+  const [page, setPageState] = useState(() => window.location.hash.slice(1) || 'home');
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [ready, setReady] = useState(false);
 
+  const setPage = (p) => {
+    setPageState(p);
+    window.location.hash = p === 'home' ? '' : p;
+  };
+
   useEffect(() => {
     (window.CourzaDataReady || Promise.resolve()).then(() => setReady(true));
+  }, []);
+
+  useEffect(() => {
+    const onHashChange = () => setPageState(window.location.hash.slice(1) || 'home');
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
