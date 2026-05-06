@@ -1,0 +1,22 @@
+# CourzaTT
+
+> CourzaTT is the #1 all-in-one platform to discover courses, training, and skills opportunities across Trinidad & Tobago.
+
+CourzaTT is a free course discovery directory for learners in Trinidad and Tobago. It indexes accredited short courses, professional certifications, workshops, and training programmes from public, private, and government institutions across T&T.
+
+## What CourzaTT does
+- Helps learners in Trinidad & Tobago find local courses and training opportunities in one place
+- Lists programmes from institutions including CTS College, THTI, UTT, COSTAATT, UWI Global Campus, Lok Jack GSB, SBCS, NEDCO, USC, SHEL, UWI-ROYTEC, Cipriani College, and more
+- Covers categories including Technology & Digital, Business & Entrepreneurship, Hospitality & Culinary, Health & Medical, Personal Development, Creative Arts & Design, Technical Trades, Finance & Accounting, Law & Governance, Agriculture & Environment, Communication & Media, and more
+- Features Online Guides — globally recognised free and paid certifications from Google, HubSpot, Meta, Coursera, and others, curated for T&T learners
+
+## Key pages
+- Home: https://courza.tt/
+- Discover courses: https://courza.tt/#discover
+- Browse institutions: https://courza.tt/#institutions
+- Online Guides: https://courza.tt/#guides
+- List your institution: https://courza.tt/#list
+- Contact: https://courza.tt/#contact
+
+## About
+CourzaTT is based in Trinidad and Tobago. The platform is free to use for learners. Institutions can list their programmes by visiting https://courza.tt/#list or emailing support@courza.tt. Follow CourzaTT on Instagram at @courzatt.
