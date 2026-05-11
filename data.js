@@ -76,7 +76,7 @@ const INSTITUTIONS = [
     "type": "Private",
     "website": "https://www.ctscollege.com",
     "location": "Trinidad",
-    "courseCount": 44
+    "courseCount": 42
   },
   {
     "id": "nedco",
@@ -94,7 +94,7 @@ const INSTITUTIONS = [
     "type": "Public",
     "website": "https://www.thti.edu.tt",
     "location": "Chaguaramas",
-    "courseCount": 16
+    "courseCount": 14
   },
   {
     "id": "roytec",
@@ -130,7 +130,7 @@ const INSTITUTIONS = [
     "type": "Public",
     "website": "https://lokjackgsb.edu.tt",
     "location": "Mt Hope",
-    "courseCount": 3
+    "courseCount": 2
   },
   {
     "id": "shel",
@@ -174,22 +174,6 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/certified-associate-project-management",
-    "featured": false
-  },
-  {
-    "id": "c003",
-    "title": "Microsoft Power Automate",
-    "institutionId": "cts",
-    "institutionName": "CTS College",
-    "summary": "Automate business workflows using Microsoft Power Automate, including flows, connectors, and integrations",
-    "type": "Short Course",
-    "category": "Technology & Digital",
-    "cost": "$1,400.00",
-    "startDate": "11 May 2026",
-    "deadline": "4 May 2026",
-    "delivery": "In-person",
-    "location": "In-person",
-    "website": "https://www.ctscollege.com/news/course-schedule/23097",
     "featured": false
   },
   {
@@ -689,22 +673,6 @@ const COURSES = [
     "featured": false
   },
   {
-    "id": "c035",
-    "title": "Human Resource Management",
-    "institutionId": "cts",
-    "institutionName": "CTS College",
-    "summary": "Learn HR functions including recruitment, training, performance, and labour law",
-    "type": "Short Course",
-    "category": "Business",
-    "cost": "$1,000.00",
-    "startDate": "19 May 2026",
-    "deadline": "11 May 2026",
-    "delivery": "Online",
-    "location": "Online",
-    "website": "https://www.ctscollege.com/certifications/professional-development-certifications/human-resource-management",
-    "featured": false
-  },
-  {
     "id": "c036",
     "title": "Investigative Interviewing and Report Writing",
     "institutionId": "cts",
@@ -1185,38 +1153,6 @@ const COURSES = [
     "featured": false
   },
   {
-    "id": "c070",
-    "title": "Food Preparation",
-    "institutionId": "thti",
-    "institutionName": "Trinidad and Tobago Hospitality and Tourism Institute (THTI)",
-    "summary": "Learn cooking techniques, food safety, and kitchen operations",
-    "type": "Short Course",
-    "category": "Hospitality & Culinary",
-    "cost": "$2,195.00",
-    "startDate": "19 May 2026",
-    "deadline": "11 May 2026",
-    "delivery": "In-person",
-    "location": "In-person",
-    "website": "https://www.thti.edu.tt/product/food-preparation/",
-    "featured": true
-  },
-  {
-    "id": "c071",
-    "title": "Bartending & Mixology",
-    "institutionId": "thti",
-    "institutionName": "Trinidad and Tobago Hospitality and Tourism Institute (THTI)",
-    "summary": "Learn cocktail preparation, bar operations, and beverage service",
-    "type": "Short Course",
-    "category": "Hospitality & Culinary",
-    "cost": "$2,295.00",
-    "startDate": "2 May 2026",
-    "deadline": "25 Apr 2026",
-    "delivery": "Hybrid",
-    "location": "Blended (Online + F2F)",
-    "website": "https://www.thti.edu.tt/product/bartending-mixology/",
-    "featured": true
-  },
-  {
     "id": "c072",
     "title": "The Art of Bread Making (Lean & Rich Bread)",
     "institutionId": "thti",
@@ -1679,22 +1615,6 @@ const COURSES = [
     "location": "Contact Provider",
     "website": "https://lokjackgsb.edu.tt/short-courses/train-the-trainer/",
     "featured": true
-  },
-  {
-    "id": "c101",
-    "title": "Effective Business Writing",
-    "institutionId": "alj",
-    "institutionName": "Arthur Lok Jack Global School of Business",
-    "summary": "Improve professional writing for business communication, reports, and workplace documents",
-    "type": "Short Course",
-    "category": "Personal Development",
-    "cost": "Contact Provider",
-    "startDate": "18 May 2026",
-    "deadline": "10 May 2026",
-    "delivery": "Online",
-    "location": "Online",
-    "website": "https://lokjackgsb.edu.tt/short-courses/effective-business-writing/",
-    "featured": false
   },
   {
     "id": "c102",
