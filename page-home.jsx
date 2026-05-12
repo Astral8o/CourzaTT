@@ -62,7 +62,7 @@ const Nav = ({ activePage, setPage }) => {
             <button className="btn btn-primary btn-sm hide-mobile" onClick={() => navigate('list')}>
               List institution <Icon name="arrow-up-right" size={14}/>
             </button>
-            <button className="show-mobile" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', alignItems: 'center', justifyContent: 'center' }}>
+            <button className="show-mobile" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} style={{ width: 44, height: 44, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', alignItems: 'center', justifyContent: 'center' }}>
               <Icon name={menuOpen ? 'x' : 'menu'} size={18}/>
             </button>
           </div>
@@ -73,7 +73,7 @@ const Nav = ({ activePage, setPage }) => {
       <div className={`mobile-drawer ${menuOpen ? 'open' : ''}`}>
         <div className="flex items-center justify-between" style={{ padding: '20px 20px', borderBottom: '1px solid var(--rule)' }}>
           <Logo size="md" onClick={() => navigate('home')}/>
-          <button onClick={() => setMenuOpen(false)} style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <button onClick={() => setMenuOpen(false)} style={{ width: 44, height: 44, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Icon name="x" size={18}/>
           </button>
         </div>
@@ -135,9 +135,9 @@ const Footer = ({ setPage }) => {
               The hub for discovering your next milestone. Bridging the gap between learners and institutions across Trinidad &amp; Tobago.
             </p>
             <div className="flex items-center gap-3 mt-8">
-              <a href="https://www.instagram.com/courzatt?igsh=cjB4bjg4NTY4cnc5" target="_blank" rel="noopener noreferrer" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="instagram" size={15}/></a>
-              <a href="https://www.linkedin.com/in/courza-trinidad-tobago-053b88407/" target="_blank" rel="noopener noreferrer" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="linkedin" size={15}/></a>
-              <a href="#" style={{ width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="youtube" size={15}/></a>
+              <a href="https://www.instagram.com/courzatt?igsh=cjB4bjg4NTY4cnc5" target="_blank" rel="noopener noreferrer" style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="instagram" size={15}/></a>
+              <a href="https://www.linkedin.com/in/courza-trinidad-tobago-053b88407/" target="_blank" rel="noopener noreferrer" style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="linkedin" size={15}/></a>
+              <a href="#" style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="youtube" size={15}/></a>
             </div>
           </div>
           <div>
@@ -164,7 +164,7 @@ const Footer = ({ setPage }) => {
               <p className="mono" style={{ fontSize: 13, color: 'var(--emerald)', letterSpacing: '0.05em' }}>You're in — we'll be in touch.</p>
             ) : (
               <>
-                <form onSubmit={submitNewsletter} style={{ display: 'flex', gap: 8, background: 'var(--card)', border: '1px solid var(--rule)', borderRadius: 999, padding: 6 }}>
+                <form onSubmit={submitNewsletter} className="newsletter-form" style={{ display: 'flex', gap: 8, background: 'var(--card)', border: '1px solid var(--rule)', borderRadius: 999, padding: 6 }}>
                   <input name="email" type="email" required className="input" placeholder="you@example.com" style={{ border: 'none', background: 'transparent', padding: '8px 14px', fontSize: 14 }}/>
                   <button type="submit" className="btn btn-primary btn-sm" disabled={nlState === 'submitting'}>
                     {nlState === 'submitting' ? '…' : 'Join'}
@@ -328,7 +328,7 @@ const Home = ({ setPage }) => {
           {[...Array(2)].map((_, k) => (
             <div key={k} className="flex items-center gap-12">
               {['UWI Global Campus', 'UTT', 'SBCS', 'COSTAATT', 'MIC Institute', 'NESC', 'YTEPP', 'ROYTEC', 'Cipriani College', 'School of Business'].map((n, i) => (
-                <span key={`${k}-${i}`} className="serif" style={{ fontSize: 30, fontWeight: 400, opacity: 0.85, fontStyle: i % 2 ? 'italic' : 'normal' }}>
+                <span key={`${k}-${i}`} className="serif marquee-item" style={{ fontSize: 30, fontWeight: 400, opacity: 0.85, fontStyle: i % 2 ? 'italic' : 'normal' }}>
                   {n} <span className="mono" style={{ fontSize: 16, marginLeft: 16, color: 'var(--amber)' }}>✦</span>
                 </span>
               ))}

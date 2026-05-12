@@ -422,6 +422,19 @@ section.tight { padding: 60px 0; }
   /* Display text scale down */
   .display-1 { font-size: 42px !important; }
   .display-2 { font-size: 36px !important; }
+
+  /* Contact page — stack layout and name/email row */
+  .contact-layout-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .contact-name-grid { grid-template-columns: 1fr !important; }
+
+  /* Newsletter form — stack vertically */
+  .newsletter-form { flex-direction: column !important; border-radius: 12px !important; }
+
+  /* Tight sections */
+  section.tight { padding: 40px 0 !important; }
+
+  /* Marquee — shrink text on mobile */
+  .marquee-item { font-size: 20px !important; }
 }
 
 .show-mobile { display: none !important; }

@@ -691,7 +691,7 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
 
       {/* FORM + CONTACT INFO */}
       <section style={{ paddingTop: 64, paddingBottom: 80 }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 64, alignItems: 'start' }}>
+        <div className="container contact-layout-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 64, alignItems: 'start' }}>
 
           {/* LEFT — contact info */}
           <div style={{ position: 'sticky', top: 100 }}>
@@ -733,7 +733,7 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
                 <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Fill in the form and we'll get back to you as soon as possible.</p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+              <div className="contact-name-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
                 <div>
                   <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Your name</label>
                   <input name="name" type="text" required placeholder="e.g. Jordan Smith" className="input"/>
