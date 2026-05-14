@@ -435,6 +435,10 @@ section.tight { padding: 60px 0; }
 
   /* Marquee — shrink text on mobile */
   .marquee-item { font-size: 20px !important; }
+
+  /* Submit course banner — stack on mobile */
+  .submit-banner-grid { grid-template-columns: 1fr !important; }
+  .submit-banner-cta { align-items: stretch !important; }
 }
 
 .show-mobile { display: none !important; }
