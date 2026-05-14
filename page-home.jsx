@@ -494,6 +494,7 @@ const Home = ({ setPage }) => {
   });
 
   return (
+  <>
     <div className="page-enter">
       {/* HERO */}
       <section style={{ paddingTop: 60, paddingBottom: 80, position: 'relative', overflow: 'hidden' }}>
@@ -828,8 +829,6 @@ const Home = ({ setPage }) => {
         </div>
       </section>
 
-      {showSubmitModal && <SubmitCourseModal onClose={() => setShowSubmitModal(false)}/>}
-
       {/* CTA */}
       <section style={{ background: 'var(--ink)', color: 'var(--paper)', borderTop: '1px solid var(--ink)' }}>
         <div className="container text-center">
@@ -847,6 +846,8 @@ const Home = ({ setPage }) => {
         </div>
       </section>
     </div>
+    {showSubmitModal && <SubmitCourseModal onClose={() => setShowSubmitModal(false)}/>}
+  </>
   );
 };
 
