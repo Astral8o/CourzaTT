@@ -105,7 +105,7 @@ const Nav = ({ activePage, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 // Footer
 // ─────────────────────────────────────────────────────────────────
-const Footer = ({ setPage }) => {
+const Footer = ({ setPage, onSubmitCourse }) => {
   const [nlState, setNlState] = React.useState('idle');
 
   const submitNewsletter = async (e) => {
@@ -147,6 +147,7 @@ const Footer = ({ setPage }) => {
               <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
               <li><button onClick={() => setPage('guides')} style={{ fontSize: 15 }}>Online guides</button></li>
               <li><button onClick={() => setPage('list')} style={{ fontSize: 15 }}>Partner with us</button></li>
+              <li><button onClick={onSubmitCourse} style={{ fontSize: 15, color: 'var(--amber-2)' }}>Submit a course</button></li>
             </ul>
           </div>
           <div>
@@ -343,9 +344,15 @@ Description: ${c.summary}
           {/* Step 0 — Contact */}
           {step === 0 && (
             <div>
-              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>
+              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 16 }}>
                 Tell us who you are. We'll follow up within 2–3 business days once your courses are reviewed.
               </p>
+              <div style={{ background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>Representing an institution?</span>
+                <button onClick={() => { window.location.hash = 'list'; onClose(); }} style={{ fontSize: 13, fontWeight: 600, color: 'var(--emerald)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  Get a full listing <Icon name="arrow-right" size={13}/>
+                </button>
+              </div>
               <ModalField label="Your name" value={contact.name} onChange={v => setContact(p => ({ ...p, name: v }))} placeholder="e.g. Jordan Smith" showError={showErrors}/>
               <ModalField label="Institution / Organisation" value={contact.institution} onChange={v => setContact(p => ({ ...p, institution: v }))} placeholder="e.g. CTS College" showError={showErrors}/>
               <ModalField label="Email address" type="email" value={contact.email} onChange={v => setContact(p => ({ ...p, email: v }))} placeholder="you@example.com" showError={showErrors}/>
@@ -458,13 +465,12 @@ Description: ${c.summary}
 // ─────────────────────────────────────────────────────────────────
 // Home Page
 // ─────────────────────────────────────────────────────────────────
-const Home = ({ setPage }) => {
+const Home = ({ setPage, onSubmitCourse }) => {
   const { COURSES, CATEGORIES, FAQS, BLOG_POSTS } = window.CourzaData;
   const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
   const [searchQ, setSearchQ] = React.useState('');
-  const [showSubmitModal, setShowSubmitModal] = React.useState(false);
   const featuredIds = ['c118', 'c012', 'c113'];
   const featured = featuredIds.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
 
@@ -844,7 +850,7 @@ const Home = ({ setPage }) => {
             </p>
           </div>
           <div className="submit-banner-cta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12, flexShrink: 0 }}>
-            <button onClick={() => setShowSubmitModal(true)} className="btn btn-lg" style={{ background: 'var(--amber)', color: 'var(--ink)', border: 'none', whiteSpace: 'nowrap', fontWeight: 600 }}>
+            <button onClick={onSubmitCourse} className="btn btn-lg" style={{ background: 'var(--amber)', color: 'var(--ink)', border: 'none', whiteSpace: 'nowrap', fontWeight: 600 }}>
               Submit a course <Icon name="arrow-up-right" size={16}/>
             </button>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.12em', opacity: 0.55, textTransform: 'uppercase' }}>Up to 3 courses · Free · 2 min</div>
@@ -869,7 +875,6 @@ const Home = ({ setPage }) => {
         </div>
       </section>
     </div>
-    {showSubmitModal && <SubmitCourseModal onClose={() => setShowSubmitModal(false)}/>}
   </>
   );
 };

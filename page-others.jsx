@@ -4,7 +4,7 @@ const { Icon, Logo, SectionHeader, CourseCard, InstitutionCard } = CourzaUI;
 // ─────────────────────────────────────────────────────────────────
 // Discover Page
 // ─────────────────────────────────────────────────────────────────
-const Discover = ({ setPage, density, initialCat, initialSearch }) => {
+const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse }) => {
   const { COURSES, CATEGORIES } = window.CourzaData;
   const [search, setSearch] = React.useState(initialSearch || '');
   const [cat, setCat] = React.useState(initialCat || null);
@@ -151,7 +151,10 @@ const Discover = ({ setPage, density, initialCat, initialSearch }) => {
                 <Icon name="search" size={32} style={{ color: 'var(--muted)', marginBottom: 16 }}/>
                 <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, marginBottom: 12 }}>No programmes found</h3>
                 <p className="muted" style={{ marginBottom: 24, maxWidth: 360, marginLeft: 'auto', marginRight: 'auto' }}>We couldn't find anything matching your filters. Try adjusting your search.</p>
-                <button onClick={clear} className="btn btn-primary">Clear all filters</button>
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <button onClick={clear} className="btn btn-primary">Clear all filters</button>
+                  {onSubmitCourse && <button onClick={onSubmitCourse} className="btn btn-ghost">Submit a missing course <Icon name="arrow-up-right" size={13}/></button>}
+                </div>
               </div>
             ) : (
               <div className="grid" style={{
@@ -161,6 +164,16 @@ const Discover = ({ setPage, density, initialCat, initialSearch }) => {
                 {displayed.map(c => (
                   <CourseCard key={c.id} course={c} layout={view === 'wide' ? 'wide' : view === 'list' ? 'compact' : 'grid'} onClick={() => setPage(`course:${c.id}`)}/>
                 ))}
+              </div>
+            )}
+
+            {filtered.length > 0 && filtered.length <= 3 && onSubmitCourse && (
+              <div className="card" style={{ marginTop: 24, padding: '20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', background: 'var(--paper-2)', borderStyle: 'dashed' }}>
+                <div>
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 4 }}>Don't see what you're looking for?</div>
+                  <div style={{ fontSize: 15, fontWeight: 500 }}>Know of a course that should be here? Submit it — you'll help every learner searching for the same thing.</div>
+                </div>
+                <button onClick={onSubmitCourse} className="btn btn-ghost btn-sm" style={{ flexShrink: 0 }}>Submit a course <Icon name="arrow-up-right" size={13}/></button>
               </div>
             )}
 
@@ -379,7 +392,7 @@ const InstitutionDetail = ({ instId, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 // List Your Institution
 // ─────────────────────────────────────────────────────────────────
-const ListInstitution = ({ setPage }) => {
+const ListInstitution = ({ setPage, onSubmitCourse }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [type, setType] = React.useState(null);
@@ -419,12 +432,19 @@ const ListInstitution = ({ setPage }) => {
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
             Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes.
           </p>
-          <button
-            onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })}
-            className="btn btn-ghost"
-          >
-            See promotion options <Icon name="arrow-down" size={14}/>
-          </button>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })}
+              className="btn btn-ghost"
+            >
+              See promotion options <Icon name="arrow-down" size={14}/>
+            </button>
+            {onSubmitCourse && (
+              <button onClick={onSubmitCourse} className="btn btn-ghost" style={{ borderColor: 'var(--emerald)', color: 'var(--emerald)' }}>
+                Just submit a course <Icon name="arrow-up-right" size={14}/>
+              </button>
+            )}
+          </div>
         </div>
       </section>
 

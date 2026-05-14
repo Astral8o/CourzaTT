@@ -2116,6 +2116,16 @@ const FAQS = [
       { question: 'Do you take a commission from course sales?', answer: 'No. We do not take a cut from course fees or enrolments.' },
       { question: 'Why offer paid placements?', answer: 'To keep the platform free for learners. This supports:', bullets: ['Course discovery across Trinidad and Tobago', 'Ongoing platform updates'] },
     ]
+  },
+  {
+    title: 'Adding to the directory',
+    questions: [
+      { question: 'Who can submit a course?', answer: 'Anyone — students, community members, or staff at an institution. If you know of a course that should be listed, we want to hear about it.' },
+      { question: 'What happens after I submit?', answer: 'Our editorial team reviews your submission, verifies the details with the institution, and adds it to the directory. We\'ll email you when it\'s live.' },
+      { question: 'How long does it take to go live?', answer: 'Most submissions are reviewed and listed within 2–3 business days.' },
+      { question: 'Can I submit courses on behalf of my institution?', answer: 'Yes, and if you\'d like your institution fully listed with a dedicated profile page, use the "List your institution" form on the Partner page — it covers courses, contact details, and your institution\'s full profile.' },
+      { question: 'Why isn\'t a course I know about listed yet?', answer: 'Our directory grows through community submissions and direct outreach. If something is missing, submit it — you\'ll be helping every other learner searching for that same programme.' },
+    ]
   }
 ];
 

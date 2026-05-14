@@ -43,7 +43,7 @@
 <script type="text/babel" src="tweaks-panel.jsx?v=5"></script>
 <script type="text/babel">
 const { useState, useEffect } = React;
-const { Nav, Footer, Home } = window.CourzaPages;
+const { Nav, Footer, Home, SubmitCourseModal } = window.CourzaPages;
 const { Discover, Institutions, CourseDetail, InstitutionDetail, ListInstitution, ContactPage, PrivacyPage, OnlineGuides } = window.CourzaPages;
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakSelect, TweakColor, TweakToggle } = window;
 
@@ -59,6 +59,8 @@ function App() {
   const [page, setPageState] = useState(() => window.location.hash.slice(1) || 'home');
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [ready, setReady] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const openSubmitModal = () => setShowSubmitModal(true);
 
   const setPage = (p) => {
     setPageState(p);
@@ -107,12 +109,12 @@ function App() {
                   : page === 'guides' ? 'guides'
                   : page;
 
-  if (page === 'home') pageEl = <Home setPage={setPage}/>;
-  else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density}/>;
-  else if (page.startsWith('discover:search:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialSearch={page.slice(16)}/>;
-  else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)}/>;
+  if (page === 'home') pageEl = <Home setPage={setPage} onSubmitCourse={openSubmitModal}/>;
+  else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density} onSubmitCourse={openSubmitModal}/>;
+  else if (page.startsWith('discover:search:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialSearch={page.slice(16)} onSubmitCourse={openSubmitModal}/>;
+  else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)} onSubmitCourse={openSubmitModal}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
-  else if (page === 'list') pageEl = <ListInstitution setPage={setPage}/>;
+  else if (page === 'list') pageEl = <ListInstitution setPage={setPage} onSubmitCourse={openSubmitModal}/>;
   else if (page === 'contact' || page.startsWith('contact:')) {
     const parts = page.split(':');
     const subjectMap = { 'partnership': 'Partnership & advertising' };
@@ -128,7 +130,8 @@ function App() {
     <div>
       <Nav activePage={activeNav} setPage={setPage}/>
       <main key={page}>{pageEl}</main>
-      <Footer setPage={setPage}/>
+      <Footer setPage={setPage} onSubmitCourse={openSubmitModal}/>
+      {showSubmitModal && <SubmitCourseModal onClose={() => setShowSubmitModal(false)}/>}
     </div>
   );
 }
