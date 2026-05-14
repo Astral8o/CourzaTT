@@ -192,15 +192,56 @@ const BLANK_COURSE = () => ({ title: '', category: '', type: '', delivery: '', l
 const CATEGORIES_LIST = ['Technology & Digital', 'Business & Entrepreneurship', 'Hospitality & Culinary', 'Health & Medical', 'Personal Development', 'Creative Arts & Design', 'Technical Trades', 'Finance & Accounting', 'Law & Governance', 'Agriculture & Environment', 'Communication & Media'];
 const TYPES_LIST = ['Short Course', 'Workshop', 'Certification', 'Diploma', 'Degree', 'Professional Development'];
 
+const ModalField = ({ label, value, onChange, type = 'text', placeholder = '', required = true, showError = false }) => {
+  const missing = showError && required && !value;
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: missing ? 'var(--rust)' : 'var(--muted)', marginBottom: 8 }}>
+        {label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}
+      </label>
+      <input
+        type={type} value={value} onChange={e => onChange(e.target.value)}
+        placeholder={placeholder} required={required}
+        style={{ width: '100%', background: 'var(--paper)', border: `1px solid ${missing ? 'var(--rust)' : 'var(--rule)'}`, borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box' }}
+        onFocus={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--ink)'}
+        onBlur={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--rule)'}
+      />
+      {missing && <p style={{ fontSize: 12, color: 'var(--rust)', marginTop: 4, fontFamily: 'JetBrains Mono, monospace' }}>This field is required</p>}
+    </div>
+  );
+};
+
+const ModalSelect = ({ label, value, onChange, options, placeholder = 'Select…', required = true, showError = false }) => {
+  const missing = showError && required && !value;
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: missing ? 'var(--rust)' : 'var(--muted)', marginBottom: 8 }}>
+        {label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}
+      </label>
+      <select
+        value={value} onChange={e => onChange(e.target.value)} required={required}
+        style={{ width: '100%', background: 'var(--paper)', border: `1px solid ${missing ? 'var(--rust)' : 'var(--rule)'}`, borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', cursor: 'pointer', boxSizing: 'border-box' }}
+        onFocus={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--ink)'}
+        onBlur={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--rule)'}
+      >
+        <option value="">{placeholder}</option>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+      {missing && <p style={{ fontSize: 12, color: 'var(--rust)', marginTop: 4, fontFamily: 'JetBrains Mono, monospace' }}>Please select an option</p>}
+    </div>
+  );
+};
+
 const SubmitCourseModal = ({ onClose }) => {
-  const [step, setStep] = React.useState(0); // 0=contact, 1=course1, 2=course2, 3=course3, 4=review, 5=done
+  const [step, setStep] = React.useState(0);
   const [contact, setContact] = React.useState({ name: '', institution: '', email: '', phone: '' });
   const [courses, setCourses] = React.useState([BLANK_COURSE()]);
   const [submitting, setSubmitting] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState(false);
+  const [showErrors, setShowErrors] = React.useState(false);
 
   const totalCourseSteps = courses.length;
-  const totalSteps = 1 + totalCourseSteps + 1; // contact + courses + review
+  const totalSteps = 1 + totalCourseSteps + 1;
   const progress = step === 0 ? 1 : step <= totalCourseSteps ? step + 1 : totalSteps;
 
   const updateCourse = (idx, field, val) => {
@@ -208,7 +249,10 @@ const SubmitCourseModal = ({ onClose }) => {
   };
 
   const addCourse = () => {
+    const c = courses[step - 1];
+    if (!c.title || !c.category || !c.delivery) { setShowErrors(true); return; }
     if (courses.length < 3) setCourses(prev => [...prev, BLANK_COURSE()]);
+    setShowErrors(false);
     setStep(s => s + 1);
   };
 
@@ -217,9 +261,19 @@ const SubmitCourseModal = ({ onClose }) => {
     setStep(s => Math.min(s, courses.length - 1));
   };
 
+  const contactValid = contact.name && contact.institution && contact.email;
+  const courseValid = (c) => c.title && c.category && c.delivery;
+
+  const tryNext = () => {
+    if (step === 0 && !contactValid) { setShowErrors(true); return; }
+    if (step >= 1 && step <= totalCourseSteps && !courseValid(courses[step - 1])) { setShowErrors(true); return; }
+    setShowErrors(false);
+    setStep(s => s + 1);
+  };
+
   const submit = async () => {
     setSubmitting(true);
-    setError(false);
+    setSubmitError(false);
     try {
       const courseText = courses.map((c, i) => `
 --- Course ${i + 1} ---
@@ -247,38 +301,12 @@ Description: ${c.summary}
         headers: { Accept: 'application/json' },
       });
       if (res.ok) setStep(5);
-      else setError(true);
-    } catch { setError(true); }
+      else setSubmitError(true);
+    } catch { setSubmitError(true); }
     setSubmitting(false);
   };
 
   const onBackdrop = (e) => { if (e.target === e.currentTarget) onClose(); };
-
-  const Field = ({ label, value, onChange, type = 'text', placeholder = '', required = true }) => (
-    <div style={{ marginBottom: 20 }}>
-      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>{label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}</label>
-      <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required} style={{ width: '100%', background: 'var(--paper)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box' }}
-        onFocus={e => e.target.style.borderColor = 'var(--ink)'}
-        onBlur={e => e.target.style.borderColor = 'var(--rule)'}
-      />
-    </div>
-  );
-
-  const SelectField = ({ label, value, onChange, options, placeholder = 'Select…', required = true }) => (
-    <div style={{ marginBottom: 20 }}>
-      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>{label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}</label>
-      <select value={value} onChange={e => onChange(e.target.value)} required={required} style={{ width: '100%', background: 'var(--paper)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', cursor: 'pointer', boxSizing: 'border-box' }}
-        onFocus={e => e.target.style.borderColor = 'var(--ink)'}
-        onBlur={e => e.target.style.borderColor = 'var(--rule)'}
-      >
-        <option value="">{placeholder}</option>
-        {options.map(o => <option key={o} value={o}>{o}</option>)}
-      </select>
-    </div>
-  );
-
-  const contactValid = contact.name && contact.institution && contact.email;
-  const courseValid = (c) => c.title && c.category && c.delivery;
 
   return (
     <div onClick={onBackdrop} style={{ position: 'fixed', inset: 0, background: 'rgba(14,26,23,0.6)', backdropFilter: 'blur(6px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
@@ -318,10 +346,10 @@ Description: ${c.summary}
               <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>
                 Tell us who you are. We'll follow up within 2–3 business days once your courses are reviewed.
               </p>
-              <Field label="Your name" value={contact.name} onChange={v => setContact(p => ({ ...p, name: v }))} placeholder="e.g. Jordan Smith"/>
-              <Field label="Institution / Organisation" value={contact.institution} onChange={v => setContact(p => ({ ...p, institution: v }))} placeholder="e.g. CTS College"/>
-              <Field label="Email address" type="email" value={contact.email} onChange={v => setContact(p => ({ ...p, email: v }))} placeholder="you@example.com"/>
-              <Field label="Phone number" type="tel" value={contact.phone} onChange={v => setContact(p => ({ ...p, phone: v }))} placeholder="+1 (868) 000-0000" required={false}/>
+              <ModalField label="Your name" value={contact.name} onChange={v => setContact(p => ({ ...p, name: v }))} placeholder="e.g. Jordan Smith" showError={showErrors}/>
+              <ModalField label="Institution / Organisation" value={contact.institution} onChange={v => setContact(p => ({ ...p, institution: v }))} placeholder="e.g. CTS College" showError={showErrors}/>
+              <ModalField label="Email address" type="email" value={contact.email} onChange={v => setContact(p => ({ ...p, email: v }))} placeholder="you@example.com" showError={showErrors}/>
+              <ModalField label="Phone number" type="tel" value={contact.phone} onChange={v => setContact(p => ({ ...p, phone: v }))} placeholder="+1 (868) 000-0000" required={false} showError={showErrors}/>
             </div>
           )}
 
@@ -334,18 +362,18 @@ Description: ${c.summary}
                 <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>
                   Fill in what you know — the more detail, the better chance of being listed.
                 </p>
-                <Field label="Course title" value={c.title} onChange={v => updateCourse(idx, 'title', v)} placeholder="e.g. Introduction to Cybersecurity"/>
-                <SelectField label="Category" value={c.category} onChange={v => updateCourse(idx, 'category', v)} options={CATEGORIES_LIST} placeholder="Select a category…"/>
+                <ModalField label="Course title" value={c.title} onChange={v => updateCourse(idx, 'title', v)} placeholder="e.g. Introduction to Cybersecurity" showError={showErrors}/>
+                <ModalSelect label="Category" value={c.category} onChange={v => updateCourse(idx, 'category', v)} options={CATEGORIES_LIST} placeholder="Select a category…" showError={showErrors}/>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <SelectField label="Type" value={c.type} onChange={v => updateCourse(idx, 'type', v)} options={TYPES_LIST} placeholder="e.g. Short Course" required={false}/>
-                  <SelectField label="Delivery" value={c.delivery} onChange={v => updateCourse(idx, 'delivery', v)} options={['Online', 'In-person', 'Hybrid']} placeholder="Format…"/>
+                  <ModalSelect label="Type" value={c.type} onChange={v => updateCourse(idx, 'type', v)} options={TYPES_LIST} placeholder="e.g. Short Course" required={false} showError={showErrors}/>
+                  <ModalSelect label="Delivery" value={c.delivery} onChange={v => updateCourse(idx, 'delivery', v)} options={['Online', 'In-person', 'Hybrid']} placeholder="Format…" showError={showErrors}/>
                 </div>
-                <Field label="Location" value={c.location} onChange={v => updateCourse(idx, 'location', v)} placeholder="e.g. Port of Spain / Online" required={false}/>
+                <ModalField label="Location" value={c.location} onChange={v => updateCourse(idx, 'location', v)} placeholder="e.g. Port of Spain / Online" required={false} showError={showErrors}/>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <Field label="Registration deadline" type="date" value={c.deadline} onChange={v => updateCourse(idx, 'deadline', v)} required={false}/>
-                  <Field label="Start date" type="date" value={c.startDate} onChange={v => updateCourse(idx, 'startDate', v)} required={false}/>
+                  <ModalField label="Registration deadline" type="date" value={c.deadline} onChange={v => updateCourse(idx, 'deadline', v)} required={false} showError={showErrors}/>
+                  <ModalField label="Start date" type="date" value={c.startDate} onChange={v => updateCourse(idx, 'startDate', v)} required={false} showError={showErrors}/>
                 </div>
-                <Field label="Cost (TTD)" value={c.cost} onChange={v => updateCourse(idx, 'cost', v)} placeholder="e.g. $1,500.00 or Free" required={false}/>
+                <ModalField label="Cost (TTD)" value={c.cost} onChange={v => updateCourse(idx, 'cost', v)} placeholder="e.g. $1,500.00 or Free" required={false} showError={showErrors}/>
                 <div style={{ marginBottom: 20 }}>
                   <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>Short description</label>
                   <textarea value={c.summary} onChange={e => updateCourse(idx, 'summary', e.target.value)} rows={3} placeholder="Brief overview of what the course covers…" style={{ width: '100%', background: 'var(--paper)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', resize: 'none', boxSizing: 'border-box' }}
@@ -378,7 +406,7 @@ Description: ${c.summary}
                   {c.startDate && <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>Starts {c.startDate}</div>}
                 </div>
               ))}
-              {error && <p style={{ fontSize: 13, color: 'var(--rust)', marginTop: 12 }}>Something went wrong — please try again.</p>}
+              {submitError && <p style={{ fontSize: 13, color: 'var(--rust)', marginTop: 12 }}>Something went wrong — please try again.</p>}
             </div>
           )}
 
@@ -400,22 +428,17 @@ Description: ${c.summary}
         {/* Footer nav */}
         {step < 5 && (
           <div style={{ padding: '20px 32px', borderTop: '1px solid var(--rule)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, gap: 12 }}>
-            <button onClick={() => setStep(s => Math.max(0, s - 1))} className="btn btn-ghost btn-sm" style={{ visibility: step === 0 ? 'hidden' : 'visible' }}>
+            <button onClick={() => { setShowErrors(false); setStep(s => Math.max(0, s - 1)); }} className="btn btn-ghost btn-sm" style={{ visibility: step === 0 ? 'hidden' : 'visible' }}>
               ← Back
             </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               {step === totalCourseSteps && step < 3 && (
-                <button onClick={addCourse} className="btn btn-ghost btn-sm" style={{ borderColor: 'var(--emerald)', color: 'var(--emerald)' }} disabled={!courseValid(courses[step - 1])}>
+                <button onClick={addCourse} className="btn btn-ghost btn-sm" style={{ borderColor: 'var(--emerald)', color: 'var(--emerald)' }}>
                   + Add another course
                 </button>
               )}
-              {step === 0 && (
-                <button onClick={() => setStep(1)} className="btn btn-primary btn-sm" disabled={!contactValid}>
-                  Next →
-                </button>
-              )}
-              {step >= 1 && step <= totalCourseSteps && (
-                <button onClick={() => setStep(s => s + 1)} className="btn btn-primary btn-sm" disabled={!courseValid(courses[step - 1])}>
+              {(step === 0 || (step >= 1 && step <= totalCourseSteps)) && (
+                <button onClick={tryNext} className="btn btn-primary btn-sm">
                   {step === totalCourseSteps ? 'Review →' : 'Next →'}
                 </button>
               )}
