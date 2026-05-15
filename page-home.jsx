@@ -197,6 +197,18 @@ const Home = ({ setPage, onListInstitution }) => {
   const featuredIds = ['c118', 'c012', 'c113'];
   const featured = featuredIds.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
 
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const weekEnd = new Date(today); weekEnd.setDate(weekEnd.getDate() + 7);
+  const leavingSoon = COURSES
+    .filter(c => { if (!c.deadline) return false; const d = new Date(c.deadline); return d >= today && d <= weekEnd; })
+    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+    .slice(0, 6);
+  const daysLeft = (deadline) => {
+    const diff = new Date(deadline) - today;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return days === 0 ? 'Today' : days === 1 ? '1 day left' : `${days} days left`;
+  };
+
   const trendingTags = [
     { label: 'Technology & Digital', cat: 'Technology & Digital' },
     { label: 'Business & Entrepreneurship', cat: 'Business & Entrepreneurship' },
@@ -391,6 +403,34 @@ const Home = ({ setPage, onListInstitution }) => {
           </div>
         </div>
       </section>
+
+      {/* LEAVING SOON */}
+      {leavingSoon.length > 0 && (
+        <section style={{ borderTop: '1px solid var(--rule)' }}>
+          <div className="container">
+            <div className="flex items-end justify-between mb-12" style={{ flexWrap: 'wrap', gap: 24 }}>
+              <div style={{ maxWidth: 640 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--amber)', display: 'inline-block', flexShrink: 0 }}/>
+                  <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Deadline this week</span>
+                </div>
+                <h2 className="display-2 serif">Courses leaving <em className="display-italic"><span className="hl">soon</span></em>.</h2>
+              </div>
+              <button className="btn btn-ghost" onClick={() => setPage('discover')}>See all courses <Icon name="arrow-up-right" size={14}/></button>
+            </div>
+            <div className="grid cards-grid-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--gap-grid)' }}>
+              {leavingSoon.map(c => (
+                <div key={c.id} style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 2, background: 'var(--ink)', color: 'var(--amber)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, pointerEvents: 'none' }}>
+                    {daysLeft(c.deadline)}
+                  </div>
+                  <CourseCard course={c} onClick={() => setPage(`course:${c.id}`)}/>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* GUIDES */}
       <section>
