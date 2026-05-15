@@ -2212,8 +2212,8 @@ const FAQS = [
   {
     title: 'Adding to the directory',
     questions: [
-      { question: 'How do I add my courses?', answer: 'Courses are added as part of the institution listing process. Click "List Your Institution," complete the guided profile builder, and add up to 3 active courses in Step 4. Our team reviews and lists everything together.' },
-      { question: 'Can I add more than 3 courses?', answer: 'The initial listing supports up to 3 courses. Once your profile is live, contact us at support@courza.tt to discuss adding additional programmes.' },
+      { question: 'How do I add my courses?', answer: 'Courses are added as part of the institution listing process. In Step 4 of the profile builder, simply list your current programmes, paste a link to your course page, or share whatever you have — our team structures and lists everything properly.' },
+      { question: 'How many courses can I list?', answer: 'No limit. Paste a rough list, a link to your course catalogue, or just describe what you offer — our team handles the rest and will reach out if we need any additional details.' },
       { question: 'What happens after I submit?', answer: 'Our editorial team reviews your submission, verifies the details, and publishes your institution profile and courses. We\'ll be in touch within 2–3 business days.' },
       { question: 'Can I update my listing later?', answer: 'Yes — reach out to support@courza.tt with any changes and we\'ll update your profile.' },
       { question: 'Why isn\'t an institution listed yet?', answer: 'Our directory grows through direct outreach and institution sign-ups. If you\'re an institution that should be here, click "List Your Institution" to get started.' },

@@ -422,7 +422,6 @@ const ListField = ({ label, value, onChange, placeholder, type = 'text', require
 
 const INST_CATS = ['Business & Entrepreneurship', 'Technology & Digital', 'Hospitality & Culinary', 'Creative Arts & Design', 'Technical Trades', 'Health & Medical', 'Finance & Accounting', 'Personal Development', 'Other'];
 const TT_REGIONS = ['Port of Spain', 'San Fernando', 'Arima', 'Chaguanas', 'Point Fortin', 'Scarborough (Tobago)', 'Nationwide', 'Online only'];
-const BLANK_COURSE_ENTRY = { title: '', duration: '', price: '', deadline: '', delivery: 'In-person', certification: '' };
 const LIST_STEPS = ['Institution basics', 'About you', 'Contact & location', 'Your courses', 'Boost visibility', 'Review & submit'];
 
 // ─────────────────────────────────────────────────────────────────
@@ -439,21 +438,15 @@ const ListInstitutionModal = ({ onClose }) => {
     description: '', whoFor: '', teachingStyle: '', learningFormat: '',
     region: '', website: '', instagram: '', whatsapp: '', email: '',
     wantsPromotion: null,
-    courses: [{ ...BLANK_COURSE_ENTRY }],
+    courseList: '',
   });
 
   const update = (key, val) => setForm(f => ({ ...f, [key]: val }));
-  const updateCourse = (i, key, val) => setForm(f => {
-    const c = [...f.courses]; c[i] = { ...c[i], [key]: val }; return { ...f, courses: c };
-  });
-  const addCourse = () => form.courses.length < 3 && setForm(f => ({ ...f, courses: [...f.courses, { ...BLANK_COURSE_ENTRY }] }));
-  const removeCourse = i => form.courses.length > 1 && setForm(f => ({ ...f, courses: f.courses.filter((_, idx) => idx !== i) }));
 
   const isStepValid = () => {
     if (step === 1) return form.institutionName.trim() && form.category;
     if (step === 2) return form.description.trim();
     if (step === 3) return form.email.trim();
-    if (step === 4) return form.courses.every(c => c.title.trim() && c.price.trim());
     return true;
   };
   const tryNext = () => {
@@ -472,8 +465,8 @@ const ListInstitutionModal = ({ onClose }) => {
        ['learning_format', form.learningFormat], ['region', form.region], ['website', form.website],
        ['instagram', form.instagram], ['whatsapp', form.whatsapp], ['email', form.email],
        ['wants_promotion', form.wantsPromotion ? 'Yes — please reach out' : 'No'],
+       ['course_list', form.courseList],
       ].forEach(([k, v]) => payload.append(k, v));
-      form.courses.forEach((c, i) => payload.append(`course_${i+1}`, `${c.title} | TTD ${c.price} | ${c.duration} | ${c.delivery} | Deadline: ${c.deadline} | Cert: ${c.certification}`));
       const res = await fetch('https://formspree.io/f/mvzlzjje', { method: 'POST', body: payload, headers: { Accept: 'application/json' } });
       if (res.ok) setSubmitted(true); else setError(true);
     } catch { setError(true); }
@@ -586,37 +579,21 @@ const ListInstitutionModal = ({ onClose }) => {
               {step === 4 && (
                 <>
                   <div style={{ marginBottom: 24 }}>
-                    <h2 className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>Add your courses</h2>
-                    <p className="muted" style={{ fontSize: 14 }}>Up to 3 active short courses, free forever.</p>
+                    <h2 className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>What courses do you offer?</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>List your current programmes, paste a link to your course page, or share whatever you have — our team will take it from there and list everything properly.</p>
                   </div>
-                  {form.courses.map((course, i) => (
-                    <div key={i} style={{ background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20, marginBottom: 16 }}>
-                      <div className="flex items-center justify-between" style={{ marginBottom: 16 }}>
-                        <span className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--amber-2)' }}>Course {i + 1}</span>
-                        {form.courses.length > 1 && <button type="button" onClick={() => removeCourse(i)} className="mono muted" style={{ fontSize: 11 }}>Remove</button>}
-                      </div>
-                      <ListField label="Course title" required value={course.title} onChange={v => updateCourse(i, 'title', v)} placeholder="e.g. Professional Baking Certificate" showErrors={showErrors}/>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                        <ListField label="Price (TTD)" required value={course.price} onChange={v => updateCourse(i, 'price', v)} placeholder="e.g. 1,500" showErrors={showErrors}/>
-                        <ListField label="Duration" value={course.duration} onChange={v => updateCourse(i, 'duration', v)} placeholder="e.g. 8 weeks"/>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                        <ListField label="Deadline / intake" value={course.deadline} onChange={v => updateCourse(i, 'deadline', v)} placeholder="e.g. June 30, 2026"/>
-                        <ListField label="Certification" value={course.certification} onChange={v => updateCourse(i, 'certification', v)} placeholder="e.g. Certificate of Completion"/>
-                      </div>
-                      <div>
-                        <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Delivery</label>
-                        <div style={{ display: 'flex', gap: 8 }}>
-                          {['In-person', 'Online', 'Hybrid'].map(d => <button key={d} type="button" onClick={() => updateCourse(i, 'delivery', d)} className={`chip ${course.delivery === d ? 'active' : ''}`}>{d}</button>)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {form.courses.length < 3 && (
-                    <button type="button" onClick={addCourse} className="btn btn-ghost btn-sm" style={{ width: '100%', justifyContent: 'center', borderStyle: 'dashed', marginBottom: 16 }}>
-                      <Icon name="plus" size={14}/> Add another course
-                    </button>
-                  )}
+                  <ListField
+                    label="Your courses"
+                    as="textarea"
+                    rows={7}
+                    value={form.courseList}
+                    onChange={v => update('courseList', v)}
+                    placeholder={"e.g.\n– Professional Baking Certificate · TTD 2,500 · 8 weeks\n– Food Safety & Hygiene · TTD 800 · 2 days\n\nOr just paste a link: https://yourinstitution.tt/courses"}
+                  />
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '14px 16px', background: 'var(--paper-2)', borderRadius: 10, border: '1px solid var(--rule)', marginTop: 4 }}>
+                    <Icon name="info" size={14} style={{ color: 'var(--muted)', flexShrink: 0, marginTop: 1 }}/>
+                    <p className="muted" style={{ fontSize: 12, lineHeight: 1.5, margin: 0 }}>No fixed format needed. A rough list, a screenshot description, a WhatsApp catalogue link — anything works. We'll follow up if we need more detail.</p>
+                  </div>
                 </>
               )}
               {step === 5 && (
@@ -670,19 +647,12 @@ const ListInstitutionModal = ({ onClose }) => {
                       {form.whatsapp && <span className="mono muted" style={{ fontSize: 11 }}><Icon name="phone" size={11} style={{ display: 'inline', marginRight: 4, marginBottom: -1 }}/>{form.whatsapp}</span>}
                     </div>
                   </div>
-                  {form.courses.map((c, i) => c.title && (
-                    <div key={i} style={{ background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 12, padding: '14px 20px', marginBottom: 10, display: 'grid', gridTemplateColumns: '1fr auto', gap: 12, alignItems: 'center' }}>
-                      <div>
-                        <span className="mono muted" style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: 3 }}>Course {i+1}</span>
-                        <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{c.title}</div>
-                        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                          <span className="tag">{c.delivery}</span>
-                          {c.duration && <span className="mono muted" style={{ fontSize: 11 }}>{c.duration}</span>}
-                        </div>
-                      </div>
-                      {c.price && <div className="serif" style={{ fontSize: 18, fontWeight: 500 }}>TTD {c.price}</div>}
+                  {form.courseList && (
+                    <div style={{ background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 12, padding: '14px 20px', marginBottom: 10 }}>
+                      <span className="mono muted" style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Courses submitted</span>
+                      <p style={{ fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', margin: 0 }}>{form.courseList}</p>
                     </div>
-                  ))}
+                  )}
                   {form.wantsPromotion && (
                     <div style={{ marginTop: 12, padding: '10px 16px', background: 'rgba(232,163,61,0.1)', border: '1px solid var(--amber)', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <Icon name="star" size={13} style={{ color: 'var(--amber-2)', flexShrink: 0 }}/>
@@ -787,7 +757,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
               { num: '01', label: 'Institution basics', icon: 'building-2', desc: 'Your institution name, category (e.g. Technology & Digital, Health & Medical), and an optional one-line tagline.' },
               { num: '02', label: 'About your institution', icon: 'file-text', desc: 'A short description of what you offer, who your programmes are for, your teaching style, and learning format.' },
               { num: '03', label: 'Contact & location', icon: 'map-pin', desc: 'Email address, region in T&T, website, Instagram, and WhatsApp — so learners and our team can reach you.' },
-              { num: '04', label: 'Your courses', icon: 'book-open', desc: 'Add up to 3 active programmes with title, price, duration, delivery mode, deadline, and certification details.' },
+              { num: '04', label: 'Your courses', icon: 'book-open', desc: 'List your programmes, paste a link to your course page, or share whatever you have. No fixed format — our team handles the structuring.' },
               { num: '05', label: 'Boost visibility', icon: 'trending-up', desc: 'Optional — let us know if you\'re interested in a promotion add-on for your current intake cycle. No commitment needed here.' },
               { num: '06', label: 'Review & submit', icon: 'check-circle', desc: 'Preview everything before it goes to our team. We review and publish within 2–3 business days.' },
             ].map(({ num, label, icon, desc }, i) => (
@@ -853,7 +823,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
               <div className="serif" style={{ fontSize: 40, fontWeight: 500, marginBottom: 8, lineHeight: 1 }}>TTD 0</div>
               <p style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 28, opacity: 0.8 }}>List your institution and up to 3 courses at no cost. Fully part of the discovery ecosystem from day one.</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
-                {['Appears in search & browsing', 'Institution profile page', 'Up to 3 active courses', 'Discovery-first placement'].map(f => (
+                {['Appears in search & browsing', 'Institution profile page', 'Full course catalogue', 'Discovery-first placement'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <Icon name="check-circle" size={16} style={{ color: 'var(--amber)', flexShrink: 0 }}/>
                     <span style={{ fontSize: 14, fontWeight: 500 }}>{f}</span>
