@@ -158,7 +158,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/news/course-schedule/23309",
-    "featured": false
+    "featured": false,
+    "tags": ["Programming"]
   },
   {
     "id": "c002",
@@ -174,7 +175,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/certified-associate-project-management",
-    "featured": false
+    "featured": false,
+    "tags": ["Project Management"]
   },
   {
     "id": "c004",
@@ -190,7 +192,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/introduction-web-design",
-    "featured": false
+    "featured": false,
+    "tags": ["Graphic Design","Programming"]
   },
   {
     "id": "c005",
@@ -206,7 +209,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/microsoft-word",
-    "featured": false
+    "featured": false,
+    "tags": ["Microsoft Office"]
   },
   {
     "id": "c006",
@@ -222,7 +226,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/news/course-schedule/23309",
-    "featured": false
+    "featured": false,
+    "tags": ["Networking","Cybersecurity"]
   },
   {
     "id": "c007",
@@ -238,7 +243,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/fundamentals-project-management",
-    "featured": false
+    "featured": false,
+    "tags": ["Project Management"]
   },
   {
     "id": "c008",
@@ -254,7 +260,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/comptia-security-plus",
-    "featured": true
+    "featured": true,
+    "tags": ["Cybersecurity"]
   },
   {
     "id": "c009",
@@ -270,7 +277,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/database-design-fundamentals",
-    "featured": false
+    "featured": false,
+    "tags": ["Programming"]
   },
   {
     "id": "c010",
@@ -286,7 +294,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/computer-literacy",
-    "featured": false
+    "featured": false,
+    "tags": ["Microsoft Office"]
   },
   {
     "id": "c011",
@@ -302,7 +311,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/business-certifications/enhancing-business-productivity-ai",
-    "featured": false
+    "featured": false,
+    "tags": ["AI & Automation","Microsoft Office"]
   },
   {
     "id": "c012",
@@ -318,7 +328,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/ccna",
-    "featured": false
+    "featured": false,
+    "tags": ["Networking"]
   },
   {
     "id": "c013",
@@ -334,7 +345,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/computer-literacy",
-    "featured": false
+    "featured": false,
+    "tags": ["Microsoft Office"]
   },
   {
     "id": "c014",
@@ -350,7 +362,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/canva-essentials",
-    "featured": false
+    "featured": false,
+    "tags": ["Graphic Design","Social Media"]
   },
   {
     "id": "c015",
@@ -366,7 +379,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/it-certifications/adobe-photoshop-and-illustrator",
-    "featured": true
+    "featured": true,
+    "tags": ["Graphic Design"]
   },
   {
     "id": "c016",
@@ -382,7 +396,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/balloon-decoration",
-    "featured": false
+    "featured": false,
+    "tags": ["Crafts & Making","Event Management"]
   },
   {
     "id": "c017",
@@ -398,7 +413,8 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Hybrid",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-air-conditioning",
-    "featured": false
+    "featured": false,
+    "tags": ["Trades"]
   },
   {
     "id": "c018",
@@ -414,7 +430,8 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Hybrid",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-auto-air-conditioning",
-    "featured": false
+    "featured": false,
+    "tags": ["Trades"]
   },
   {
     "id": "c019",
@@ -430,7 +447,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/the-fundamentals-of-plumbing",
-    "featured": false
+    "featured": false,
+    "tags": ["Trades"]
   },
   {
     "id": "c020",
@@ -446,7 +464,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/smart-phone-and-tablet-repairs",
-    "featured": false
+    "featured": false,
+    "tags": ["Trades"]
   },
   {
     "id": "c021",
@@ -462,7 +481,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/business-certifications/event-management",
-    "featured": false
+    "featured": false,
+    "tags": ["Event Management"]
   },
   {
     "id": "c022",
@@ -478,7 +498,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/mastering-interior-decorating",
-    "featured": false
+    "featured": false,
+    "tags": ["Interior Design"]
   },
   {
     "id": "c023",
@@ -494,7 +515,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/introduction-solar-power-systems",
-    "featured": false
+    "featured": false,
+    "tags": ["Trades"]
   },
   {
     "id": "c024",
@@ -510,7 +532,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/paper-flower-crafting",
-    "featured": false
+    "featured": false,
+    "tags": ["Crafts & Making"]
   },
   {
     "id": "c025",
@@ -526,7 +549,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/candle-making",
-    "featured": false
+    "featured": false,
+    "tags": ["Crafts & Making"]
   },
   {
     "id": "c026",
@@ -542,7 +566,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/cookie-decorating",
-    "featured": false
+    "featured": false,
+    "tags": ["Crafts & Making","Baking & Pastry"]
   },
   {
     "id": "c027",
@@ -558,7 +583,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/soap-making",
-    "featured": false
+    "featured": false,
+    "tags": ["Crafts & Making"]
   },
   {
     "id": "c028",
@@ -574,7 +600,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com",
-    "featured": false
+    "featured": false,
+    "tags": ["HR","Leadership"]
   },
   {
     "id": "c029",
@@ -590,7 +617,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/introduction-financial-management",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance"]
   },
   {
     "id": "c030",
@@ -606,7 +634,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/mastering-sales-marketing",
-    "featured": false
+    "featured": false,
+    "tags": ["Sales","Marketing"]
   },
   {
     "id": "c031",
@@ -622,7 +651,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://mailchi.mp/ctscollege/conflict-resolution-negotiation-skills",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","Team Building"]
   },
   {
     "id": "c032",
@@ -638,7 +668,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://mailchi.mp/ctscollege/minutewriting",
-    "featured": false
+    "featured": false,
+    "tags": ["Administration"]
   },
   {
     "id": "c033",
@@ -654,7 +685,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/news/course-schedule/23604",
-    "featured": false
+    "featured": false,
+    "tags": ["Event Management"]
   },
   {
     "id": "c034",
@@ -670,7 +702,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://mailchi.mp/ctscollege/fundamentals-law",
-    "featured": false
+    "featured": false,
+    "tags": ["Law"]
   },
   {
     "id": "c036",
@@ -686,7 +719,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://mailchi.mp/ctscollege/investigative-interviewing-report-writing",
-    "featured": false
+    "featured": false,
+    "tags": ["Administration"]
   },
   {
     "id": "c037",
@@ -702,7 +736,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/news/course-schedule/23467",
-    "featured": false
+    "featured": false,
+    "tags": ["Public Speaking"]
   },
   {
     "id": "c038",
@@ -718,7 +753,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/business-certifications/spanish-conversation-for-beginners",
-    "featured": false
+    "featured": false,
+    "tags": ["Language"]
   },
   {
     "id": "c039",
@@ -734,7 +770,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/certifications/do-it-yourself/cooking",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts"]
   },
   {
     "id": "c040",
@@ -750,7 +787,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/news/course-schedule/22947",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c041",
@@ -766,7 +804,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/news/course-schedule/22593",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c042",
@@ -782,7 +821,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/certifications/professional-development-certifications/phlebotomy-technician",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c043",
@@ -798,7 +838,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.ctscollege.com/news/course-schedule/23600",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c044",
@@ -814,7 +855,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.ctscollege.com/news/course-schedule/23495",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership"]
   },
   {
     "id": "c049",
@@ -830,7 +872,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance","Entrepreneurship"]
   },
   {
     "id": "c050",
@@ -846,7 +889,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship","Law"]
   },
   {
     "id": "c051",
@@ -862,7 +906,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Customer Service","Sales"]
   },
   {
     "id": "c052",
@@ -878,7 +923,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Social Media","Marketing","Entrepreneurship"]
   },
   {
     "id": "c053",
@@ -894,7 +940,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["AI & Automation","Entrepreneurship"]
   },
   {
     "id": "c054",
@@ -910,7 +957,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance","Entrepreneurship"]
   },
   {
     "id": "c055",
@@ -926,7 +974,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance","Entrepreneurship"]
   },
   {
     "id": "c056",
@@ -942,7 +991,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Customer Service"]
   },
   {
     "id": "c057",
@@ -958,7 +1008,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Sales","Entrepreneurship"]
   },
   {
     "id": "c058",
@@ -974,7 +1025,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship"]
   },
   {
     "id": "c059",
@@ -990,7 +1042,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship"]
   },
   {
     "id": "c060",
@@ -1006,7 +1059,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["HR","Entrepreneurship"]
   },
   {
     "id": "c061",
@@ -1022,7 +1076,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","Customer Service"]
   },
   {
     "id": "c062",
@@ -1038,7 +1093,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship","Accounting & Finance"]
   },
   {
     "id": "c063",
@@ -1054,7 +1110,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","HR"]
   },
   {
     "id": "c064",
@@ -1070,7 +1127,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship","Law"]
   },
   {
     "id": "c065",
@@ -1086,7 +1144,8 @@ const COURSES = [
     "delivery": "Online or In-person",
     "location": "F2F or Online",
     "website": "https://nedco.gov.tt/services/training/one-day-courses",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship"]
   },
   {
     "id": "c066",
@@ -1102,7 +1161,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.thti.edu.tt",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts","Accounting & Finance"]
   },
   {
     "id": "c067",
@@ -1118,7 +1178,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.thti.edu.tt",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance","HR"]
   },
   {
     "id": "c068",
@@ -1134,7 +1195,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt",
-    "featured": true
+    "featured": true,
+    "tags": ["Baking & Pastry","Culinary Arts"]
   },
   {
     "id": "c069",
@@ -1150,7 +1212,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.thti.edu.tt/product/introduction-to-bookkeeping-accounting/",
-    "featured": false
+    "featured": false,
+    "tags": ["Accounting & Finance"]
   },
   {
     "id": "c072",
@@ -1166,7 +1229,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt/product/the-art-of-bread-making-2/",
-    "featured": false
+    "featured": false,
+    "tags": ["Baking & Pastry","Culinary Arts"]
   },
   {
     "id": "c073",
@@ -1182,7 +1246,8 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Blended (Online + F2F)",
     "website": "https://www.thti.edu.tt/product/housekeeping-skills/",
-    "featured": false
+    "featured": false,
+    "tags": ["Hospitality"]
   },
   {
     "id": "c074",
@@ -1198,7 +1263,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt/product/the-art-of-cakes-and-quick-breads/",
-    "featured": false
+    "featured": false,
+    "tags": ["Baking & Pastry","Culinary Arts"]
   },
   {
     "id": "c075",
@@ -1214,7 +1280,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt/product/the-art-of-laminated-pastry/",
-    "featured": false
+    "featured": false,
+    "tags": ["Baking & Pastry","Culinary Arts"]
   },
   {
     "id": "c076",
@@ -1230,7 +1297,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt/product/contemporary-caribbean-cuisine/",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts"]
   },
   {
     "id": "c077",
@@ -1246,7 +1314,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.thti.edu.tt/product/mastering-the-art-of-ponche-de-creme/",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts","Crafts & Making"]
   },
   {
     "id": "c078",
@@ -1262,7 +1331,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.thti.edu.tt",
-    "featured": false
+    "featured": false,
+    "tags": ["Agriculture"]
   },
   {
     "id": "c079",
@@ -1278,7 +1348,8 @@ const COURSES = [
     "delivery": "Online / F2F",
     "location": "Online / F2F",
     "website": "https://www.thti.edu.tt",
-    "featured": false
+    "featured": false,
+    "tags": ["Agriculture"]
   },
   {
     "id": "c080",
@@ -1294,7 +1365,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.thti.edu.tt/product/beverage-costing-and-pricing/",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts","Accounting & Finance"]
   },
   {
     "id": "c081",
@@ -1310,7 +1382,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://www.roytec.edu/corporate-training/schedule",
-    "featured": false
+    "featured": false,
+    "tags": ["Public Speaking","Video & Audio"]
   },
   {
     "id": "c082",
@@ -1326,7 +1399,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://www.roytec.edu",
-    "featured": false
+    "featured": false,
+    "tags": ["AI & Automation"]
   },
   {
     "id": "c083",
@@ -1342,7 +1416,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Cybersecurity"]
   },
   {
     "id": "c084",
@@ -1358,7 +1433,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","Project Management"]
   },
   {
     "id": "c085",
@@ -1374,7 +1450,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Law","Entrepreneurship"]
   },
   {
     "id": "c086",
@@ -1390,7 +1467,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c087",
@@ -1406,7 +1484,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c088",
@@ -1422,7 +1501,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Video & Audio"]
   },
   {
     "id": "c089",
@@ -1438,7 +1518,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership"]
   },
   {
     "id": "c090",
@@ -1454,7 +1535,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Graphic Design","Crafts & Making"]
   },
   {
     "id": "c091",
@@ -1470,7 +1552,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Video & Audio","Graphic Design"]
   },
   {
     "id": "c092",
@@ -1486,7 +1569,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Culinary Arts"]
   },
   {
     "id": "c093",
@@ -1502,7 +1586,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Baking & Pastry","Culinary Arts"]
   },
   {
     "id": "c094",
@@ -1518,7 +1603,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://usc.edu.tt/academics/professional-development-institute/",
-    "featured": false
+    "featured": false,
+    "tags": ["Social Media","Video & Audio"]
   },
   {
     "id": "c095",
@@ -1534,7 +1620,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=156",
-    "featured": true
+    "featured": true,
+    "tags": ["Healthcare"]
   },
   {
     "id": "c096",
@@ -1550,7 +1637,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=146989",
-    "featured": false
+    "featured": false,
+    "tags": ["Entrepreneurship","Accounting & Finance"]
   },
   {
     "id": "c097",
@@ -1566,7 +1654,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=1517",
-    "featured": false
+    "featured": false,
+    "tags": ["Public Speaking"]
   },
   {
     "id": "c098",
@@ -1582,7 +1671,8 @@ const COURSES = [
     "delivery": "In-person",
     "location": "In-person",
     "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=144067",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","HR"]
   },
   {
     "id": "c099",
@@ -1598,7 +1688,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=178767",
-    "featured": false
+    "featured": false,
+    "tags": ["Administration"]
   },
   {
     "id": "c100",
@@ -1614,7 +1705,8 @@ const COURSES = [
     "delivery": "Contact Provider",
     "location": "Contact Provider",
     "website": "https://lokjackgsb.edu.tt/short-courses/train-the-trainer/",
-    "featured": true
+    "featured": true,
+    "tags": ["Leadership","HR"]
   },
   {
     "id": "c102",
@@ -1630,7 +1722,8 @@ const COURSES = [
     "delivery": "Contact Provider",
     "location": "Contact Provider",
     "website": "https://lokjackgsb.edu.tt/short-courses/advanced-ms-excel/",
-    "featured": false
+    "featured": false,
+    "tags": ["Microsoft Office","Accounting & Finance"]
   },
   {
     "id": "c103",
@@ -1646,7 +1739,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/administrative-support/",
-    "featured": false
+    "featured": false,
+    "tags": ["Administration"]
   },
   {
     "id": "c104",
@@ -1662,7 +1756,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/administrative-office-procedures/",
-    "featured": false
+    "featured": false,
+    "tags": ["Administration"]
   },
   {
     "id": "c105",
@@ -1678,7 +1773,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/trust-building-and-resilience-development/",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","Team Building"]
   },
   {
     "id": "c106",
@@ -1694,7 +1790,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/emotional-intelligence/",
-    "featured": false
+    "featured": false,
+    "tags": ["Leadership","Team Building"]
   },
   {
     "id": "c107",
@@ -1710,7 +1807,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/team-building-through-chemistry/",
-    "featured": false
+    "featured": false,
+    "tags": ["Team Building"]
   },
   {
     "id": "c108",
@@ -1726,7 +1824,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/overcoming-sales-objections/",
-    "featured": false
+    "featured": false,
+    "tags": ["Sales"]
   },
   {
     "id": "c109",
@@ -1742,7 +1841,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/team-building-for-managers/",
-    "featured": false
+    "featured": false,
+    "tags": ["Team Building","Leadership"]
   },
   {
     "id": "c110",
@@ -1758,7 +1858,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/teamwork-and-team-building/",
-    "featured": false
+    "featured": false,
+    "tags": ["Team Building"]
   },
   {
     "id": "c111",
@@ -1774,7 +1875,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/motivating-your-sales-team/",
-    "featured": false
+    "featured": false,
+    "tags": ["Sales","Leadership"]
   },
   {
     "id": "c112",
@@ -1790,7 +1892,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/sales-fundamentals/",
-    "featured": false
+    "featured": false,
+    "tags": ["Sales"]
   },
   {
     "id": "c113",
@@ -1806,7 +1909,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/social-media-marketing/",
-    "featured": true
+    "featured": true,
+    "tags": ["Social Media","Marketing"]
   },
   {
     "id": "c114",
@@ -1822,7 +1926,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/marketing-basics/",
-    "featured": false
+    "featured": false,
+    "tags": ["Marketing"]
   },
   {
     "id": "c115",
@@ -1838,7 +1943,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/human-resource-management/",
-    "featured": false
+    "featured": false,
+    "tags": ["HR"]
   },
   {
     "id": "c116",
@@ -1854,7 +1960,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/cyber-security/",
-    "featured": false
+    "featured": false,
+    "tags": ["Cybersecurity"]
   },
   {
     "id": "c117",
@@ -1870,7 +1977,8 @@ const COURSES = [
     "delivery": "Online",
     "location": "Online",
     "website": "https://shel.edu.tt/personal-branding/",
-    "featured": false
+    "featured": false,
+    "tags": ["Graphic Design","Crafts & Making"]
   },
   {
     "id": "c118",
@@ -1886,7 +1994,8 @@ const COURSES = [
     "delivery": "Hybrid",
     "location": "Multiple campuses",
     "website": "https://utt.edu.tt",
-    "featured": true
+    "featured": true,
+    "tags": ["AI & Automation"]
   }
 ];
 

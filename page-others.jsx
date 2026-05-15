@@ -4,10 +4,11 @@ const { Icon, Logo, SectionHeader, CourseCard, InstitutionCard } = CourzaUI;
 // ─────────────────────────────────────────────────────────────────
 // Discover Page
 // ─────────────────────────────────────────────────────────────────
-const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse }) => {
+const Discover = ({ setPage, density, initialCat, initialSearch, initialTag, onSubmitCourse }) => {
   const { COURSES, CATEGORIES } = window.CourzaData;
   const [search, setSearch] = React.useState(initialSearch || '');
   const [cat, setCat] = React.useState(initialCat || null);
+  const [activeTag, setActiveTag] = React.useState(initialTag || null);
   const [type, setType] = React.useState(null);
   const [delivery, setDelivery] = React.useState(null);
   const [sort, setSort] = React.useState('relevant');
@@ -15,6 +16,7 @@ const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse 
   const [limit, setLimit] = React.useState(12);
 
   const types = Array.from(new Set(COURSES.map(c => c.type)));
+  const allTags = Array.from(new Set(COURSES.flatMap(c => c.tags || []))).sort();
 
   const parseCost = (cost) => {
     if (!cost) return Infinity;
@@ -34,7 +36,8 @@ const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse 
     return matchQ
       && (!cat || c.category === cat)
       && (!type || c.type === type)
-      && (!delivery || c.delivery === delivery);
+      && (!delivery || c.delivery === delivery)
+      && (!activeTag || (c.tags && c.tags.includes(activeTag)));
   });
 
   const sorted = sort === 'price'
@@ -44,8 +47,8 @@ const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse 
     : filtered;
 
   const displayed = sorted.slice(0, limit);
-  const hasFilter = search || cat || type || delivery;
-  const clear = () => { setSearch(''); setCat(null); setType(null); setDelivery(null); setLimit(12); };
+  const hasFilter = search || cat || type || delivery || activeTag;
+  const clear = () => { setSearch(''); setCat(null); setActiveTag(null); setType(null); setDelivery(null); setLimit(12); };
 
   return (
     <div className="page-enter">
@@ -107,12 +110,21 @@ const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse 
               </div>
             </div>
 
-            <div>
+            <div style={{ marginBottom: 32 }}>
               <div className="mono" style={{ fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 14 }}>Credential</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <button onClick={() => setType(null)} style={{ textAlign: 'left', fontSize: 14, padding: '6px 0', fontWeight: !type ? 600 : 400, color: !type ? 'var(--ink)' : 'var(--muted)' }}>All credentials</button>
                 {types.map(t => (
                   <button key={t} onClick={() => { setType(t === type ? null : t); setLimit(12); }} style={{ textAlign: 'left', fontSize: 14, padding: '6px 0', fontWeight: type === t ? 600 : 400, color: type === t ? 'var(--emerald)' : 'var(--muted)' }}>{t}</button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="mono" style={{ fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 14 }}>Skills</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {allTags.map(tag => (
+                  <button key={tag} onClick={() => { setActiveTag(tag === activeTag ? null : tag); setLimit(12); }} className={`chip ${activeTag === tag ? 'active' : ''}`} style={{ fontSize: 11, padding: '3px 10px' }}>{tag}</button>
                 ))}
               </div>
             </div>
@@ -146,7 +158,16 @@ const Discover = ({ setPage, density, initialCat, initialSearch, onSubmitCourse 
               </div>
             </div>
 
-            {filtered.length === 0 ? (
+            {activeTag && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, padding: '10px 16px', background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 10 }}>
+              <Icon name="tag" size={13} style={{ color: 'var(--emerald)' }}/>
+              <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>Skill:</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>{activeTag}</span>
+              <button onClick={() => setActiveTag(null)} style={{ marginLeft: 'auto', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="x" size={13}/></button>
+            </div>
+          )}
+
+          {filtered.length === 0 ? (
               <div className="card text-center" style={{ padding: 64 }}>
                 <Icon name="search" size={32} style={{ color: 'var(--muted)', marginBottom: 16 }}/>
                 <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, marginBottom: 12 }}>No programmes found</h3>

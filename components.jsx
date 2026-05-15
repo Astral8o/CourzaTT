@@ -180,11 +180,18 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
           </div>
           <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.15, marginBottom: 12 }}>{course.title}</h3>
           <p className="muted" style={{ fontSize: 15, marginBottom: 20, maxWidth: 640 }}>{course.summary}</p>
-          <div className="flex items-center gap-6 mb-5" style={{ flexWrap: 'wrap' }}>
+          <div className="flex items-center gap-6 mb-4" style={{ flexWrap: 'wrap' }}>
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}><Icon name="building" size={12} style={{ display: 'inline', marginRight: 6, marginBottom: -2 }}/>{course.institutionName}</span>
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}><Icon name="map-pin" size={12} style={{ display: 'inline', marginRight: 6, marginBottom: -2 }}/>{course.location}</span>
             <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}><Icon name="globe" size={12} style={{ display: 'inline', marginRight: 6, marginBottom: -2 }}/>{course.delivery}</span>
           </div>
+          {course.tags && course.tags.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
+              {course.tags.map(tag => (
+                <button key={tag} onClick={e => { e.stopPropagation(); window.location.hash = 'discover:tag:' + tag; }} className="chip" style={{ fontSize: 11, padding: '3px 10px', cursor: 'pointer' }}>{tag}</button>
+              ))}
+            </div>
+          )}
           <VisitCTA url={url}/>
         </div>
         <div className="course-card-wide-sidebar" style={{ borderLeft: '1px solid var(--rule)', paddingLeft: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -212,7 +219,15 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
       </div>
       <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>{course.institutionName}</div>
       <h3 className="course-title" style={{ fontSize: 24, lineHeight: 1.15, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
-      <p className="muted" style={{ fontSize: 14.5, marginBottom: 24, lineHeight: 1.55, flexGrow: 1 }}>{course.summary}</p>
+      <p className="muted" style={{ fontSize: 14.5, marginBottom: 16, lineHeight: 1.55, flexGrow: 1 }}>{course.summary}</p>
+
+      {course.tags && course.tags.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+          {course.tags.slice(0, 3).map(tag => (
+            <button key={tag} onClick={e => { e.stopPropagation(); window.location.hash = 'discover:tag:' + tag; }} className="chip" style={{ fontSize: 11, padding: '3px 10px', cursor: 'pointer' }}>{tag}</button>
+          ))}
+        </div>
+      )}
 
       <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
         <div>

@@ -112,6 +112,7 @@ function App() {
   if (page === 'home') pageEl = <Home setPage={setPage} onSubmitCourse={openSubmitModal}/>;
   else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density} onSubmitCourse={openSubmitModal}/>;
   else if (page.startsWith('discover:search:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialSearch={page.slice(16)} onSubmitCourse={openSubmitModal}/>;
+  else if (page.startsWith('discover:tag:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialTag={page.slice(13)} onSubmitCourse={openSubmitModal}/>;
   else if (page.startsWith('discover:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialCat={page.slice(9)} onSubmitCourse={openSubmitModal}/>;
   else if (page === 'institutions') pageEl = <Institutions setPage={setPage}/>;
   else if (page === 'list') pageEl = <ListInstitution setPage={setPage} onSubmitCourse={openSubmitModal}/>;
