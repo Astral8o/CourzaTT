@@ -411,53 +411,118 @@ const InstitutionDetail = ({ instId, setPage }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────
-// List Your Institution
+// List Your Institution — helpers (top-level to prevent remount)
 // ─────────────────────────────────────────────────────────────────
+const ListField = ({ label, value, onChange, placeholder, type = 'text', required, showErrors, as, hint, rows = 4 }) => {
+  const missing = required && showErrors && !value.trim();
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>
+        {label}{required && <span style={{ color: 'var(--amber-2)', marginLeft: 3 }}>*</span>}
+      </label>
+      {hint && <p className="muted" style={{ fontSize: 12, marginBottom: 8, lineHeight: 1.4 }}>{hint}</p>}
+      {as === 'textarea'
+        ? <textarea value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} className="input" style={{ resize: 'none', borderColor: missing ? 'var(--red, #c0392b)' : undefined }}/>
+        : <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="input" style={{ borderColor: missing ? 'var(--red, #c0392b)' : undefined }}/>
+      }
+      {missing && <span style={{ fontSize: 11, color: 'var(--red, #c0392b)', display: 'block', marginTop: 4 }}>This field is required</span>}
+    </div>
+  );
+};
+
+const INST_CATS = ['Business & Entrepreneurship', 'Technology & Digital', 'Hospitality & Culinary', 'Creative Arts & Design', 'Technical Trades', 'Health & Medical', 'Finance & Accounting', 'Personal Development', 'Other'];
+const TT_REGIONS = ['Port of Spain', 'San Fernando', 'Arima', 'Chaguanas', 'Point Fortin', 'Scarborough (Tobago)', 'Nationwide', 'Online only'];
+const BLANK_COURSE_ENTRY = { title: '', duration: '', price: '', deadline: '', delivery: 'In-person', certification: '' };
+const LIST_STEPS = ['Institution basics', 'About you', 'Contact & location', 'Your courses', 'Boost visibility', 'Review & submit'];
+
 const ListInstitution = ({ setPage, onSubmitCourse }) => {
+  const [step, setStep] = React.useState(1);
+  const [showErrors, setShowErrors] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
-  const [type, setType] = React.useState(null);
   const [error, setError] = React.useState(false);
+  const [form, setForm] = React.useState({
+    institutionName: '', category: '', tagline: '',
+    description: '', whoFor: '', teachingStyle: '', learningFormat: '',
+    region: '', website: '', instagram: '', whatsapp: '', email: '',
+    wantsPromotion: null,
+    courses: [{ ...BLANK_COURSE_ENTRY }],
+  });
 
-  const submit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(false);
+  const update = (key, val) => setForm(f => ({ ...f, [key]: val }));
+  const updateCourse = (i, key, val) => setForm(f => {
+    const c = [...f.courses];
+    c[i] = { ...c[i], [key]: val };
+    return { ...f, courses: c };
+  });
+  const addCourse = () => form.courses.length < 3 && setForm(f => ({ ...f, courses: [...f.courses, { ...BLANK_COURSE_ENTRY }] }));
+  const removeCourse = i => form.courses.length > 1 && setForm(f => ({ ...f, courses: f.courses.filter((_, idx) => idx !== i) }));
+
+  const isStepValid = () => {
+    if (step === 1) return form.institutionName.trim() && form.category;
+    if (step === 2) return form.description.trim();
+    if (step === 3) return form.email.trim();
+    if (step === 4) return form.courses.every(c => c.title.trim() && c.price.trim());
+    return true;
+  };
+  const tryNext = () => {
+    if (!isStepValid()) { setShowErrors(true); return; }
+    setShowErrors(false); setStep(s => s + 1); window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const goBack = () => { setStep(s => s - 1); setShowErrors(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+  const handleSubmit = async () => {
+    setSubmitting(true); setError(false);
     try {
-      const data = new FormData(e.target);
-      data.append('_subject', 'New institution listing enquiry — CourzaTT');
-      if (type) data.set('institution_type', type);
-      const res = await fetch('https://formspree.io/f/mvzlzjje', {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
-      });
-      if (res.ok) setSubmitted(true);
-      else setError(true);
-    } catch {
-      setError(true);
-    }
+      const payload = new FormData();
+      payload.append('_subject', `New institution profile — CourzaTT: ${form.institutionName}`);
+      [['institution_name', form.institutionName], ['category', form.category], ['tagline', form.tagline],
+       ['description', form.description], ['who_for', form.whoFor], ['teaching_style', form.teachingStyle],
+       ['learning_format', form.learningFormat], ['region', form.region], ['website', form.website],
+       ['instagram', form.instagram], ['whatsapp', form.whatsapp], ['email', form.email],
+       ['wants_promotion', form.wantsPromotion ? 'Yes — please reach out' : 'No'],
+      ].forEach(([k, v]) => payload.append(k, v));
+      form.courses.forEach((c, i) => payload.append(`course_${i+1}`, `${c.title} | TTD ${c.price} | ${c.duration} | ${c.delivery} | Deadline: ${c.deadline} | Cert: ${c.certification}`));
+      const res = await fetch('https://formspree.io/f/mvzlzjje', { method: 'POST', body: payload, headers: { Accept: 'application/json' } });
+      if (res.ok) setSubmitted(true); else setError(true);
+    } catch { setError(true); }
     setSubmitting(false);
   };
 
   return (
     <div className="page-enter">
 
-      {/* PAGE HEADER — centered, concise */}
+      {submitted ? (
+        <section style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="container text-center" style={{ maxWidth: 560 }}>
+            <div style={{ width: 72, height: 72, borderRadius: '50%', border: '1px solid var(--emerald)', background: 'rgba(31,95,74,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, color: 'var(--emerald)', marginLeft: 'auto', marginRight: 'auto' }}>
+              <Icon name="check" size={32}/>
+            </div>
+            <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 20 }}>Profile submitted</div>
+            <h1 className="display-2 serif" style={{ marginBottom: 16 }}>You're on the <em className="display-italic"><span className="hl">list</span></em>.</h1>
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
+              Our team will review your profile and reach out within 2–3 business days.{form.wantsPromotion && " We'll also be in touch to discuss your promotion add-on."}
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button onClick={() => setPage('discover')} className="btn btn-primary">Browse courses <Icon name="arrow-right" size={14}/></button>
+              <button onClick={() => { setSubmitted(false); setStep(1); setShowErrors(false); setForm({ institutionName: '', category: '', tagline: '', description: '', whoFor: '', teachingStyle: '', learningFormat: '', region: '', website: '', instagram: '', whatsapp: '', email: '', wantsPromotion: null, courses: [{ ...BLANK_COURSE_ENTRY }] }); }} className="btn btn-ghost">Submit another →</button>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <>
+      {/* PAGE HEADER */}
       <section style={{ paddingTop: 64, paddingBottom: 48, borderBottom: '1px solid var(--rule)', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: 640 }}>
           <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 20 }}>For institutions</div>
           <h1 className="display-2 serif" style={{ marginBottom: 16 }}>
-            List your <em className="display-italic"><span className="hl">institution</span></em>.
+            Build your <em className="display-italic"><span className="hl">profile</span></em>.
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
-            Join the growing directory of T&amp;T institutions. Reach learners actively searching for accredited programmes.
+            Create your institution's presence on CourzaTT — free, permanent, and fully integrated into our discovery platform.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })}
-              className="btn btn-ghost"
-            >
+            <button onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })} className="btn btn-ghost">
               See promotion options <Icon name="arrow-down" size={14}/>
             </button>
             {onSubmitCourse && (
@@ -469,91 +534,259 @@ const ListInstitution = ({ setPage, onSubmitCourse }) => {
         </div>
       </section>
 
-      {/* MAIN — form left (focal point), context right */}
+      {/* ONBOARDING WIZARD */}
       <section style={{ paddingTop: 64, paddingBottom: 80 }}>
-        <div className="container list-form-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="container list-form-grid" style={{ display: 'grid', gridTemplateColumns: step === 6 ? '1fr' : '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
 
-          {/* LEFT — form, the main event */}
-          {!submitted ? (
-            <form onSubmit={submit} className="card" style={{
-              padding: 48,
-              boxShadow: '0 24px 64px -20px rgba(14,26,23,0.18)',
-              borderColor: 'var(--rule-strong)',
-              background: 'var(--paper)',
-            }}>
-              <div style={{ marginBottom: 32, paddingBottom: 24, borderBottom: '1px solid var(--rule)' }}>
-                <div className="eyebrow" style={{ marginBottom: 8 }}>Application form</div>
-                <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Fill in your details and our team will be in touch within 2–3 business days.</p>
+          {/* LEFT — steps */}
+          <div>
+            {/* Progress indicator */}
+            <div style={{ marginBottom: 32 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 12 }}>
+                {LIST_STEPS.map((s, i) => (
+                  <React.Fragment key={i}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: step > i+1 ? 'var(--emerald)' : step === i+1 ? 'var(--ink)' : 'var(--paper-2)', border: `1px solid ${step > i+1 ? 'var(--emerald)' : step === i+1 ? 'var(--ink)' : 'var(--rule)'}`, color: step >= i+1 ? 'var(--paper)' : 'var(--muted)', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 600, transition: 'all 0.2s' }}>
+                      {step > i+1 ? <Icon name="check" size={12}/> : i+1}
+                    </div>
+                    {i < LIST_STEPS.length - 1 && <div style={{ flex: 1, height: 1, background: step > i+1 ? 'var(--emerald)' : 'var(--rule)', transition: 'background 0.3s' }}/>}
+                  </React.Fragment>
+                ))}
               </div>
+              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                Step {step} of {LIST_STEPS.length} — {LIST_STEPS[step - 1]}
+              </div>
+            </div>
 
-              {[
-                { label: 'Institution name', name: 'institution_name', placeholder: 'e.g. UWI Global Campus', type: 'text' },
-                { label: 'Contact email', name: 'email', placeholder: 'e.g. admin@institution.edu.tt', type: 'email' },
-                { label: 'Contact number', name: 'phone', placeholder: '+1 (868) 000-0000', type: 'tel' }
-              ].map(f => (
-                <div key={f.label} style={{ marginBottom: 24 }}>
-                  <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>{f.label}</label>
-                  <input type={f.type} name={f.name} required placeholder={f.placeholder} className="input"/>
-                </div>
-              ))}
-
-              <div style={{ marginBottom: 24 }}>
-                <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Institution type</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {['Public', 'Private', 'NGO', 'Technical', 'Other'].map(t => (
-                    <button key={t} type="button" onClick={() => setType(t)} className={`chip ${type === t ? 'active' : ''}`}>{t}</button>
+            {/* Step card */}
+            <div className="card" style={{ padding: 40, boxShadow: '0 24px 64px -20px rgba(14,26,23,0.12)', borderColor: 'var(--rule-strong)' }}>
+              {step === 1 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>Let's start with the basics</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Tell us who you are — just the essentials.</p>
+                  </div>
+                  <ListField label="Institution name" required value={form.institutionName} onChange={v => update('institutionName', v)} placeholder="e.g. Caribbean Institute of Technology" showErrors={showErrors}/>
+                  <div style={{ marginBottom: 24 }}>
+                    <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Category<span style={{ color: 'var(--amber-2)', marginLeft: 3 }}>*</span></label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {INST_CATS.map(c => <button key={c} type="button" onClick={() => update('category', c)} className={`chip ${form.category === c ? 'active' : ''}`}>{c}</button>)}
+                    </div>
+                    {showErrors && !form.category && <span style={{ fontSize: 11, color: 'var(--red, #c0392b)', display: 'block', marginTop: 8 }}>Please select a category</span>}
+                  </div>
+                  <ListField label="Tagline" value={form.tagline} onChange={v => update('tagline', v)} placeholder="e.g. Practical training for the modern workforce" hint="Optional — one line that captures your mission."/>
+                </>
+              )}
+              {step === 2 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>About your institution</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>This is your story. Learners will read this to decide if you're the right fit.</p>
+                  </div>
+                  <ListField label="About the institution" required as="textarea" rows={5} value={form.description} onChange={v => update('description', v)} placeholder="What do you offer? What makes your programmes different?" showErrors={showErrors}/>
+                  <ListField label="Who are your courses for?" value={form.whoFor} onChange={v => update('whoFor', v)} placeholder="e.g. Working adults, school leavers, small business owners…" hint="Optional — helps learners self-identify."/>
+                  <div style={{ marginBottom: 24 }}>
+                    <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Teaching style</label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {['Hands-on', 'Theory & practice', 'Self-paced', 'Instructor-led', 'Mentorship-based'].map(s => <button key={s} type="button" onClick={() => update('teachingStyle', form.teachingStyle === s ? '' : s)} className={`chip ${form.teachingStyle === s ? 'active' : ''}`}>{s}</button>)}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Learning format</label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {['In-person', 'Online', 'Hybrid', 'Weekends', 'Evenings'].map(f => <button key={f} type="button" onClick={() => update('learningFormat', form.learningFormat === f ? '' : f)} className={`chip ${form.learningFormat === f ? 'active' : ''}`}>{f}</button>)}
+                    </div>
+                  </div>
+                </>
+              )}
+              {step === 3 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>Contact & location</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>How can learners (and our team) reach you?</p>
+                  </div>
+                  <ListField label="Contact email" required type="email" value={form.email} onChange={v => update('email', v)} placeholder="admin@yourinstitution.tt" showErrors={showErrors}/>
+                  <div style={{ marginBottom: 24 }}>
+                    <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Region in Trinidad &amp; Tobago</label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {TT_REGIONS.map(r => <button key={r} type="button" onClick={() => update('region', form.region === r ? '' : r)} className={`chip ${form.region === r ? 'active' : ''}`}>{r}</button>)}
+                    </div>
+                  </div>
+                  <ListField label="Website" value={form.website} onChange={v => update('website', v)} placeholder="https://yourinstitution.tt"/>
+                  <ListField label="Instagram" value={form.instagram} onChange={v => update('instagram', v)} placeholder="@yourhandle"/>
+                  <ListField label="WhatsApp" value={form.whatsapp} onChange={v => update('whatsapp', v)} placeholder="+1 (868) 000-0000" type="tel"/>
+                </>
+              )}
+              {step === 4 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>Add your courses</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Up to 3 active short courses, free forever. These are the primary discovery unit on CourzaTT.</p>
+                  </div>
+                  {form.courses.map((course, i) => (
+                    <div key={i} className="card" style={{ padding: 24, marginBottom: 20, background: 'var(--paper-2)' }}>
+                      <div className="flex items-center justify-between" style={{ marginBottom: 20 }}>
+                        <span className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--amber-2)' }}>Course {i + 1}</span>
+                        {form.courses.length > 1 && <button type="button" onClick={() => removeCourse(i)} className="mono muted" style={{ fontSize: 11 }}>Remove</button>}
+                      </div>
+                      <ListField label="Course title" required value={course.title} onChange={v => updateCourse(i, 'title', v)} placeholder="e.g. Professional Baking Certificate" showErrors={showErrors}/>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <ListField label="Price (TTD)" required value={course.price} onChange={v => updateCourse(i, 'price', v)} placeholder="e.g. 1,500" showErrors={showErrors}/>
+                        <ListField label="Duration" value={course.duration} onChange={v => updateCourse(i, 'duration', v)} placeholder="e.g. 8 weeks"/>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <ListField label="Deadline / intake" value={course.deadline} onChange={v => updateCourse(i, 'deadline', v)} placeholder="e.g. June 30, 2026"/>
+                        <ListField label="Certification" value={course.certification} onChange={v => updateCourse(i, 'certification', v)} placeholder="e.g. Certificate of Completion"/>
+                      </div>
+                      <div>
+                        <label className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Delivery</label>
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          {['In-person', 'Online', 'Hybrid'].map(d => <button key={d} type="button" onClick={() => updateCourse(i, 'delivery', d)} className={`chip ${course.delivery === d ? 'active' : ''}`}>{d}</button>)}
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </div>
-              </div>
+                  {form.courses.length < 3 && (
+                    <button type="button" onClick={addCourse} className="btn btn-ghost btn-sm" style={{ width: '100%', justifyContent: 'center', borderStyle: 'dashed' }}>
+                      <Icon name="plus" size={14}/> Add another course
+                    </button>
+                  )}
+                </>
+              )}
+              {step === 5 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>Want to boost your visibility?</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Your free listing reaches everyone browsing CourzaTT. Promotion amplifies that for a specific intake cycle.</p>
+                  </div>
+                  <div className="card" style={{ padding: 32, marginBottom: 24, background: 'var(--paper-2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
+                      <span className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--ink-2)' }}>Promotion add-on</span>
+                      <span style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>One-time · per intake</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+                      {['Featured on homepage & discovery feeds', 'Social media post about your courses', 'Newsletter mention to our subscribers', 'Priority placement in browsing surfaces', 'Highlighted institution and course cards'].map(f => (
+                        <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <Icon name="check-circle" size={15} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
+                          <span style={{ fontSize: 14 }}>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="muted" style={{ fontSize: 12, lineHeight: 1.5 }}>Not a subscription. You choose to promote again when you launch a new intake cycle. Our team will reach out with pricing after you submit.</p>
+                  </div>
+                  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                    <button type="button" onClick={() => update('wantsPromotion', true)} className={`btn ${form.wantsPromotion === true ? 'btn-primary' : 'btn-ghost'}`} style={{ flexGrow: 1, justifyContent: 'center' }}>
+                      {form.wantsPromotion === true ? <Icon name="check" size={14}/> : <Icon name="star" size={14}/>} Yes, I'm interested
+                    </button>
+                    <button type="button" onClick={() => update('wantsPromotion', false)} className="btn btn-ghost" style={{ flexGrow: 1, justifyContent: 'center', opacity: form.wantsPromotion === false ? 0.45 : 1 }}>
+                      No thanks, just list me
+                    </button>
+                  </div>
+                </>
+              )}
+              {step === 6 && (
+                <>
+                  <div style={{ marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 6 }}>Review your profile</h2>
+                    <p className="muted" style={{ fontSize: 14, lineHeight: 1.5 }}>Here's how your institution will appear. Our team reviews every listing before it goes live.</p>
+                  </div>
+                  <div className="card" style={{ padding: 32, marginBottom: 16 }}>
+                    <div style={{ marginBottom: 20 }}>
+                      <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+                        <span className="tag tag-emerald">{form.category || 'Category'}</span>
+                        {form.region && <span className="tag">{form.region}</span>}
+                      </div>
+                      <h3 className="serif" style={{ fontSize: 26, fontWeight: 500, marginBottom: 6 }}>{form.institutionName || 'Your Institution'}</h3>
+                      {form.tagline && <p className="muted" style={{ fontSize: 15, fontStyle: 'italic' }}>{form.tagline}</p>}
+                    </div>
+                    {form.description && <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 16 }}>{form.description}</p>}
+                    {(form.teachingStyle || form.learningFormat) && (
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+                        {form.teachingStyle && <span className="chip">{form.teachingStyle}</span>}
+                        {form.learningFormat && <span className="chip">{form.learningFormat}</span>}
+                      </div>
+                    )}
+                    <div className="flex items-center gap-5" style={{ flexWrap: 'wrap', paddingTop: 16, borderTop: '1px solid var(--rule)' }}>
+                      {form.website && <span className="mono muted" style={{ fontSize: 11 }}><Icon name="globe" size={11} style={{ display: 'inline', marginRight: 5, marginBottom: -1 }}/>{form.website}</span>}
+                      {form.instagram && <span className="mono muted" style={{ fontSize: 11 }}><Icon name="instagram" size={11} style={{ display: 'inline', marginRight: 5, marginBottom: -1 }}/>{form.instagram}</span>}
+                      {form.whatsapp && <span className="mono muted" style={{ fontSize: 11 }}><Icon name="phone" size={11} style={{ display: 'inline', marginRight: 5, marginBottom: -1 }}/>{form.whatsapp}</span>}
+                    </div>
+                  </div>
+                  {form.courses.map((c, i) => c.title && (
+                    <div key={i} className="card" style={{ padding: '16px 24px', marginBottom: 12, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'center' }}>
+                      <div>
+                        <span className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>Course {i+1}</span>
+                        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 6 }}>{c.title}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                          <span className="tag">{c.delivery}</span>
+                          {c.duration && <span className="mono muted" style={{ fontSize: 11 }}>{c.duration}</span>}
+                          {c.deadline && <span className="mono muted" style={{ fontSize: 11 }}>Deadline: {c.deadline}</span>}
+                        </div>
+                      </div>
+                      {c.price && <div className="serif" style={{ fontSize: 20, fontWeight: 500, whiteSpace: 'nowrap' }}>TTD {c.price}</div>}
+                    </div>
+                  ))}
+                  {form.wantsPromotion && (
+                    <div style={{ marginTop: 20, padding: '12px 20px', background: 'rgba(232,163,61,0.1)', border: '1px solid var(--amber)', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <Icon name="star" size={14} style={{ color: 'var(--amber-2)', flexShrink: 0 }}/>
+                      <span style={{ fontSize: 13 }}>Promotion add-on requested — our team will be in touch about visibility for this intake cycle.</span>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
 
-              <div style={{ marginBottom: 36 }}>
-                <label className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block' }}>Brief description</label>
-                <textarea name="message" required rows={4} placeholder="Tell learners about your institution…" className="input" style={{ resize: 'none' }}/>
-              </div>
+            {/* Navigation */}
+            <div style={{ display: 'flex', gap: 12, marginTop: 20, justifyContent: 'space-between', alignItems: 'center' }}>
+              {step > 1 ? <button onClick={goBack} className="btn btn-ghost"><Icon name="arrow-left" size={14}/> Back</button> : <div/>}
+              {step < LIST_STEPS.length
+                ? <button onClick={tryNext} className="btn btn-primary">Continue <Icon name="arrow-right" size={14}/></button>
+                : <button onClick={handleSubmit} className="btn btn-primary btn-lg" disabled={submitting}>{submitting ? 'Submitting…' : <><span>Submit profile</span> <Icon name="send" size={14}/></>}</button>
+              }
+            </div>
+            {error && <p className="mono text-center" style={{ fontSize: 11, marginTop: 12, color: 'var(--red, #c0392b)', letterSpacing: '0.1em' }}>Something went wrong — please try again.</p>}
+          </div>
 
-              <button type="submit" className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }} disabled={submitting}>
-                {submitting ? 'Sending…' : <><span>Submit enquiry</span> <Icon name="send" size={15}/></>}
-              </button>
-              {error && <p className="mono muted text-center" style={{ fontSize: 11, marginTop: 12, color: 'var(--red, #c0392b)' }}>Something went wrong — please try again.</p>}
-              <p className="mono muted text-center" style={{ fontSize: 10, letterSpacing: '0.1em', marginTop: 16, lineHeight: 1.5 }}>
-                Your details will only be used to process your listing enquiry.
-              </p>
-            </form>
-          ) : (
-            <div className="card text-center" style={{ padding: 64, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: 72, height: 72, borderRadius: '50%', border: '1px solid var(--emerald)', background: 'rgba(31,95,74,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, color: 'var(--emerald)' }}>
-                <Icon name="check" size={32}/>
-              </div>
-              <h2 className="display-3 serif" style={{ marginBottom: 16 }}>Enquiry submitted</h2>
-              <p className="muted" style={{ maxWidth: 320, marginBottom: 32 }}>Thank you for your interest in CourzaTT. Our team will review your application and reach out within 2–3 business days.</p>
-              <button onClick={() => setSubmitted(false)} className="btn btn-ghost">Submit another →</button>
+          {/* RIGHT — contextual sidebar */}
+          {step !== 6 && (
+            <div className="list-sticky-aside" style={{ position: 'sticky', top: 100 }}>
+              {step === 4 && (
+                <>
+                  <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 20 }}>Free course listings</div>
+                  {['Up to 3 active courses, free forever', 'Appear in search and category browsing', 'Fully indexed from day one', 'Update or add new intakes anytime'].map((b, i) => (
+                    <div key={b} style={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: 12, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                      <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{String(i+1).padStart(2,'0')}</span>
+                      <span style={{ fontSize: 15, fontWeight: 500 }}>{b}</span>
+                    </div>
+                  ))}
+                </>
+              )}
+              {step === 5 && (
+                <>
+                  <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 20 }}>How promotion works</div>
+                  {[['01', 'One-time, per intake', 'Not a recurring subscription.'], ['02', 'You choose when to promote', 'Return each new cycle if you want a boost.'], ['03', 'We reach out after you submit', 'Our team will share pricing and timeline.']].map(([n, t, sub]) => (
+                    <div key={n} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 12, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                      <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
+                      <div><div className="serif" style={{ fontSize: 16, fontWeight: 500, marginBottom: 2 }}>{t}</div><div className="muted" style={{ fontSize: 12 }}>{sub}</div></div>
+                    </div>
+                  ))}
+                </>
+              )}
+              {step <= 3 && (
+                <>
+                  <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 36, boxShadow: '0 8px 24px -8px rgba(14,26,23,0.10)' }}>
+                    <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
+                  </div>
+                  <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 8 }}>Why list with us</div>
+                  {[['01', 'Reach active learners across T&T', 'Show up where intent already lives.'], ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'], ['03', 'Direct traffic to your own website', 'We index — you enrol.'], ['04', 'Verified trust badge for your profile', 'A signal of accreditation that builds confidence.']].map(([n, t, sub]) => (
+                    <div key={n} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 12, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                      <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
+                      <div><div className="serif" style={{ fontSize: 16, fontWeight: 500, marginBottom: 2 }}>{t}</div><div className="muted" style={{ fontSize: 12 }}>{sub}</div></div>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           )}
-
-          {/* RIGHT — context: image + benefits */}
-          <div className="list-sticky-aside" style={{ position: 'sticky', top: 100 }}>
-            <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 36, boxShadow: '0 8px 24px -8px rgba(14,26,23,0.10)' }}>
-              <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
-            </div>
-
-            <div style={{ marginBottom: 8 }} className="mono muted">
-              <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with us</span>
-            </div>
-            {[
-              ['01', 'Reach active learners across T&T', 'Show up where intent already lives.'],
-              ['02', 'Showcase programmes & workshops', 'Beautiful pages, no engineering needed.'],
-              ['03', 'Direct traffic to your own website', 'We index — you enrol.'],
-              ['04', 'Verified trust badge for your profile', 'A signal of accreditation that builds confidence.']
-            ].map(([n, t, sub]) => (
-              <div key={n} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 12, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
-                <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{n}</span>
-                <div>
-                  <div className="serif" style={{ fontSize: 16, fontWeight: 500, marginBottom: 2 }}>{t}</div>
-                  <div className="muted" style={{ fontSize: 12 }}>{sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
 
         </div>
       </section>
@@ -572,24 +805,18 @@ const ListInstitution = ({ setPage, onSubmitCourse }) => {
             ))}
           </div>
 
-          <div className="promote-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start', marginBottom: 80 }}>
+          <div className="promote-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 32, alignItems: 'stretch', marginBottom: 80 }}>
 
             {/* Free listing */}
-            <div className="card" style={{
-              padding: 40, height: '100%',
-              background: 'var(--emerald)',
-              color: 'var(--paper)',
-              borderColor: 'var(--emerald)',
-              boxShadow: '0 20px 48px -16px rgba(31,95,74,0.35)',
-            }}>
+            <div className="card" style={{ padding: 40, background: 'var(--emerald)', color: 'var(--paper)', borderColor: 'var(--emerald)', boxShadow: '0 20px 48px -16px rgba(31,95,74,0.35)' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
                 <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.7 }}>Free listing</div>
                 <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Always free</span>
               </div>
               <div className="serif" style={{ fontSize: 40, fontWeight: 500, marginBottom: 8, lineHeight: 1 }}>TTD 0</div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 28, opacity: 0.8 }}>List your courses at no cost. They appear in search and category pages from day one.</p>
+              <p style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 28, opacity: 0.8 }}>List your institution and up to 3 courses at no cost. Fully part of the discovery ecosystem from day one.</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
-                {['Appears in search results', 'Listed in category pages', 'Institution profile page'].map(f => (
+                {['Appears in search & browsing', 'Institution profile page', 'Up to 3 active courses', 'Discovery-first placement'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <Icon name="check-circle" size={16} style={{ color: 'var(--amber)', flexShrink: 0 }}/>
                     <span style={{ fontSize: 14, fontWeight: 500 }}>{f}</span>
@@ -597,55 +824,31 @@ const ListInstitution = ({ setPage, onSubmitCourse }) => {
                 ))}
               </div>
               <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn btn-amber full" style={{ justifyContent: 'center', textDecoration: 'none' }}>
-                Get listed free <Icon name="arrow-right" size={14}/>
+                Build your profile free <Icon name="arrow-right" size={14}/>
               </a>
             </div>
 
-            {/* Paid promotion */}
-            <div>
-              <div style={{ marginBottom: 20 }}>
-                <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Paid promotion</div>
-                <p style={{ fontSize: 15, color: 'var(--ink-2)' }}>Increase visibility with Homepage features, Newsletter placements, Social posts, and Featured badges. Starting from <strong>TTD 300 per week</strong>.</p>
+            {/* Single promotion add-on */}
+            <div className="card" style={{ padding: 40, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
+                <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Promotion add-on</div>
+                <span style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>One-time · per intake</span>
               </div>
-              <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-                {[
-                  {
-                    name: 'Starter', price: 'TTD 300',
-                    features: ['Homepage feature, 7 days', '1 newsletter mention'],
-                  },
-                  {
-                    name: 'Growth', price: 'TTD 700',
-                    features: ['Homepage feature, 7 days', 'Newsletter feature', '2 social posts'],
-                    highlight: true,
-                  },
-                  {
-                    name: 'Premium', price: 'TTD 1,200',
-                    features: ['Homepage feature, 14 days', 'Newsletter top placement', '4 social posts', 'Featured badge'],
-                  },
-                ].map(pkg => (
-                  <div key={pkg.name} className="card" style={{
-                    padding: 28,
-                    background: pkg.highlight ? 'var(--ink)' : 'var(--card)',
-                    color: pkg.highlight ? 'var(--paper)' : 'var(--ink)',
-                    borderColor: pkg.highlight ? 'var(--ink)' : 'var(--rule)',
-                    display: 'flex', flexDirection: 'column'
-                  }}>
-                    <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 10 }}>{pkg.name}</div>
-                    <div className="serif" style={{ fontSize: 26, fontWeight: 500, marginBottom: 20 }}>{pkg.price}</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexGrow: 1 }}>
-                      {pkg.features.map(f => (
-                        <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                          <Icon name="check" size={13} style={{ color: pkg.highlight ? 'var(--amber)' : 'var(--emerald)', flexShrink: 0, marginTop: 2 }}/>
-                          <span style={{ fontSize: 13, lineHeight: 1.4, opacity: 0.85 }}>{f}</span>
-                        </div>
-                      ))}
+              <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>Boost visibility for a specific course cycle. Not a subscription — institutions choose to promote again when they launch a new intake.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32, flexGrow: 1 }}>
+                {[['Featured placement', 'Homepage and discovery feeds for your intake period'], ['Social media post', 'Dedicated post promoting your courses to our audience'], ['Newsletter inclusion', 'Mentioned to our subscriber list'], ['Priority browsing', 'Highlighted cards in category and tag feeds'], ['Institution spotlight', 'Increased visibility across all platform surfaces']].map(([title, desc]) => (
+                  <div key={title} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <Icon name="check" size={13} style={{ color: 'var(--emerald)', flexShrink: 0, marginTop: 2 }}/>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 2 }}>{title}</div>
+                      <div className="muted" style={{ fontSize: 12, lineHeight: 1.4 }}>{desc}</div>
                     </div>
-                    <button onClick={() => setPage(`contact:partnership:${pkg.name} package enquiry`)} className={`btn ${pkg.highlight ? 'btn-amber' : 'btn-ghost'} btn-sm full`} style={{ justifyContent: 'center', marginTop: 24 }}>
-                      Get started
-                    </button>
                   </div>
                 ))}
               </div>
+              <button onClick={() => setPage('contact:partnership:Promotion add-on enquiry')} className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }}>
+                Get in touch about promotion <Icon name="arrow-right" size={14}/>
+              </button>
             </div>
           </div>
 
@@ -665,12 +868,12 @@ const ListInstitution = ({ setPage, onSubmitCourse }) => {
             <div className="card" style={{ padding: 48, background: 'var(--emerald)', color: 'var(--paper)', borderColor: 'var(--emerald)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 16 }}>Get started</div>
-                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 16 }}>Submit your institution and course details.</h3>
-                <p style={{ fontSize: 15, opacity: 0.75, lineHeight: 1.6, marginBottom: 32 }}>Or contact us directly to promote your courses.</p>
+                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 16 }}>Build your profile and reach learners across T&amp;T.</h3>
+                <p style={{ fontSize: 15, opacity: 0.75, lineHeight: 1.6, marginBottom: 32 }}>Free, permanent, and fully integrated into the CourzaTT discovery ecosystem.</p>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <a href="#top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn btn-amber" style={{ justifyContent: 'center', textDecoration: 'none' }}>
-                  List your institution <Icon name="arrow-right" size={14}/>
+                  Build your profile <Icon name="arrow-right" size={14}/>
                 </a>
                 <a href="mailto:support@courza.tt" className="btn btn-ghost" style={{ justifyContent: 'center', textDecoration: 'none', color: 'var(--paper)', borderColor: 'rgba(244,239,227,0.3)' }}>
                   Contact us <Icon name="mail" size={14}/>
@@ -682,7 +885,9 @@ const ListInstitution = ({ setPage, onSubmitCourse }) => {
         </div>
       </section>
 
-    </div>
+      </>
+    )}
+  </div>
   );
 };
 
