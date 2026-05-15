@@ -166,7 +166,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         </div>
         <div style={{ textAlign: 'right' }}>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>Cost</div>
-          <div className="serif" style={{ fontSize: 18, fontWeight: 500 }}>{course.cost}</div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600, color: 'var(--emerald)' }}>{course.cost}</div>
         </div>
         <VisitCTA url={url} size="sm"/>
       </div>
@@ -201,11 +201,11 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         <div className="course-card-wide-sidebar" style={{ borderLeft: '1px solid var(--rule)', paddingLeft: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Begins</div>
-            <div className="serif" style={{ fontSize: 18, fontWeight: 500 }}>{course.startDate}</div>
+            <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--ink)' }}>{course.startDate}</div>
           </div>
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--rule)' }}>
             <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Cost</div>
-            <div className="serif" style={{ fontSize: 22, fontWeight: 500 }}>{course.cost}</div>
+            <div className="serif" style={{ fontSize: 22, fontWeight: 600, color: 'var(--emerald)' }}>{course.cost}</div>
           </div>
         </div>
       </div>
@@ -235,7 +235,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
       <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
         <div>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Begins</div>
-          <div style={{ fontSize: 13, fontWeight: 500 }}>{course.startDate}</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{course.startDate}</div>
         </div>
         <div>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Format</div>
@@ -247,7 +247,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         </div>
         <div>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Cost</div>
-          <div className="serif" style={{ fontSize: 16, fontWeight: 500 }}>{course.cost}</div>
+          <div className="serif" style={{ fontSize: 17, fontWeight: 600, color: 'var(--emerald)' }}>{course.cost}</div>
         </div>
       </div>
       <div>
