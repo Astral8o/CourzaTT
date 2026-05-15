@@ -189,8 +189,9 @@ const Footer = ({ setPage, onListInstitution }) => {
 // Home Page
 // ─────────────────────────────────────────────────────────────────
 const Home = ({ setPage, onListInstitution }) => {
-  const { COURSES, CATEGORIES, FAQS, BLOG_POSTS } = window.CourzaData;
-  const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
+  const { COURSES, CATEGORIES, FAQS, BLOG_POSTS, ONLINE_GUIDES } = window.CourzaData;
+  const courseById = COURSES.reduce((m, c) => { m[c.id] = c; return m; }, {});
+  const guideById = ONLINE_GUIDES.reduce((m, g) => { m[g.id] = g; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
   const [openIdx, setOpenIdx] = React.useState(0);
   const [searchQ, setSearchQ] = React.useState('');
@@ -541,17 +542,20 @@ const Home = ({ setPage, onListInstitution }) => {
                     <h3 className="course-title" style={{ fontSize: 18, lineHeight: 1.22, marginBottom: 10 }}>{p.title}</h3>
                     <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.65, marginBottom: 18 }}>{p.excerpt}</p>
                     <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 14, marginTop: 'auto' }}>
-                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10 }}>Featured courses</div>
+                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10 }}>In this collection</div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
-                        {p.courses.slice(0, 2).map((c, ci) => {
-                          const match = courseByTitle[c.name.toLowerCase()];
+                        {p.items.slice(0, 2).map((item, ci) => {
+                          const isGuide = item.type === 'guide';
+                          const entry = isGuide ? guideById[item.id] : courseById[item.id];
+                          if (!entry) return null;
                           return (
                             <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                               <span style={{ width: 4, height: 4, borderRadius: '50%', background: accent, flexShrink: 0 }}/>
-                              {match
-                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 13, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
-                                : <span style={{ fontSize: 13, fontWeight: 500 }}>{c.name}</span>
+                              {isGuide
+                                ? <a href={entry.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 600, textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{entry.title}</a>
+                                : <button onClick={() => setPage(`course:${entry.id}`)} style={{ fontSize: 13, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{entry.title}</button>
                               }
+                              <span className="mono muted" style={{ fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>{isGuide ? entry.platform : 'Local'}</span>
                             </div>
                           );
                         })}
