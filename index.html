@@ -109,7 +109,7 @@ function App() {
                   : page === 'guides' ? 'guides'
                   : page;
 
-  if (page === 'home') pageEl = <Home setPage={setPage} onListInstitution={openListModal}/>;
+  if (page === 'home') pageEl = <Home setPage={setPage}/>;
   else if (page === 'discover') pageEl = <Discover setPage={setPage} density={tweaks.density}/>;
   else if (page.startsWith('discover:search:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialSearch={page.slice(16)}/>;
   else if (page.startsWith('discover:tag:')) pageEl = <Discover setPage={setPage} density={tweaks.density} initialTag={page.slice(13)}/>;
@@ -129,9 +129,9 @@ function App() {
 
   return (
     <div>
-      <Nav activePage={activeNav} setPage={setPage} onListInstitution={openListModal}/>
+      <Nav activePage={activeNav} setPage={setPage}/>
       <main key={page}>{pageEl}</main>
-      <Footer setPage={setPage} onListInstitution={openListModal}/>
+      <Footer setPage={setPage}/>
       {showListModal && <ListInstitutionModal onClose={() => setShowListModal(false)}/>}
     </div>
   );

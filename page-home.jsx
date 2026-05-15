@@ -58,7 +58,7 @@ const Nav = ({ activePage, setPage, onListInstitution }) => {
             <button className="btn btn-ghost btn-sm hide-mobile" onClick={() => navigate('discover')}>
               <Icon name="search" size={14}/> Search
             </button>
-            <button className="btn btn-primary btn-sm hide-mobile" onClick={() => { setMenuOpen(false); onListInstitution && onListInstitution(); }}>
+            <button className="btn btn-primary btn-sm hide-mobile" onClick={() => { setMenuOpen(false); setPage('list'); }}>
               List institution <Icon name="arrow-up-right" size={14}/>
             </button>
             <button className="show-mobile" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} style={{ width: 44, height: 44, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', alignItems: 'center', justifyContent: 'center' }}>
@@ -92,7 +92,7 @@ const Nav = ({ activePage, setPage, onListInstitution }) => {
           ))}
         </div>
         <div style={{ padding: '24px 20px', borderTop: '1px solid var(--rule)' }}>
-          <button className="btn btn-primary full" style={{ justifyContent: 'center' }} onClick={() => { setMenuOpen(false); onListInstitution && onListInstitution(); }}>
+          <button className="btn btn-primary full" style={{ justifyContent: 'center' }} onClick={() => { setMenuOpen(false); setPage('list'); }}>
             List your institution <Icon name="arrow-up-right" size={14}/>
           </button>
         </div>
@@ -145,7 +145,7 @@ const Footer = ({ setPage, onListInstitution }) => {
               <li><button onClick={() => setPage('discover')} style={{ fontSize: 15 }}>Courses</button></li>
               <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
               <li><button onClick={() => setPage('guides')} style={{ fontSize: 15 }}>Online guides</button></li>
-              <li><button onClick={() => onListInstitution && onListInstitution()} style={{ fontSize: 15, color: 'var(--amber-2)' }}>List your institution</button></li>
+              <li><button onClick={() => setPage('list')} style={{ fontSize: 15, color: 'var(--amber-2)' }}>List your institution</button></li>
             </ul>
           </div>
           <div>
@@ -576,7 +576,7 @@ const Home = ({ setPage, onListInstitution }) => {
           </p>
           <div className="flex items-center gap-3 justify-center">
             <button className="btn btn-amber btn-lg" onClick={() => setPage('discover')}>Browse the directory <Icon name="arrow-right" size={14}/></button>
-            <button className="btn btn-lg" onClick={() => onListInstitution && onListInstitution()} style={{ border: '1px solid var(--paper)', color: 'var(--paper)' }}>List your institution</button>
+            <button className="btn btn-lg" onClick={() => setPage('list')} style={{ border: '1px solid var(--paper)', color: 'var(--paper)' }}>List your institution</button>
           </div>
         </div>
       </section>
