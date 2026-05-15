@@ -474,7 +474,14 @@ const Home = ({ setPage, onSubmitCourse }) => {
   const featuredIds = ['c118', 'c012', 'c113'];
   const featured = featuredIds.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
 
-  const trendingTags = ['CompTIA Security+', 'Project Management', 'AI Literacy', 'Solar Power', 'Pastry Arts', 'Public Speaking'];
+  const trendingTags = [
+    { label: 'Technology & Digital', cat: 'Technology & Digital' },
+    { label: 'Business & Entrepreneurship', cat: 'Business & Entrepreneurship' },
+    { label: 'Health & Medical', cat: 'Health & Medical' },
+    { label: 'Creative Arts & Design', cat: 'Creative Arts & Design' },
+    { label: 'Hospitality & Culinary', cat: 'Hospitality & Culinary' },
+    { label: 'Technical Trades', cat: 'Technical Trades' },
+  ];
 
   const catIcons = {
     'Business & Entrepreneurship': 'briefcase',
@@ -551,9 +558,9 @@ const Home = ({ setPage, onSubmitCourse }) => {
                 </button>
               </div>
               <div className="rise rise-4 flex items-center gap-3 mt-8" style={{ flexWrap: 'wrap' }}>
-                <span className="mono muted" style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginRight: 4 }}>Trending →</span>
+                <span className="mono muted" style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginRight: 4 }}>Browse →</span>
                 {trendingTags.map(t => (
-                  <button key={t} className="chip" onClick={() => setPage(`discover:search:${t}`)}>{t}</button>
+                  <button key={t.cat} className="chip" onClick={() => setPage(`discover:${t.cat}`)}>{t.label}</button>
                 ))}
               </div>
               <div className="rise rise-4 mt-8">
