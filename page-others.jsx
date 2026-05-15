@@ -774,6 +774,60 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
         </div>
       </section>
 
+      {/* HOW IT WORKS */}
+      <section style={{ paddingTop: 64, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
+        <div className="container" style={{ maxWidth: 860 }}>
+          <SectionHeader num="N° 04.2" eyebrow="The process" title={<>Six steps to your <em className="display-italic">profile</em>.</>} sub="The whole thing takes about 10 minutes. Here's exactly what to expect."/>
+
+          <div style={{ marginTop: 56, position: 'relative' }}>
+            {/* Vertical connector line */}
+            <div style={{ position: 'absolute', left: 19, top: 40, bottom: 40, width: 1, background: 'var(--rule)', zIndex: 0 }}/>
+
+            {[
+              { num: '01', label: 'Institution basics', icon: 'building-2', desc: 'Your institution name, category (e.g. Technology & Digital, Health & Medical), and an optional one-line tagline.' },
+              { num: '02', label: 'About your institution', icon: 'file-text', desc: 'A short description of what you offer, who your programmes are for, your teaching style, and learning format.' },
+              { num: '03', label: 'Contact & location', icon: 'map-pin', desc: 'Email address, region in T&T, website, Instagram, and WhatsApp — so learners and our team can reach you.' },
+              { num: '04', label: 'Your courses', icon: 'book-open', desc: 'Add up to 3 active programmes with title, price, duration, delivery mode, deadline, and certification details.' },
+              { num: '05', label: 'Boost visibility', icon: 'trending-up', desc: 'Optional — let us know if you\'re interested in a promotion add-on for your current intake cycle. No commitment needed here.' },
+              { num: '06', label: 'Review & submit', icon: 'check-circle', desc: 'Preview everything before it goes to our team. We review and publish within 2–3 business days.' },
+            ].map(({ num, label, icon, desc }, i) => (
+              <div key={num} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: 24, marginBottom: 8, position: 'relative', zIndex: 1 }}>
+                {/* Step indicator */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: i === 0 ? 'var(--emerald)' : 'var(--paper)', border: `1px solid ${i === 0 ? 'var(--emerald)' : 'var(--rule-strong)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span className="mono" style={{ fontSize: 10, fontWeight: 600, color: i === 0 ? 'var(--paper)' : 'var(--amber-2)', letterSpacing: '0.1em' }}>{num}</span>
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="card" style={{ padding: '24px 28px', marginBottom: 12, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'center' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                      <Icon name={icon} size={15} style={{ color: 'var(--amber-2)', flexShrink: 0 }}/>
+                      <span className="serif" style={{ fontSize: 17, fontWeight: 500 }}>{label}</span>
+                    </div>
+                    <p className="muted" style={{ fontSize: 13, lineHeight: 1.6, margin: 0 }}>{desc}</p>
+                  </div>
+                  {num === '06' && (
+                    <span style={{ background: 'var(--emerald)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, whiteSpace: 'nowrap' }}>Done</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: 16, padding: '20px 28px', background: 'var(--paper-2)', borderRadius: 12, border: '1px solid var(--rule)' }}>
+            <Icon name="clock" size={18} style={{ color: 'var(--muted)', flexShrink: 0 }}/>
+            <p className="muted" style={{ fontSize: 14, margin: 0 }}>Most institutions complete the full profile in under 10 minutes. You can close and reopen at any time — your progress is not saved, so have your details handy.</p>
+          </div>
+
+          <div style={{ marginTop: 40, textAlign: 'center' }}>
+            <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-primary btn-lg">
+              Start your profile <Icon name="arrow-right" size={14}/>
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* PROMOTE SECTION */}
       <section id="promote-section" style={{ borderTop: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
         <div className="container">
