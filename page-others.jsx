@@ -40,11 +40,14 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
       && (!activeTag || (c.tags && c.tags.includes(activeTag)));
   });
 
+  const _now = new Date(); _now.setHours(0, 0, 0, 0);
+  const isClosed = c => c.deadline && new Date(c.deadline) < _now;
+
   const sorted = sort === 'price'
     ? [...filtered].sort((a, b) => parseCost(a.cost) - parseCost(b.cost))
     : sort === 'date'
     ? [...filtered].sort((a, b) => parseDate(a.startDate) - parseDate(b.startDate))
-    : filtered;
+    : [...filtered].sort((a, b) => (isClosed(a) ? 1 : 0) - (isClosed(b) ? 1 : 0));
 
   const displayed = sorted.slice(0, limit);
   const hasFilter = search || cat || type || delivery || activeTag;

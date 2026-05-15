@@ -146,6 +146,8 @@ const VisitCTA = ({ url, size = 'md' }) => (
 const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' }) => {
   const isWide = layout === 'wide';
   const url = getCourseURL(course);
+  const _now = new Date(); _now.setHours(0, 0, 0, 0);
+  const isClosed = course.deadline && new Date(course.deadline) < _now;
 
   if (layout === 'compact') {
     // Minimal row — for compact density
@@ -155,8 +157,9 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
           <span className="serif" style={{ fontSize: 22, color: 'var(--emerald)' }}>{course.institutionName.charAt(0)}</span>
         </div>
         <div style={{ minWidth: 0 }}>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2" style={{ flexWrap: 'wrap' }}>
             <span className="tag tag-emerald">{course.type}</span>
+            {isClosed && <span className="tag" style={{ background: 'var(--paper-2)', color: 'var(--muted)', borderColor: 'var(--rule)' }}>Registration closed</span>}
             <span className="mono" style={{ fontSize: 10, color: 'var(--muted)', letterSpacing: '0.1em' }}>{course.institutionName}</span>
           </div>
           <h3 className="course-title" style={{ fontSize: 18, lineHeight: 1.2 }}>{course.title}</h3>
@@ -174,9 +177,10 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
     return (
       <div className="card course-card-wide" style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: 32, alignItems: 'stretch', textAlign: 'left', width: '100%' }}>
         <div>
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4" style={{ flexWrap: 'wrap' }}>
             <span className="tag tag-emerald">{course.type}</span>
             <span className="tag">{course.category}</span>
+            {isClosed && <span className="tag" style={{ background: 'var(--paper-2)', color: 'var(--muted)', borderColor: 'var(--rule)' }}>Registration closed</span>}
           </div>
           <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.15, marginBottom: 12 }}>{course.title}</h3>
           <p className="muted" style={{ fontSize: 15, marginBottom: 20, maxWidth: 640 }}>{course.summary}</p>
@@ -216,6 +220,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
       <div className="flex items-center gap-2 mb-6" style={{ flexWrap: 'wrap' }}>
         <span className="tag tag-emerald">{course.type}</span>
         {course.featured && <span className="tag tag-amber"><Icon name="star" size={10} /> Featured</span>}
+        {isClosed && <span className="tag" style={{ background: 'var(--paper-2)', color: 'var(--muted)', borderColor: 'var(--rule)' }}>Registration closed</span>}
       </div>
       <div className="mono muted mb-3" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>{course.institutionName}</div>
       <h3 className="course-title" style={{ fontSize: 24, lineHeight: 1.15, marginBottom: 12, minHeight: 60 }}>{course.title}</h3>
