@@ -4,7 +4,7 @@ const { Icon, Logo, CompassRose, SectionHeader, CourseCard, InstitutionCard, FAQ
 // ─────────────────────────────────────────────────────────────────
 // Nav
 // ─────────────────────────────────────────────────────────────────
-const Nav = ({ activePage, setPage }) => {
+const Nav = ({ activePage, setPage, onListInstitution }) => {
   const [scrolled, setScrolled] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -25,7 +25,6 @@ const Nav = ({ activePage, setPage }) => {
     { id: 'home', label: 'Home' },
     { id: 'discover', label: 'Discover' },
     { id: 'institutions', label: 'Institutions' },
-    { id: 'list', label: 'List your institution' },
   ];
 
   return (
@@ -59,7 +58,7 @@ const Nav = ({ activePage, setPage }) => {
             <button className="btn btn-ghost btn-sm hide-mobile" onClick={() => navigate('discover')}>
               <Icon name="search" size={14}/> Search
             </button>
-            <button className="btn btn-primary btn-sm hide-mobile" onClick={() => navigate('list')}>
+            <button className="btn btn-primary btn-sm hide-mobile" onClick={() => { setMenuOpen(false); onListInstitution && onListInstitution(); }}>
               List institution <Icon name="arrow-up-right" size={14}/>
             </button>
             <button className="show-mobile" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} style={{ width: 44, height: 44, borderRadius: 8, border: '1px solid var(--rule-strong)', background: 'var(--card)', alignItems: 'center', justifyContent: 'center' }}>
@@ -93,7 +92,7 @@ const Nav = ({ activePage, setPage }) => {
           ))}
         </div>
         <div style={{ padding: '24px 20px', borderTop: '1px solid var(--rule)' }}>
-          <button className="btn btn-primary full" style={{ justifyContent: 'center' }} onClick={() => navigate('list')}>
+          <button className="btn btn-primary full" style={{ justifyContent: 'center' }} onClick={() => { setMenuOpen(false); onListInstitution && onListInstitution(); }}>
             List your institution <Icon name="arrow-up-right" size={14}/>
           </button>
         </div>
@@ -105,7 +104,7 @@ const Nav = ({ activePage, setPage }) => {
 // ─────────────────────────────────────────────────────────────────
 // Footer
 // ─────────────────────────────────────────────────────────────────
-const Footer = ({ setPage, onSubmitCourse }) => {
+const Footer = ({ setPage, onListInstitution }) => {
   const [nlState, setNlState] = React.useState('idle');
 
   const submitNewsletter = async (e) => {
@@ -146,8 +145,7 @@ const Footer = ({ setPage, onSubmitCourse }) => {
               <li><button onClick={() => setPage('discover')} style={{ fontSize: 15 }}>Courses</button></li>
               <li><button onClick={() => setPage('institutions')} style={{ fontSize: 15 }}>Institutions</button></li>
               <li><button onClick={() => setPage('guides')} style={{ fontSize: 15 }}>Online guides</button></li>
-              <li><button onClick={() => setPage('list')} style={{ fontSize: 15 }}>Partner with us</button></li>
-              <li><button onClick={onSubmitCourse} style={{ fontSize: 15, color: 'var(--amber-2)' }}>Submit a course</button></li>
+              <li><button onClick={() => onListInstitution && onListInstitution()} style={{ fontSize: 15, color: 'var(--amber-2)' }}>List your institution</button></li>
             </ul>
           </div>
           <div>
@@ -186,286 +184,11 @@ const Footer = ({ setPage, onSubmitCourse }) => {
   );
 };
 
-// ─────────────────────────────────────────────────────────────────
-// Submit Course Modal
-// ─────────────────────────────────────────────────────────────────
-const BLANK_COURSE = () => ({ title: '', category: '', type: '', delivery: '', location: '', cost: '', deadline: '', startDate: '', summary: '' });
-const CATEGORIES_LIST = ['Technology & Digital', 'Business & Entrepreneurship', 'Hospitality & Culinary', 'Health & Medical', 'Personal Development', 'Creative Arts & Design', 'Technical Trades', 'Finance & Accounting', 'Law & Governance', 'Agriculture & Environment', 'Communication & Media'];
-const TYPES_LIST = ['Short Course', 'Workshop', 'Certification', 'Diploma', 'Degree', 'Professional Development'];
-
-const ModalField = ({ label, value, onChange, type = 'text', placeholder = '', required = true, showError = false }) => {
-  const missing = showError && required && !value;
-  return (
-    <div style={{ marginBottom: 20 }}>
-      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: missing ? 'var(--rust)' : 'var(--muted)', marginBottom: 8 }}>
-        {label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}
-      </label>
-      <input
-        type={type} value={value} onChange={e => onChange(e.target.value)}
-        placeholder={placeholder} required={required}
-        style={{ width: '100%', background: 'var(--paper)', border: `1px solid ${missing ? 'var(--rust)' : 'var(--rule)'}`, borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box' }}
-        onFocus={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--ink)'}
-        onBlur={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--rule)'}
-      />
-      {missing && <p style={{ fontSize: 12, color: 'var(--rust)', marginTop: 4, fontFamily: 'JetBrains Mono, monospace' }}>This field is required</p>}
-    </div>
-  );
-};
-
-const ModalSelect = ({ label, value, onChange, options, placeholder = 'Select…', required = true, showError = false }) => {
-  const missing = showError && required && !value;
-  return (
-    <div style={{ marginBottom: 20 }}>
-      <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: missing ? 'var(--rust)' : 'var(--muted)', marginBottom: 8 }}>
-        {label}{required && <span style={{ color: 'var(--rust)', marginLeft: 4 }}>*</span>}
-      </label>
-      <select
-        value={value} onChange={e => onChange(e.target.value)} required={required}
-        style={{ width: '100%', background: 'var(--paper)', border: `1px solid ${missing ? 'var(--rust)' : 'var(--rule)'}`, borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', cursor: 'pointer', boxSizing: 'border-box' }}
-        onFocus={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--ink)'}
-        onBlur={e => e.target.style.borderColor = missing ? 'var(--rust)' : 'var(--rule)'}
-      >
-        <option value="">{placeholder}</option>
-        {options.map(o => <option key={o} value={o}>{o}</option>)}
-      </select>
-      {missing && <p style={{ fontSize: 12, color: 'var(--rust)', marginTop: 4, fontFamily: 'JetBrains Mono, monospace' }}>Please select an option</p>}
-    </div>
-  );
-};
-
-const SubmitCourseModal = ({ onClose }) => {
-  const [step, setStep] = React.useState(0);
-  const [contact, setContact] = React.useState({ name: '', institution: '', email: '', phone: '' });
-  const [courses, setCourses] = React.useState([BLANK_COURSE()]);
-  const [submitting, setSubmitting] = React.useState(false);
-  const [submitError, setSubmitError] = React.useState(false);
-  const [showErrors, setShowErrors] = React.useState(false);
-
-  const totalCourseSteps = courses.length;
-  const totalSteps = 1 + totalCourseSteps + 1;
-  const progress = step === 0 ? 1 : step <= totalCourseSteps ? step + 1 : totalSteps;
-
-  const updateCourse = (idx, field, val) => {
-    setCourses(prev => prev.map((c, i) => i === idx ? { ...c, [field]: val } : c));
-  };
-
-  const addCourse = () => {
-    const c = courses[step - 1];
-    if (!c.title || !c.category || !c.delivery) { setShowErrors(true); return; }
-    if (courses.length < 3) setCourses(prev => [...prev, BLANK_COURSE()]);
-    setShowErrors(false);
-    setStep(s => s + 1);
-  };
-
-  const removeCourse = (idx) => {
-    setCourses(prev => prev.filter((_, i) => i !== idx));
-    setStep(s => Math.min(s, courses.length - 1));
-  };
-
-  const contactValid = contact.name && contact.institution && contact.email;
-  const courseValid = (c) => c.title && c.category && c.delivery;
-
-  const tryNext = () => {
-    if (step === 0 && !contactValid) { setShowErrors(true); return; }
-    if (step >= 1 && step <= totalCourseSteps && !courseValid(courses[step - 1])) { setShowErrors(true); return; }
-    setShowErrors(false);
-    setStep(s => s + 1);
-  };
-
-  const submit = async () => {
-    setSubmitting(true);
-    setSubmitError(false);
-    try {
-      const courseText = courses.map((c, i) => `
---- Course ${i + 1} ---
-Title: ${c.title}
-Category: ${c.category}
-Type: ${c.type}
-Delivery: ${c.delivery}
-Location: ${c.location}
-Cost: ${c.cost}
-Registration deadline: ${c.deadline}
-Start date: ${c.startDate}
-Description: ${c.summary}
-`.trim()).join('\n\n');
-
-      const body = new FormData();
-      body.append('_subject', `New course submission — CourzaTT (${courses.length} course${courses.length > 1 ? 's' : ''})`);
-      body.append('name', contact.name);
-      body.append('email', contact.email);
-      body.append('institution', contact.institution);
-      body.append('phone', contact.phone || 'Not provided');
-      body.append('message', courseText);
-
-      const res = await fetch('https://formspree.io/f/mvzlzjje', {
-        method: 'POST', body,
-        headers: { Accept: 'application/json' },
-      });
-      if (res.ok) setStep(5);
-      else setSubmitError(true);
-    } catch { setSubmitError(true); }
-    setSubmitting(false);
-  };
-
-  const onBackdrop = (e) => { if (e.target === e.currentTarget) onClose(); };
-
-  return (
-    <div onClick={onBackdrop} style={{ position: 'fixed', inset: 0, background: 'rgba(14,26,23,0.6)', backdropFilter: 'blur(6px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-      <div style={{ background: 'var(--card)', border: '1px solid var(--rule-strong)', borderRadius: 20, width: '100%', maxWidth: 560, maxHeight: '90vh', display: 'flex', flexDirection: 'column', boxShadow: '0 40px 80px -20px rgba(14,26,23,0.4)', overflow: 'hidden' }}>
-
-        {/* Header */}
-        <div style={{ padding: '24px 32px', borderBottom: '1px solid var(--rule)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
-          <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 4 }}>
-              {step === 5 ? 'Submitted' : `Step ${Math.min(progress, totalSteps)} of ${totalSteps}`}
-            </div>
-            <div className="serif" style={{ fontSize: 20, fontWeight: 500 }}>
-              {step === 0 && 'Your details'}
-              {step >= 1 && step <= totalCourseSteps && `Course ${step} of ${totalCourseSteps}`}
-              {step === totalCourseSteps + 1 && 'Review & submit'}
-              {step === 5 && 'All done!'}
-            </div>
-          </div>
-          <button onClick={onClose} style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid var(--rule)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--muted)', flexShrink: 0 }}>
-            <Icon name="x" size={16}/>
-          </button>
-        </div>
-
-        {/* Progress bar */}
-        {step < 5 && (
-          <div style={{ height: 3, background: 'var(--rule)', flexShrink: 0 }}>
-            <div style={{ height: '100%', background: 'var(--emerald)', width: `${(progress / totalSteps) * 100}%`, transition: 'width 0.4s ease', borderRadius: 2 }}/>
-          </div>
-        )}
-
-        {/* Body */}
-        <div style={{ padding: '28px 32px', overflowY: 'auto', flexGrow: 1 }}>
-
-          {/* Step 0 — Contact */}
-          {step === 0 && (
-            <div>
-              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 16 }}>
-                Tell us who you are. We'll follow up within 2–3 business days once your courses are reviewed.
-              </p>
-              <div style={{ background: 'var(--paper-2)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>Representing an institution?</span>
-                <button onClick={() => { window.location.hash = 'list'; onClose(); }} style={{ fontSize: 13, fontWeight: 600, color: 'var(--emerald)', display: 'flex', alignItems: 'center', gap: 4 }}>
-                  Get a full listing <Icon name="arrow-right" size={13}/>
-                </button>
-              </div>
-              <ModalField label="Your name" value={contact.name} onChange={v => setContact(p => ({ ...p, name: v }))} placeholder="e.g. Jordan Smith" showError={showErrors}/>
-              <ModalField label="Institution / Organisation" value={contact.institution} onChange={v => setContact(p => ({ ...p, institution: v }))} placeholder="e.g. CTS College" showError={showErrors}/>
-              <ModalField label="Email address" type="email" value={contact.email} onChange={v => setContact(p => ({ ...p, email: v }))} placeholder="you@example.com" showError={showErrors}/>
-              <ModalField label="Phone number" type="tel" value={contact.phone} onChange={v => setContact(p => ({ ...p, phone: v }))} placeholder="+1 (868) 000-0000" required={false} showError={showErrors}/>
-            </div>
-          )}
-
-          {/* Steps 1–3 — Course detail */}
-          {step >= 1 && step <= totalCourseSteps && (() => {
-            const idx = step - 1;
-            const c = courses[idx];
-            return (
-              <div>
-                <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>
-                  Fill in what you know — the more detail, the better chance of being listed.
-                </p>
-                <ModalField label="Course title" value={c.title} onChange={v => updateCourse(idx, 'title', v)} placeholder="e.g. Introduction to Cybersecurity" showError={showErrors}/>
-                <ModalSelect label="Category" value={c.category} onChange={v => updateCourse(idx, 'category', v)} options={CATEGORIES_LIST} placeholder="Select a category…" showError={showErrors}/>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <ModalSelect label="Type" value={c.type} onChange={v => updateCourse(idx, 'type', v)} options={TYPES_LIST} placeholder="e.g. Short Course" required={false} showError={showErrors}/>
-                  <ModalSelect label="Delivery" value={c.delivery} onChange={v => updateCourse(idx, 'delivery', v)} options={['Online', 'In-person', 'Hybrid']} placeholder="Format…" showError={showErrors}/>
-                </div>
-                <ModalField label="Location" value={c.location} onChange={v => updateCourse(idx, 'location', v)} placeholder="e.g. Port of Spain / Online" required={false} showError={showErrors}/>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <ModalField label="Registration deadline" type="date" value={c.deadline} onChange={v => updateCourse(idx, 'deadline', v)} required={false} showError={showErrors}/>
-                  <ModalField label="Start date" type="date" value={c.startDate} onChange={v => updateCourse(idx, 'startDate', v)} required={false} showError={showErrors}/>
-                </div>
-                <ModalField label="Cost (TTD)" value={c.cost} onChange={v => updateCourse(idx, 'cost', v)} placeholder="e.g. $1,500.00 or Free" required={false} showError={showErrors}/>
-                <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>Short description</label>
-                  <textarea value={c.summary} onChange={e => updateCourse(idx, 'summary', e.target.value)} rows={3} placeholder="Brief overview of what the course covers…" style={{ width: '100%', background: 'var(--paper)', border: '1px solid var(--rule)', borderRadius: 10, padding: '12px 16px', fontSize: 15, outline: 'none', resize: 'none', boxSizing: 'border-box' }}
-                    onFocus={e => e.target.style.borderColor = 'var(--ink)'}
-                    onBlur={e => e.target.style.borderColor = 'var(--rule)'}
-                  />
-                </div>
-                {idx > 0 && (
-                  <button onClick={() => removeCourse(idx)} style={{ fontSize: 13, color: 'var(--rust)', display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
-                    <Icon name="x" size={13}/> Remove this course
-                  </button>
-                )}
-              </div>
-            );
-          })()}
-
-          {/* Review step */}
-          {step === totalCourseSteps + 1 && (
-            <div>
-              <div style={{ marginBottom: 24, paddingBottom: 20, borderBottom: '1px solid var(--rule)' }}>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>Submitted by</div>
-                <div style={{ fontSize: 15, fontWeight: 500 }}>{contact.name}</div>
-                <div style={{ fontSize: 14, color: 'var(--ink-2)' }}>{contact.institution} · {contact.email}</div>
-              </div>
-              {courses.map((c, i) => (
-                <div key={i} style={{ marginBottom: 16, padding: 18, background: 'var(--paper)', border: '1px solid var(--rule)', borderRadius: 12 }}>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--amber-2)', marginBottom: 6 }}>Course {i + 1}</div>
-                  <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 4 }}>{c.title || '—'}</div>
-                  <div style={{ fontSize: 13, color: 'var(--muted)' }}>{[c.category, c.type, c.delivery].filter(Boolean).join(' · ')}</div>
-                  {c.startDate && <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>Starts {c.startDate}</div>}
-                </div>
-              ))}
-              {submitError && <p style={{ fontSize: 13, color: 'var(--rust)', marginTop: 12 }}>Something went wrong — please try again.</p>}
-            </div>
-          )}
-
-          {/* Done */}
-          {step === 5 && (
-            <div style={{ textAlign: 'center', padding: '20px 0' }}>
-              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(31,95,74,0.1)', border: '1px solid var(--emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: 'var(--emerald)' }}>
-                <Icon name="check" size={28}/>
-              </div>
-              <h3 className="serif" style={{ fontSize: 26, fontWeight: 500, marginBottom: 12 }}>Submission received</h3>
-              <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, maxWidth: 340, margin: '0 auto 32px' }}>
-                Thanks, {contact.name.split(' ')[0]}! We'll review your course{courses.length > 1 ? 's' : ''} and get back to you at <strong>{contact.email}</strong> within 2–3 business days.
-              </p>
-              <button onClick={onClose} className="btn btn-primary">Close</button>
-            </div>
-          )}
-        </div>
-
-        {/* Footer nav */}
-        {step < 5 && (
-          <div style={{ padding: '20px 32px', borderTop: '1px solid var(--rule)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, gap: 12 }}>
-            <button onClick={() => { setShowErrors(false); setStep(s => Math.max(0, s - 1)); }} className="btn btn-ghost btn-sm" style={{ visibility: step === 0 ? 'hidden' : 'visible' }}>
-              ← Back
-            </button>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              {step === totalCourseSteps && step < 3 && (
-                <button onClick={addCourse} className="btn btn-ghost btn-sm" style={{ borderColor: 'var(--emerald)', color: 'var(--emerald)' }}>
-                  + Add another course
-                </button>
-              )}
-              {(step === 0 || (step >= 1 && step <= totalCourseSteps)) && (
-                <button onClick={tryNext} className="btn btn-primary btn-sm">
-                  {step === totalCourseSteps ? 'Review →' : 'Next →'}
-                </button>
-              )}
-              {step === totalCourseSteps + 1 && (
-                <button onClick={submit} className="btn btn-primary btn-sm" disabled={submitting}>
-                  {submitting ? 'Submitting…' : 'Submit courses'}
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
 
 // ─────────────────────────────────────────────────────────────────
 // Home Page
 // ─────────────────────────────────────────────────────────────────
-const Home = ({ setPage, onSubmitCourse }) => {
+const Home = ({ setPage, onListInstitution }) => {
   const { COURSES, CATEGORIES, FAQS, BLOG_POSTS } = window.CourzaData;
   const courseByTitle = COURSES.reduce((m, c) => { m[c.title.toLowerCase()] = c; return m; }, {});
   const [activeFAQ, setActiveFAQ] = React.useState(0);
@@ -841,30 +564,6 @@ const Home = ({ setPage, onSubmitCourse }) => {
         </div>
       </section>
 
-      {/* SUBMIT A COURSE — banner */}
-      <section style={{ background: 'var(--emerald)', color: 'var(--paper)', overflow: 'hidden', position: 'relative' }}>
-        {/* Decorative number watermark */}
-        <div aria-hidden="true" style={{ position: 'absolute', right: -20, top: '50%', transform: 'translateY(-50%)', fontFamily: 'Newsreader, Georgia, serif', fontSize: 'clamp(160px, 22vw, 280px)', fontWeight: 500, lineHeight: 1, color: 'rgba(255,255,255,0.06)', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-0.04em' }}>+</div>
-        <div className="container submit-banner-grid" style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 40, alignItems: 'center' }}>
-          <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.65, marginBottom: 16 }}>Know a course we're missing?</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 400, lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 16 }}>
-              Submit a course.<br/>
-              <em className="display-italic" style={{ opacity: 0.75 }}>Help a learner find their path.</em>
-            </h2>
-            <p style={{ fontSize: 16, opacity: 0.75, lineHeight: 1.6, maxWidth: 460 }}>
-              Know of a local course or training programme not yet listed? Submit it and we'll review it for the directory — free of charge, always.
-            </p>
-          </div>
-          <div className="submit-banner-cta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12, flexShrink: 0 }}>
-            <button onClick={onSubmitCourse} className="btn btn-lg" style={{ background: 'var(--amber)', color: 'var(--ink)', border: 'none', whiteSpace: 'nowrap', fontWeight: 600 }}>
-              Submit a course <Icon name="arrow-up-right" size={16}/>
-            </button>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.12em', opacity: 0.55, textTransform: 'uppercase' }}>Up to 3 courses · Free · 2 min</div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section style={{ background: 'var(--ink)', color: 'var(--paper)', borderTop: '1px solid var(--ink)' }}>
         <div className="container text-center">
@@ -877,7 +576,7 @@ const Home = ({ setPage, onSubmitCourse }) => {
           </p>
           <div className="flex items-center gap-3 justify-center">
             <button className="btn btn-amber btn-lg" onClick={() => setPage('discover')}>Browse the directory <Icon name="arrow-right" size={14}/></button>
-            <button className="btn btn-lg" onClick={() => setPage('list')} style={{ border: '1px solid var(--paper)', color: 'var(--paper)' }}>List your institution</button>
+            <button className="btn btn-lg" onClick={() => onListInstitution && onListInstitution()} style={{ border: '1px solid var(--paper)', color: 'var(--paper)' }}>List your institution</button>
           </div>
         </div>
       </section>
@@ -887,4 +586,4 @@ const Home = ({ setPage, onSubmitCourse }) => {
 };
 
 window.CourzaPages = window.CourzaPages || {};
-Object.assign(window.CourzaPages, { Nav, Footer, Home, SubmitCourseModal });
+Object.assign(window.CourzaPages, { Nav, Footer, Home });
