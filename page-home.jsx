@@ -468,16 +468,18 @@ const Home = ({ setPage, onListInstitution }) => {
                     <h3 className="course-title" style={{ fontSize: 26, lineHeight: 1.18, marginBottom: 14 }}>{p.title}</h3>
                     <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.7, marginBottom: 28 }}>{p.excerpt}</p>
                     <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 22, marginTop: 'auto' }}>
-                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 14 }}>Featured courses</div>
+                      <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 14 }}>In this collection</div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {p.courses.slice(0, 3).map((c, ci) => {
-                          const match = courseByTitle[c.name.toLowerCase()];
+                        {p.items.slice(0, 3).map((item, ci) => {
+                          const isGuide = item.type === 'guide';
+                          const entry = isGuide ? guideById[item.id] : courseById[item.id];
+                          if (!entry) return null;
                           return (
                             <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                               <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--amber)', flexShrink: 0 }}/>
-                              {match
-                                ? <button onClick={() => setPage(`course:${match.id}`)} style={{ fontSize: 14, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{c.name}</button>
-                                : <span style={{ fontSize: 14, fontWeight: 500 }}>{c.name}</span>
+                              {isGuide
+                                ? <a href={entry.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 600, textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{entry.title}</a>
+                                : <button onClick={() => setPage(`course:${entry.id}`)} style={{ fontSize: 14, fontWeight: 600, textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'var(--rule-strong)', textUnderlineOffset: 3 }} onMouseEnter={e => e.currentTarget.style.color='var(--emerald)'} onMouseLeave={e => e.currentTarget.style.color=''}>{entry.title}</button>
                               }
                             </div>
                           );
