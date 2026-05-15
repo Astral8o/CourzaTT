@@ -147,7 +147,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
   const isWide = layout === 'wide';
   const url = getCourseURL(course);
   const _now = new Date(); _now.setHours(0, 0, 0, 0);
-  const isClosed = course.deadline && new Date(course.deadline) < _now;
+  const isClosed = course.startDate && new Date(course.startDate) <= _now;
 
   if (layout === 'compact') {
     // Minimal row — for compact density
@@ -201,9 +201,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         <div className="course-card-wide-sidebar" style={{ borderLeft: '1px solid var(--rule)', paddingLeft: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Begins</div>
-            <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 16 }}>{course.startDate}</div>
-            <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Apply by</div>
-            <div className="serif" style={{ fontSize: 16, fontWeight: 500, color: 'var(--rust)' }}>{course.deadline}</div>
+            <div className="serif" style={{ fontSize: 18, fontWeight: 500 }}>{course.startDate}</div>
           </div>
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--rule)' }}>
             <div className="mono muted mb-2" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Cost</div>

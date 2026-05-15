@@ -41,7 +41,7 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
   });
 
   const _now = new Date(); _now.setHours(0, 0, 0, 0);
-  const isClosed = c => c.deadline && new Date(c.deadline) < _now;
+  const isClosed = c => c.startDate && new Date(c.startDate) <= _now;
 
   const sorted = sort === 'price'
     ? [...filtered].sort((a, b) => parseCost(a.cost) - parseCost(b.cost))
