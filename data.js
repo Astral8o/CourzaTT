@@ -1624,23 +1624,6 @@ const COURSES = [
     "tags": ["Healthcare"]
   },
   {
-    "id": "c096",
-    "title": "Inventory and Warehouse Management",
-    "institutionId": "utt",
-    "institutionName": "University of Trinidad and Tobago (UTT)",
-    "summary": "Learn inventory control systems, warehouse processes, stock tracking, and supply chain fundamentals",
-    "type": "Short Course",
-    "category": "Engineering & Construction",
-    "cost": "$2,800.00",
-    "startDate": "May 4, 2026",
-    "deadline": "May 4, 2026",
-    "delivery": "Online",
-    "location": "Online",
-    "website": "https://peutraining.utt.edu.tt/modules/shop/index.html?action=section&OfferingID=146989",
-    "featured": false,
-    "tags": ["Entrepreneurship","Accounting & Finance"]
-  },
-  {
     "id": "c097",
     "title": "Effective Public Speaking",
     "institutionId": "utt",
