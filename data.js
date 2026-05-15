@@ -2200,11 +2200,11 @@ const FAQS = [
   {
     title: 'For institutions',
     questions: [
-      { question: 'How do I list my institution?', answer: 'Go to the "List Your Institution" page, fill in the form with your institution name, contact details, type, and a brief description, then click Submit. Our team will review and add you to the directory within 2–3 business days.' },
+      { question: 'How do I list my institution?', answer: 'Click "List Your Institution" anywhere on the site — the Nav, homepage, or footer. This opens a guided step-by-step profile builder where you\'ll add your institution details, about section, contact info, and up to 3 active courses. Our team reviews and publishes within 2–3 business days.' },
       { question: 'Is listing my courses free?', answer: 'Yes — completely free, always. Any institution can list their courses at no cost. They will appear in search results, category pages, and your institution profile from day one. Paid options are only for additional promotion and visibility.' },
       { question: 'How does CourzaTT make money?', answer: 'We charge for promotion. Institutions can pay to feature their courses on:', bullets: ['Homepage', 'Newsletter', 'Social media'] },
-      { question: 'Do paid features affect rankings?', answer: 'No. All courses can be listed for free. Sponsored placements are clearly labelled and do not affect search results.' },
-      { question: 'What is a sponsored listing?', answer: 'A paid placement that increases your visibility across the platform. This can include:', bullets: ['Homepage placement', 'Category priority', 'Featured badge'] },
+      { question: 'Do paid features affect rankings?', answer: 'No. All courses can be listed for free. Promoted placements are clearly labelled and do not affect search results.' },
+      { question: 'What is a promotion add-on?', answer: 'A one-time paid placement that increases your visibility across the platform for a specific intake cycle. This can include:', bullets: ['Homepage placement', 'Category priority', 'Newsletter mention', 'Social media post'] },
       { question: 'Do you take a commission from course sales?', answer: 'No. We do not take a cut from course fees or enrolments.' },
       { question: 'Why offer paid placements?', answer: 'To keep the platform free for learners. This supports:', bullets: ['Course discovery across Trinidad and Tobago', 'Ongoing platform updates'] },
     ]
@@ -2212,11 +2212,11 @@ const FAQS = [
   {
     title: 'Adding to the directory',
     questions: [
-      { question: 'Who can submit a course?', answer: 'Anyone — students, community members, or staff at an institution. If you know of a course that should be listed, we want to hear about it.' },
-      { question: 'What happens after I submit?', answer: 'Our editorial team reviews your submission, verifies the details with the institution, and adds it to the directory. We\'ll email you when it\'s live.' },
-      { question: 'How long does it take to go live?', answer: 'Most submissions are reviewed and listed within 2–3 business days.' },
-      { question: 'Can I submit courses on behalf of my institution?', answer: 'Yes, and if you\'d like your institution fully listed with a dedicated profile page, use the "List your institution" form on the Partner page — it covers courses, contact details, and your institution\'s full profile.' },
-      { question: 'Why isn\'t a course I know about listed yet?', answer: 'Our directory grows through community submissions and direct outreach. If something is missing, submit it — you\'ll be helping every other learner searching for that same programme.' },
+      { question: 'How do I add my courses?', answer: 'Courses are added as part of the institution listing process. Click "List Your Institution," complete the guided profile builder, and add up to 3 active courses in Step 4. Our team reviews and lists everything together.' },
+      { question: 'Can I add more than 3 courses?', answer: 'The initial listing supports up to 3 courses. Once your profile is live, contact us at support@courza.tt to discuss adding additional programmes.' },
+      { question: 'What happens after I submit?', answer: 'Our editorial team reviews your submission, verifies the details, and publishes your institution profile and courses. We\'ll be in touch within 2–3 business days.' },
+      { question: 'Can I update my listing later?', answer: 'Yes — reach out to support@courza.tt with any changes and we\'ll update your profile.' },
+      { question: 'Why isn\'t an institution listed yet?', answer: 'Our directory grows through direct outreach and institution sign-ups. If you\'re an institution that should be here, click "List Your Institution" to get started.' },
     ]
   }
 ];
