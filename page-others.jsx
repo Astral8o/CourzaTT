@@ -694,10 +694,10 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
 
   const faqs = [
     { q: 'Is listing really free?', a: 'Yes — completely free, with no hidden costs, no commission, and no expiry. Your profile stays live for as long as you want it.' },
-    { q: 'How many courses can I list?', a: 'There's no limit. Share your full catalogue — paste a list, drop a link, or just describe what you offer. We handle the formatting.' },
-    { q: 'How long until I go live?', a: 'Most profiles are reviewed and published within 2–3 business days. We'll be in touch if we need anything from you.' },
-    { q: 'What's the difference between a listing and promotion?', a: 'Your listing is free and permanent — it appears in search, category pages, and your institution profile. Promotion is an optional paid add-on (TT$600) that boosts your visibility across the homepage, social media, and newsletter for a specific intake cycle.' },
-    { q: 'Can I update my listing after it goes live?', a: 'Yes. Email us at support@courza.tt with any changes and we'll update your profile.' },
+    { q: 'How many courses can I list?', a: 'No limit. Share your full catalogue — paste a list, drop a link, or describe what you offer. We handle the formatting.' },
+    { q: 'How long until I go live?', a: 'Most profiles are reviewed and published within 2-3 business days. We\'ll be in touch if we need anything from you.' },
+    { q: 'What\'s the difference between a listing and promotion?', a: 'Your listing is free and permanent — it appears in search, category pages, and your institution profile. Promotion is an optional paid add-on (TT$600) that boosts visibility across the homepage, social media, and newsletter for a specific intake cycle.' },
+    { q: 'Can I update my listing after it goes live?', a: 'Yes. Email us at support@courza.tt with any changes and we\'ll update your profile.' },
   ];
 
   return (
@@ -763,9 +763,9 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
             {[
               { icon: 'users', title: 'Reach more students', desc: 'Show up where T&T learners are already searching for courses.' },
               { icon: 'layout', title: 'Professional profile page', desc: 'A dedicated page for your institution — courses, contact, and story.' },
-              { icon: 'book-open', title: 'Showcase your full catalogue', desc: 'No course limits. Share everything you offer and we'll list it properly.' },
+              { icon: 'book-open', title: 'Showcase your full catalogue', desc: 'No course limits. Share everything you offer and we\'ll list it properly.' },
               { icon: 'globe', title: 'Increase online visibility', desc: 'Appear in search results, category pages, and discovery feeds automatically.' },
-              { icon: 'arrow-up-right', title: 'Drive direct enquiries', desc: 'Learners contact you directly. We don't take a commission or cut enrolments.' },
+              { icon: 'arrow-up-right', title: 'Drive direct enquiries', desc: 'Learners contact you directly. We don\'t take a commission or cut enrolments.' },
               { icon: 'shield', title: 'Always free to list', desc: 'No fees, no contracts, no catch. Your profile stays live for as long as you need.' },
             ].map(({ icon, title, desc }) => (
               <div key={title} style={{ padding: '28px 0', borderTop: '1px solid var(--rule)' }}>
@@ -797,7 +797,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
             {[
               { step: '01', title: 'Create your profile', desc: 'Tell us your institution name, category, contact details, and a short description. Takes about 5 minutes.' },
               { step: '02', title: 'Add your courses', desc: 'Paste a list, drop a link, or describe what you offer in any format. Our team structures everything for you.' },
-              { step: '03', title: 'Start reaching students', desc: 'We review and publish your profile within 2–3 business days. Then you're live in front of T&T learners.' },
+              { step: '03', title: 'Start reaching students', desc: 'We review and publish your profile within 2-3 business days. Then you\'re live in front of T&T learners.' },
             ].map(({ step, title, desc }, i) => (
               <div key={step} className="card" style={{ padding: 32, position: 'relative', overflow: 'hidden' }}>
                 <div aria-hidden="true" style={{ position: 'absolute', top: -12, right: 16, fontSize: 96, fontFamily: 'var(--font-serif)', fontWeight: 400, lineHeight: 1, color: 'var(--rule)', letterSpacing: '-0.04em', pointerEvents: 'none', userSelect: 'none' }}>{step}</div>
@@ -809,7 +809,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
           </div>
           <div style={{ marginTop: 48, textAlign: 'center' }}>
             <button onClick={cta} className="btn btn-primary">
-              Get started — it's free <Icon name="arrow-right" size={14}/>
+              Get started — it&apos;s free <Icon name="arrow-right" size={14}/>
             </button>
           </div>
         </div>
