@@ -689,207 +689,217 @@ const ListInstitutionModal = ({ onClose }) => {
 // List Institution Page — info + benefits (modal launched from CTA)
 // ─────────────────────────────────────────────────────────────────
 const ListInstitution = ({ setPage, onListInstitution }) => {
+  const [openFAQ, setOpenFAQ] = React.useState(null);
+  const cta = () => onListInstitution && onListInstitution();
+
+  const faqs = [
+    { q: 'Is listing really free?', a: 'Yes — completely free, with no hidden costs, no commission, and no expiry. Your profile stays live for as long as you want it.' },
+    { q: 'How many courses can I list?', a: 'There's no limit. Share your full catalogue — paste a list, drop a link, or just describe what you offer. We handle the formatting.' },
+    { q: 'How long until I go live?', a: 'Most profiles are reviewed and published within 2–3 business days. We'll be in touch if we need anything from you.' },
+    { q: 'What's the difference between a listing and promotion?', a: 'Your listing is free and permanent — it appears in search, category pages, and your institution profile. Promotion is an optional paid add-on (TT$600) that boosts your visibility across the homepage, social media, and newsletter for a specific intake cycle.' },
+    { q: 'Can I update my listing after it goes live?', a: 'Yes. Email us at support@courza.tt with any changes and we'll update your profile.' },
+  ];
+
   return (
     <div className="page-enter">
 
-      {/* PAGE HEADER */}
-      <section style={{ paddingTop: 64, paddingBottom: 48, borderBottom: '1px solid var(--rule)', textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: 640 }}>
-          <div className="eyebrow-num" data-num="N° 04" style={{ marginBottom: 20 }}>For institutions</div>
-          <h1 className="display-2 serif" style={{ marginBottom: 16 }}>
-            Build your <em className="display-italic"><span className="hl">profile</span></em>.
-          </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 32 }}>
-            Create your institution's presence on CourzaTT — free, permanent, and fully integrated into our discovery platform.
-          </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-primary">
-              Get started — it's free <Icon name="arrow-right" size={14}/>
-            </button>
-            <button onClick={() => document.getElementById('promote-section').scrollIntoView({ behavior: 'smooth' })} className="btn btn-ghost">
-              See promotion options <Icon name="arrow-down" size={14}/>
-            </button>
+      {/* HERO */}
+      <section style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+
+            {/* Left — copy + CTA */}
+            <div>
+              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 20 }}>For institutions</div>
+              <h1 className="display-2 serif" style={{ marginBottom: 20, lineHeight: 1.1 }}>
+                Get discovered by learners <em className="display-italic"><span className="hl">across T&T</span></em>.
+              </h1>
+              <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 36, maxWidth: 480 }}>
+                Create a free institution profile, list all your courses, and start reaching students — in about 5 minutes.
+              </p>
+              <button onClick={cta} className="btn btn-primary" style={{ fontSize: 17, padding: '16px 32px', marginBottom: 16 }}>
+                Create Your Institution Profile <Icon name="arrow-right" size={16}/>
+              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+                {['Free forever', 'Takes ~5 minutes', 'Live in 2–3 days'].map(t => (
+                  <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Icon name="check" size={13} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
+                    <span className="muted" style={{ fontSize: 13 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — social proof panel */}
+            <div className="card" style={{ padding: 40, background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)' }}>
+              <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.5, marginBottom: 32 }}>Why institutions list with us</div>
+              {[
+                { stat: '100+', label: 'Courses already listed' },
+                { stat: 'Free', label: 'No listing fees, ever' },
+                { stat: '2–3 days', label: 'Average time to go live' },
+              ].map(({ stat, label }) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '18px 0', borderBottom: '1px solid rgba(244,239,227,0.1)' }}>
+                  <span className="serif" style={{ fontSize: 28, fontWeight: 500, color: 'var(--amber)', minWidth: 80 }}>{stat}</span>
+                  <span style={{ fontSize: 15, opacity: 0.75 }}>{label}</span>
+                </div>
+              ))}
+              <p style={{ fontSize: 13, opacity: 0.45, lineHeight: 1.6, marginTop: 24 }}>
+                CourzaTT is where T&T goes to find accredited courses. Your profile puts you in front of that intent — at no cost.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* BENEFITS */}
-      <section style={{ paddingTop: 64, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
-        <div className="container" style={{ maxWidth: 900 }}>
-          <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid var(--rule)', marginBottom: 56, boxShadow: '0 8px 24px -8px rgba(14,26,23,0.10)', maxWidth: 700, marginLeft: 'auto', marginRight: 'auto' }}>
-            <img src="https://i.ibb.co/DPy1t6Mh/courzattlistyourinstitution1.png" alt="Join CourzaTT" style={{ width: '100%', display: 'block' }}/>
+      <section style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
+        <div className="container">
+          <div style={{ marginBottom: 56, maxWidth: 560 }}>
+            <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>What you get</div>
+            <h2 className="display-2 serif">Everything your institution <em className="display-italic">needs</em>.</h2>
           </div>
-
-          <SectionHeader num="N° 04.1" eyebrow="Why list with us" title={<>Reach learners <em className="display-italic">already looking</em>.</>} sub="CourzaTT is where T&T goes to find accredited courses. Your free profile puts you in front of that intent."/>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 32, marginTop: 48 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
             {[
-              { num: '01', title: 'Reach active learners across T&T', sub: 'Show up where intent already lives.' },
-              { num: '02', title: 'Showcase programmes & workshops', sub: 'Beautiful pages, no engineering needed.' },
-              { num: '03', title: 'Direct traffic to your own website', sub: 'We index — you enrol.' },
-              { num: '04', title: 'Verified trust badge for your profile', sub: 'A signal of accreditation that builds confidence.' },
-            ].map(({ num, title, sub }) => (
-              <div key={num} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 16, padding: '24px 0', borderTop: '1px solid var(--rule)' }}>
-                <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', paddingTop: 3 }}>{num}</span>
-                <div>
-                  <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 6 }}>{title}</div>
-                  <div className="muted" style={{ fontSize: 13, lineHeight: 1.5 }}>{sub}</div>
+              { icon: 'users', title: 'Reach more students', desc: 'Show up where T&T learners are already searching for courses.' },
+              { icon: 'layout', title: 'Professional profile page', desc: 'A dedicated page for your institution — courses, contact, and story.' },
+              { icon: 'book-open', title: 'Showcase your full catalogue', desc: 'No course limits. Share everything you offer and we'll list it properly.' },
+              { icon: 'globe', title: 'Increase online visibility', desc: 'Appear in search results, category pages, and discovery feeds automatically.' },
+              { icon: 'arrow-up-right', title: 'Drive direct enquiries', desc: 'Learners contact you directly. We don't take a commission or cut enrolments.' },
+              { icon: 'shield', title: 'Always free to list', desc: 'No fees, no contracts, no catch. Your profile stays live for as long as you need.' },
+            ].map(({ icon, title, desc }) => (
+              <div key={title} style={{ padding: '28px 0', borderTop: '1px solid var(--rule)' }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, color: 'var(--emerald)' }}>
+                  <Icon name={icon} size={16}/>
                 </div>
+                <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 6 }}>{title}</div>
+                <div className="muted" style={{ fontSize: 14, lineHeight: 1.6 }}>{desc}</div>
               </div>
             ))}
           </div>
-
           <div style={{ marginTop: 56, textAlign: 'center' }}>
-            <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-primary btn-lg">
-              Build your free profile <Icon name="arrow-right" size={14}/>
+            <button onClick={cta} className="btn btn-primary btn-lg">
+              Create Your Institution Profile <Icon name="arrow-right" size={14}/>
             </button>
+            <p className="muted" style={{ fontSize: 13, marginTop: 12 }}>Free forever · No complicated setup</p>
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section style={{ paddingTop: 64, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
-        <div className="container" style={{ maxWidth: 860 }}>
-          <SectionHeader num="N° 04.2" eyebrow="The process" title={<>Six steps to your <em className="display-italic">profile</em>.</>} sub="The whole thing takes about 10 minutes. Here's exactly what to expect."/>
-
-          <div style={{ marginTop: 56, position: 'relative' }}>
-            {/* Vertical connector line */}
-            <div style={{ position: 'absolute', left: 19, top: 40, bottom: 40, width: 1, background: 'var(--rule)', zIndex: 0 }}/>
-
+      <section style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
+        <div className="container">
+          <div style={{ marginBottom: 56, maxWidth: 480 }}>
+            <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>How it works</div>
+            <h2 className="display-2 serif">Three steps to <em className="display-italic">live</em>.</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
             {[
-              { num: '01', label: 'Institution basics', icon: 'building-2', desc: 'Name, category, and a one-line tagline. You already know this.' },
-              { num: '02', label: 'About your institution', icon: 'file-text', desc: 'What you offer, who it\'s for, and how you teach. A short paragraph is plenty.' },
-              { num: '03', label: 'Contact & location', icon: 'map-pin', desc: 'Your email, region, website, and social handles — so learners can reach you directly.' },
-              { num: '04', label: 'Your courses', icon: 'book-open', desc: 'A list, a link, a description — any format works. Our team structures everything.' },
-              { num: '05', label: 'Boost visibility', icon: 'trending-up', desc: 'Interested in a promotion add-on? Let us know here. Completely optional, no commitment.' },
-              { num: '06', label: 'Review & submit', icon: 'check-circle', desc: 'Check everything looks right, then send it off. We publish within 2–3 business days.' },
-            ].map(({ num, label, icon, desc }, i) => (
-              <div key={num} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: 24, marginBottom: 8, position: 'relative', zIndex: 1 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: i === 0 ? 'var(--emerald)' : 'var(--paper)', border: `1px solid ${i === 0 ? 'var(--emerald)' : 'var(--rule-strong)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span className="mono" style={{ fontSize: 10, fontWeight: 600, color: i === 0 ? 'var(--paper)' : 'var(--amber-2)', letterSpacing: '0.1em' }}>{num}</span>
-                  </div>
-                </div>
-                <div className="card" style={{ padding: '20px 24px', marginBottom: 12, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'center' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <Icon name={icon} size={14} style={{ color: 'var(--amber-2)', flexShrink: 0 }}/>
-                      <span className="mono" style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--muted)' }}>{label}</span>
-                    </div>
-                    <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink)', margin: 0, fontWeight: 400 }}>{desc}</p>
-                  </div>
-                  {num === '06' && (
-                    <span style={{ background: 'var(--emerald)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, whiteSpace: 'nowrap' }}>Done</span>
-                  )}
-                </div>
+              { step: '01', title: 'Create your profile', desc: 'Tell us your institution name, category, contact details, and a short description. Takes about 5 minutes.' },
+              { step: '02', title: 'Add your courses', desc: 'Paste a list, drop a link, or describe what you offer in any format. Our team structures everything for you.' },
+              { step: '03', title: 'Start reaching students', desc: 'We review and publish your profile within 2–3 business days. Then you're live in front of T&T learners.' },
+            ].map(({ step, title, desc }, i) => (
+              <div key={step} className="card" style={{ padding: 32, position: 'relative', overflow: 'hidden' }}>
+                <div aria-hidden="true" style={{ position: 'absolute', top: -12, right: 16, fontSize: 96, fontFamily: 'var(--font-serif)', fontWeight: 400, lineHeight: 1, color: 'var(--rule)', letterSpacing: '-0.04em', pointerEvents: 'none', userSelect: 'none' }}>{step}</div>
+                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--amber-2)', marginBottom: 16 }}>Step {i + 1} of 3</div>
+                <div className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 10, lineHeight: 1.2 }}>{title}</div>
+                <p className="muted" style={{ fontSize: 14, lineHeight: 1.65, margin: 0 }}>{desc}</p>
               </div>
             ))}
           </div>
-
-          <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: 16, padding: '20px 28px', background: 'var(--paper-2)', borderRadius: 12, border: '1px solid var(--rule)' }}>
-            <Icon name="clock" size={18} style={{ color: 'var(--muted)', flexShrink: 0 }}/>
-            <p className="muted" style={{ fontSize: 14, margin: 0 }}>Most institutions complete the full profile in under 10 minutes. You can close and reopen at any time — your progress is not saved, so have your details handy.</p>
-          </div>
-
-          <div style={{ marginTop: 40, textAlign: 'center' }}>
-            <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-primary btn-lg">
-              Start your profile <Icon name="arrow-right" size={14}/>
+          <div style={{ marginTop: 48, textAlign: 'center' }}>
+            <button onClick={cta} className="btn btn-primary">
+              Get started — it's free <Icon name="arrow-right" size={14}/>
             </button>
           </div>
         </div>
       </section>
 
-      {/* PROMOTE SECTION */}
-      <section id="promote-section" style={{ borderTop: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
+      {/* PROMOTION */}
+      <section id="promote-section" style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
         <div className="container">
-          <SectionHeader num="N° 05" eyebrow="Grow your reach" title={<>Promote your courses <em className="display-italic">on CourzaTT</em>.</>} sub="Reach people already looking for courses. We promote across the platform and beyond."/>
-
-          <div style={{ display: 'flex', gap: 12, marginBottom: 64, flexWrap: 'wrap' }}>
-            {['Homepage', 'Newsletter', 'Social media'].map(ch => (
-              <div key={ch} className="card" style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--amber)', display: 'inline-block', flexShrink: 0 }}/>
-                <span style={{ fontSize: 14, fontWeight: 500 }}>{ch}</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+            <div>
+              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>Optional add-on</div>
+              <h2 className="display-2 serif" style={{ marginBottom: 16 }}>Promote your institution for <em className="display-italic">TT$600</em>.</h2>
+              <p style={{ fontSize: 17, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 32 }}>
+                Your free listing reaches everyone browsing CourzaTT. Promotion amplifies that — across our homepage, social media, and newsletter — for one specific intake cycle.
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 18px', background: 'var(--paper-2)', borderRadius: 10, border: '1px solid var(--rule)', marginBottom: 32 }}>
+                <Icon name="info" size={14} style={{ color: 'var(--muted)', flexShrink: 0 }}/>
+                <p className="muted" style={{ fontSize: 13, margin: 0 }}>Promotion is never required to create a profile. Your free listing is live and permanent regardless.</p>
               </div>
-            ))}
-          </div>
-
-          <div className="promote-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 32, alignItems: 'stretch', marginBottom: 80 }}>
-
-            {/* Free listing */}
-            <div className="card" style={{ padding: 40, background: 'var(--emerald)', color: 'var(--paper)', borderColor: 'var(--emerald)', boxShadow: '0 20px 48px -16px rgba(31,95,74,0.35)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.7 }}>Free listing</div>
-                <span style={{ background: 'var(--amber)', color: 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Always free</span>
-              </div>
-              <div className="serif" style={{ fontSize: 40, fontWeight: 500, marginBottom: 8, lineHeight: 1 }}>TTD 0</div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, marginBottom: 28, opacity: 0.8 }}>List your institution and up to 3 courses at no cost. Fully part of the discovery ecosystem from day one.</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
-                {['Appears in search & browsing', 'Institution profile page', 'Full course catalogue', 'Discovery-first placement'].map(f => (
-                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <Icon name="check-circle" size={16} style={{ color: 'var(--amber)', flexShrink: 0 }}/>
-                    <span style={{ fontSize: 14, fontWeight: 500 }}>{f}</span>
-                  </div>
-                ))}
-              </div>
-              <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-amber full" style={{ justifyContent: 'center' }}>
-                Build your profile free <Icon name="arrow-right" size={14}/>
-              </button>
-            </div>
-
-            {/* Single promotion add-on */}
-            <div className="card" style={{ padding: 40, display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
-                <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Promotion add-on</div>
-                <span style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>One-time · per intake</span>
-              </div>
-              <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28 }}>Boost visibility for a specific course cycle. Not a subscription — institutions choose to promote again when they launch a new intake.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32, flexGrow: 1 }}>
-                {[['Featured placement', 'Homepage and discovery feeds for your intake period'], ['Social media post', 'Dedicated post promoting your courses to our audience'], ['Newsletter inclusion', 'Mentioned to our subscriber list'], ['Priority browsing', 'Highlighted cards in category and tag feeds'], ['Institution spotlight', 'Increased visibility across all platform surfaces']].map(([title, desc]) => (
-                  <div key={title} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <Icon name="check" size={13} style={{ color: 'var(--emerald)', flexShrink: 0, marginTop: 2 }}/>
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 2 }}>{title}</div>
-                      <div className="muted" style={{ fontSize: 12, lineHeight: 1.4 }}>{desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button onClick={() => setPage('contact:partnership:Promotion add-on enquiry')} className="btn btn-primary btn-lg full" style={{ justifyContent: 'center' }}>
+              <button onClick={() => setPage('contact:partnership:Promotion add-on enquiry')} className="btn btn-primary">
                 Get in touch about promotion <Icon name="arrow-right" size={14}/>
               </button>
             </div>
-          </div>
-
-          {/* Why list + CTA */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, paddingTop: 48, borderTop: '1px solid var(--rule)' }}>
-            <div>
-              <div className="mono muted mb-6" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Why list with CourzaTT</div>
+            <div className="card" style={{ padding: 40 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+                <div className="serif" style={{ fontSize: 36, fontWeight: 500 }}>TT$600</div>
+                <span style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Per intake · one-time</span>
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                {['Targeted local audience', 'One place for discovery', 'Multi-channel exposure', 'Listings are always free'].map((b, i) => (
-                  <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
-                    <span className="mono" style={{ fontSize: 10, color: 'var(--amber-2)', letterSpacing: '0.15em', minWidth: 28 }}>{String(i+1).padStart(2,'0')}</span>
-                    <span style={{ fontSize: 16, fontWeight: 500 }}>{b}</span>
+                {[
+                  ['homepage-placement', 'Featured placement on the homepage'],
+                  ['social-media', 'Dedicated social media promotion'],
+                  ['newsletter', 'Newsletter inclusion'],
+                  ['priority-feeds', 'Priority visibility in discovery feeds'],
+                  ['institution-spotlight', 'Institution spotlight across the platform'],
+                ].map(([key, label]) => (
+                  <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '13px 0', borderBottom: '1px solid var(--rule)' }}>
+                    <Icon name="check-circle" size={15} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
+                    <span style={{ fontSize: 15 }}>{label}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="card" style={{ padding: 48, background: 'var(--emerald)', color: 'var(--paper)', borderColor: 'var(--emerald)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 16 }}>Get started</div>
-                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 16 }}>Build your profile and reach learners across T&amp;T.</h3>
-                <p style={{ fontSize: 15, opacity: 0.75, lineHeight: 1.6, marginBottom: 32 }}>Free, permanent, and fully integrated into the CourzaTT discovery ecosystem.</p>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <button onClick={() => onListInstitution && onListInstitution()} className="btn btn-amber" style={{ justifyContent: 'center' }}>
-                  Build your profile <Icon name="arrow-right" size={14}/>
-                </button>
-                <a href="mailto:support@courza.tt" className="btn btn-ghost" style={{ justifyContent: 'center', textDecoration: 'none', color: 'var(--paper)', borderColor: 'rgba(244,239,227,0.3)' }}>
-                  Contact us <Icon name="mail" size={14}/>
-                </a>
-              </div>
-            </div>
           </div>
+        </div>
+      </section>
 
+      {/* FAQ */}
+      <section style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)', background: 'var(--paper-2)' }}>
+        <div className="container" style={{ maxWidth: 720 }}>
+          <div style={{ marginBottom: 48 }}>
+            <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>Common questions</div>
+            <h2 className="display-2 serif">Quick <em className="display-italic">answers</em>.</h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {faqs.map((item, i) => (
+              <div key={i} style={{ borderTop: '1px solid var(--rule)' }}>
+                <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)} style={{ width: '100%', textAlign: 'left', padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+                  <span style={{ fontSize: 16, fontWeight: 600 }}>{item.q}</span>
+                  <Icon name={openFAQ === i ? 'minus' : 'plus'} size={16} style={{ color: 'var(--muted)', flexShrink: 0 }}/>
+                </button>
+                {openFAQ === i && (
+                  <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-2)', paddingBottom: 20, margin: 0 }}>{item.a}</p>
+                )}
+              </div>
+            ))}
+            <div style={{ borderTop: '1px solid var(--rule)' }}/>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section style={{ paddingTop: 72, paddingBottom: 80, background: 'var(--ink)', color: 'var(--paper)' }}>
+        <div className="container" style={{ textAlign: 'center', maxWidth: 600 }}>
+          <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.45, marginBottom: 20 }}>Ready to get listed?</div>
+          <h2 className="display-2 serif" style={{ marginBottom: 20 }}>Start reaching students <em className="display-italic">today</em>.</h2>
+          <p style={{ fontSize: 17, lineHeight: 1.65, opacity: 0.65, marginBottom: 40 }}>
+            Join the institutions already reaching learners across Trinidad & Tobago. Free to list, live in days.
+          </p>
+          <button onClick={cta} className="btn btn-amber" style={{ fontSize: 17, padding: '16px 36px', marginBottom: 16 }}>
+            Create Your Institution Profile <Icon name="arrow-right" size={16}/>
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
+            {['Free forever', 'Takes ~5 minutes', 'No complicated setup'].map(t => (
+              <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Icon name="check" size={12} style={{ color: 'var(--amber)', flexShrink: 0 }}/>
+                <span style={{ fontSize: 13, opacity: 0.55 }}>{t}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
