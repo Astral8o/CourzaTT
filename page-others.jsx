@@ -24,12 +24,6 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
     return isNaN(n) ? Infinity : n;
   };
 
-  const parseDate = (dateStr) => {
-    if (!dateStr) return Infinity;
-    const d = new Date(dateStr);
-    return isNaN(d.getTime()) ? Infinity : d.getTime();
-  };
-
   const filtered = COURSES.filter(c => {
     const q = search.toLowerCase();
     const matchQ = !q || c.title.toLowerCase().includes(q) || c.institutionName.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
@@ -40,14 +34,9 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
       && (!activeTag || (c.tags && c.tags.includes(activeTag)));
   });
 
-  const _now = new Date(); _now.setHours(0, 0, 0, 0);
-  const isClosed = c => c.startDate && new Date(c.startDate) <= _now;
-
   const sorted = sort === 'price'
     ? [...filtered].sort((a, b) => parseCost(a.cost) - parseCost(b.cost))
-    : sort === 'date'
-    ? [...filtered].sort((a, b) => parseDate(a.startDate) - parseDate(b.startDate))
-    : [...filtered].sort((a, b) => (isClosed(a) ? 1 : 0) - (isClosed(b) ? 1 : 0));
+    : filtered;
 
   const displayed = sorted.slice(0, limit);
   const hasFilter = search || cat || type || delivery || activeTag;
@@ -57,7 +46,7 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
     <div className="page-enter">
       <section style={{ paddingTop: 60, paddingBottom: 40 }}>
         <div className="container">
-          <div className="eyebrow-num" data-num="N° 02" style={{ marginBottom: 24 }}>Course directory</div>
+          <div className="eyebrow-num" data-num="N° 02" style={{ marginBottom: 24 }}>Discovery</div>
           <h1 className="display-1 serif" style={{ marginBottom: 24, maxWidth: 1100 }}>
             Discover <em className="display-italic"><span className="hl">programmes</span></em>.
           </h1>
@@ -156,7 +145,6 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
                 <select value={sort} onChange={e => { setSort(e.target.value); setLimit(12); }} className="mono" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--ink)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 0', cursor: 'pointer' }}>
                   <option value="relevant">Most relevant</option>
                   <option value="price">Price: low to high</option>
-                  <option value="date">Upcoming start</option>
                 </select>
               </div>
             </div>
@@ -298,8 +286,6 @@ const CourseDetail = ({ courseId, setPage }) => {
                 <div className="eyebrow mb-6">Programme details</div>
                 <div className="grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 28 }}>
                   {[
-                    ['Begins', course.startDate, 'calendar'],
-                    ['Apply by', course.deadline, 'clock'],
                     ['Format', course.delivery, 'globe'],
                     ['Location', course.location, 'map-pin'],
                     ['Credential', course.type, 'book'],
@@ -811,48 +797,6 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
             <button onClick={cta} className="btn btn-primary">
               Get started — it&apos;s free <Icon name="arrow-right" size={14}/>
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* PROMOTION */}
-      <section id="promote-section" style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
-            <div>
-              <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>Optional add-on</div>
-              <h2 className="display-2 serif" style={{ marginBottom: 16 }}>Promote your institution for <em className="display-italic">TT$600</em>.</h2>
-              <p style={{ fontSize: 17, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 32 }}>
-                Your free listing reaches everyone browsing CourzaTT. Promotion amplifies that — across our homepage, social media, and newsletter — for one specific intake cycle.
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 18px', background: 'var(--paper-2)', borderRadius: 10, border: '1px solid var(--rule)', marginBottom: 32 }}>
-                <Icon name="info" size={14} style={{ color: 'var(--muted)', flexShrink: 0 }}/>
-                <p className="muted" style={{ fontSize: 13, margin: 0 }}>Promotion is never required to create a profile. Your free listing is live and permanent regardless.</p>
-              </div>
-              <button onClick={() => setPage('contact:partnership:Promotion add-on enquiry')} className="btn btn-primary">
-                Get in touch about promotion <Icon name="arrow-right" size={14}/>
-              </button>
-            </div>
-            <div className="card" style={{ padding: 40 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
-                <div className="serif" style={{ fontSize: 36, fontWeight: 500 }}>TT$600</div>
-                <span style={{ background: 'var(--ink)', color: 'var(--paper)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>Per intake · one-time</span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                {[
-                  ['homepage-placement', 'Featured placement on the homepage'],
-                  ['social-media', 'Dedicated social media promotion'],
-                  ['newsletter', 'Newsletter inclusion'],
-                  ['priority-feeds', 'Priority visibility in discovery feeds'],
-                  ['institution-spotlight', 'Institution spotlight across the platform'],
-                ].map(([key, label]) => (
-                  <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '13px 0', borderBottom: '1px solid var(--rule)' }}>
-                    <Icon name="check-circle" size={15} style={{ color: 'var(--emerald)', flexShrink: 0 }}/>
-                    <span style={{ fontSize: 15 }}>{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
