@@ -124,12 +124,12 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
 
           {/* Results */}
           <div>
-            <div className="flex items-center justify-between mb-8" style={{ paddingBottom: 18, borderBottom: '1px solid var(--rule)' }}>
+            <div className="flex items-center justify-between mb-8" style={{ paddingBottom: 18, borderBottom: '1px solid var(--rule)', flexWrap: 'wrap', rowGap: 12 }}>
               <div className="mono" style={{ fontSize: 12, letterSpacing: '0.1em' }}>
                 <span style={{ color: 'var(--muted)' }}>Found </span>
                 <span style={{ color: 'var(--ink)', fontWeight: 600 }}>{filtered.length} programmes</span>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4" style={{ flexWrap: 'wrap', rowGap: 8 }}>
                 <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}>View</div>
                 <div style={{ display: 'inline-flex', border: '1px solid var(--rule)', borderRadius: 8, padding: 2, background: 'var(--card)' }}>
                   {[
@@ -169,7 +169,7 @@ const Discover = ({ setPage, density, initialCat, initialSearch, initialTag }) =
               </div>
             ) : (
               <div className="grid" style={{
-                gridTemplateColumns: view === 'grid' ? 'repeat(2, 1fr)' : '1fr',
+                gridTemplateColumns: view === 'grid' ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)',
                 gap: 'var(--gap-grid)'
               }}>
                 {displayed.map(c => (
@@ -284,7 +284,7 @@ const CourseDetail = ({ courseId, setPage }) => {
 
               <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 32, marginTop: 32 }}>
                 <div className="eyebrow mb-6">Programme details</div>
-                <div className="grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 28 }}>
+                <div className="grid" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 28 }}>
                   {[
                     ['Format', course.delivery, 'globe'],
                     ['Location', course.location, 'map-pin'],
@@ -367,7 +367,7 @@ const InstitutionDetail = ({ instId, setPage }) => {
                 <a href={inst.website} target="_blank" rel="noreferrer" className="btn btn-primary">Visit website <Icon name="external" size={14}/></a>
               </div>
             </div>
-            <div className="grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 24 }}>
               {[['Programmes', inst.courseCount], ['Location', inst.location], ['Type', inst.type], ['Website', inst.website ? new URL(inst.website).hostname : '—']].map(([k, v]) => (
                 <div key={k}>
                   <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>{k}</div>
@@ -692,7 +692,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
       {/* HERO */}
       <section style={{ paddingTop: 72, paddingBottom: 80, borderBottom: '1px solid var(--rule)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+          <div className="list-hero-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 80, alignItems: 'center' }}>
 
             {/* Left — copy + CTA */}
             <div>
@@ -745,7 +745,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
             <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>What you get</div>
             <h2 className="display-2 serif">Everything your institution <em className="display-italic">needs</em>.</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+          <div className="list-benefits-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 32 }}>
             {[
               { icon: 'users', title: 'Reach more students', desc: 'Show up where T&T learners are already searching for courses.' },
               { icon: 'layout', title: 'Professional profile page', desc: 'A dedicated page for your institution — courses, contact, and story.' },
@@ -779,7 +779,7 @@ const ListInstitution = ({ setPage, onListInstitution }) => {
             <div className="mono muted" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>How it works</div>
             <h2 className="display-2 serif">Three steps to <em className="display-italic">live</em>.</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+          <div className="list-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 32 }}>
             {[
               { step: '01', title: 'Create your profile', desc: 'Tell us your institution name, category, contact details, and a short description. Takes about 5 minutes.' },
               { step: '02', title: 'Add your courses', desc: 'Paste a list, drop a link, or describe what you offer in any format. Our team structures everything for you.' },
@@ -908,7 +908,7 @@ const ContactPage = ({ setPage, initialSubject, initialNote }) => {
               { icon: 'map-pin', label: 'Location', value: 'Port of Spain, Trinidad & Tobago', href: null },
               { icon: 'clock', label: 'Response time', value: 'Within 2–3 business days', href: null },
             ].map(({ icon, label, value, href }) => (
-              <div key={label} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--rule)' }}>
+              <div key={label} style={{ display: 'grid', gridTemplateColumns: '40px minmax(0, 1fr)', gap: 16, padding: '20px 0', borderBottom: '1px solid var(--rule)' }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, border: '1px solid var(--rule-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ink-2)' }}>
                   <Icon name={icon} size={17}/>
                 </div>
@@ -1095,7 +1095,7 @@ const OnlineGuides = ({ setPage }) => {
 
                   {/* Meta row */}
                   <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, marginBottom: 20 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 12 }}>
                       <div>
                         <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
                         <div style={{ fontSize: 13, fontWeight: 500 }}>{g.duration}</div>
@@ -1127,7 +1127,7 @@ const OnlineGuides = ({ setPage }) => {
           </div>
 
           {/* Bottom note */}
-          <div className="card" style={{ marginTop: 64, padding: 40, background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)', display: 'grid', gridTemplateColumns: '1fr auto', gap: 40, alignItems: 'center' }}>
+          <div className="card guides-note-card" style={{ marginTop: 64, padding: 40, background: 'var(--ink)', color: 'var(--paper)', borderColor: 'var(--ink)', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 40, alignItems: 'center' }}>
             <div>
               <div className="mono" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 12 }}>Already certified? List your institution.</div>
               <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, lineHeight: 1.2, marginBottom: 8 }}>Looking for programmes right here in T&T?</h3>

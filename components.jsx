@@ -223,7 +223,7 @@ const CourseCard = ({ course, layout = 'grid', onClick, density = 'comfortable' 
         </div>
       )}
 
-      <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 20 }}>
+      <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 20, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 14, marginBottom: 20 }}>
         <div>
           <div className="mono muted" style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 4 }}>Format</div>
           <div style={{ fontSize: 13, fontWeight: 500 }}>{course.delivery}</div>

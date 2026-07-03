@@ -259,7 +259,7 @@ const Home = ({ setPage, onListInstitution }) => {
       {/* HERO */}
       <section style={{ paddingTop: 60, paddingBottom: 80, position: 'relative', overflow: 'hidden' }}>
         <div className="container">
-          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr)', gap: 80, alignItems: 'center' }}>
             <div>
               <div className="eyebrow-num rise rise-1" data-num="N° 01" style={{ marginBottom: 32 }}>An almanac of learning · Trinidad &amp; Tobago</div>
               <h1 className="display-1 serif rise rise-2" style={{ marginBottom: 32 }}>
@@ -350,7 +350,7 @@ const Home = ({ setPage, onListInstitution }) => {
       <section>
         <div className="container">
           <SectionHeader num="N° 02" eyebrow="Browse by field" title={<>Explore <em className="display-italic"><span className="hl">top categories</span></em>.</>} sub={`${CATEGORIES.length} disciplines, mapped to T&T's evolving labour market — from sustainable agriculture to data science.`}/>
-          <div className="grid category-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--gap-grid)' }}>
+          <div className="grid category-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 'var(--gap-grid)' }}>
             {categoryShowcase.slice(0, 4).map((c) => (
               <button key={c.name} onClick={() => setPage(`discover:${c.name}`)} className="card card-hover" style={{
                 textAlign: 'left',
@@ -580,7 +580,7 @@ const Home = ({ setPage, onListInstitution }) => {
           <p style={{ fontSize: 18, opacity: 0.7, maxWidth: 540, margin: '0 auto 40px' }}>
             One directory. Every accredited programme. Built for the way Trinbagonians actually learn.
           </p>
-          <div className="flex items-center gap-3 justify-center">
+          <div className="flex items-center gap-3 justify-center" style={{ flexWrap: 'wrap' }}>
             <button className="btn btn-amber btn-lg" onClick={() => setPage('discover')}>Browse the directory <Icon name="arrow-right" size={14}/></button>
             <button className="btn btn-lg" onClick={() => setPage('list')} style={{ border: '1px solid var(--paper)', color: 'var(--paper)' }}>List your institution</button>
           </div>
